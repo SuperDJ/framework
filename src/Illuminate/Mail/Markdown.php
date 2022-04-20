@@ -2,9 +2,11 @@
 
 namespace Illuminate\Mail;
 
+use Illuminate\Container\Container;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Illuminate\View\Component;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Table\TableExtension;
@@ -37,11 +39,11 @@ class Markdown
     /**
      * Create a new Markdown renderer instance.
      *
-     * @param  \Illuminate\Contracts\View\Factory  $view
+     * @param  \Illuminate\Contracts\View\Factory|string  $view
      * @param  array  $options
      * @return void
      */
-    public function __construct(ViewFactory $view, array $options = [])
+    public function __construct(ViewFactory|string $view, array $options = [])
     {
         $this->view = $view;
         $this->theme = $options['theme'] ?? 'default';
@@ -58,9 +60,11 @@ class Markdown
      */
     public function render($view, array $data = [], $inliner = null)
     {
-        $this->view->flushFinderCache();
+        if (!$this->view instanceof Component) {
+            $this->view->flushFinderCache();
+        }
 
-        $contents = $this->view->replaceNamespace(
+        $contents = $this->view?->replaceNamespace(
             'mail', $this->htmlComponentPaths()
         )->make($view, $data)->render();
 
@@ -75,6 +79,35 @@ class Markdown
         return new HtmlString(($inliner ?: new CssToInlineStyles)->convert(
             $contents, $this->view->make($theme, $data)->render()
         ));
+    }
+
+    /**
+     * Render the Markdown template string into HTML.
+     *
+     * @param  string  $string
+     * @param  array  $data
+     * @param  \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles|null  $inliner
+     * @return \Illuminate\Support\HtmlString
+     */
+    public function renderString($string, array $data = [], $inliner = null, $deleteCachedView = false)
+    {
+        $component = new class($string) extends Component
+        {
+            protected $template;
+
+            public function __construct($template)
+            {
+                $this->template = $template;
+            }
+
+            public function render()
+            {
+                return $this->template;
+            }
+        };
+
+        $this->view = $component;
+        return $this->render(null);
     }
 
     /**
