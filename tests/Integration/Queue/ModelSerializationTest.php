@@ -26,7 +26,7 @@ class ModelSerializationTest extends TestCase
     {
         parent::setUp();
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
         });
@@ -36,25 +36,25 @@ class ModelSerializationTest extends TestCase
             $table->string('email');
         });
 
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orders', static function (Blueprint $table) {
             $table->increments('id');
         });
 
-        Schema::create('lines', function (Blueprint $table) {
+        Schema::create('lines', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('product_id');
         });
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('products', static function (Blueprint $table) {
             $table->increments('id');
         });
 
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('roles', static function (Blueprint $table) {
             $table->increments('id');
         });
 
-        Schema::create('role_user', function (Blueprint $table) {
+        Schema::create('role_user', static function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
         });
@@ -136,7 +136,7 @@ class ModelSerializationTest extends TestCase
 
     public function testItReloadsRelationships()
     {
-        $order = tap(Order::create(), function (Order $order) {
+        $order = tap(Order::create(), static function (Order $order) {
             $order->wasRecentlyCreated = false;
         });
 
@@ -156,7 +156,7 @@ class ModelSerializationTest extends TestCase
 
     public function testItReloadsNestedRelationships()
     {
-        $order = tap(Order::create(), function (Order $order) {
+        $order = tap(Order::create(), static function (Order $order) {
             $order->wasRecentlyCreated = false;
         });
 
@@ -198,7 +198,7 @@ class ModelSerializationTest extends TestCase
     {
         $user = tap(User::create([
             'email' => 'taylor@laravel.com',
-        ]), function (User $user) {
+        ]), static function (User $user) {
             $user->wasRecentlyCreated = false;
         });
 
@@ -330,7 +330,7 @@ trait TraitBootsAndInitializersTest
 
     public static function bootTraitBootsAndInitializersTest()
     {
-        static::addGlobalScope('foo_bar', function () {
+        static::addGlobalScope('foo_bar', static function () {
         });
     }
 }

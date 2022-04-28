@@ -31,14 +31,14 @@ class RouteListCommandTest extends TestCase
 
         $this->router = $this->app->make(Registrar::class);
 
-        RouteListCommand::resolveTerminalWidthUsing(function () {
+        RouteListCommand::resolveTerminalWidthUsing( static function () {
             return 70;
         });
     }
 
     public function testDisplayRoutesForCli()
     {
-        $this->router->get('/', function () {
+        $this->router->get('/', static function () {
             //
         });
 
@@ -49,11 +49,11 @@ class RouteListCommandTest extends TestCase
         $this->router->get('controller-method/{user}', [FooController::class, 'show']);
         $this->router->post('controller-invokable', FooController::class);
         $this->router->domain('{account}.example.com')->group(function () {
-            $this->router->get('/', function () {
+            $this->router->get('/', static function () {
                 //
             });
 
-            $this->router->get('user/{id}', function ($account, $id) {
+            $this->router->get('user/{id}', static function ($account, $id) {
                 //
             })->name('user.show')->middleware('web');
         });
@@ -79,7 +79,7 @@ class RouteListCommandTest extends TestCase
         $this->router->get('controller-method/{user}', [FooController::class, 'show']);
         $this->router->post('controller-invokable', FooController::class);
         $this->router->domain('{account}.example.com')->group(function () {
-            $this->router->get('user/{id}', function ($account, $id) {
+            $this->router->get('user/{id}', static function ($account, $id) {
                 //
             })->name('user.show')->middleware('web');
         });
@@ -99,10 +99,10 @@ class RouteListCommandTest extends TestCase
     {
         $this->withoutDeprecationHandling();
 
-        $this->router->get('/', function () {
+        $this->router->get('/', static function () {
             //
         });
-        $this->router->get('/foo', function () {
+        $this->router->get('/foo', static function () {
             //
         })->name('foo.show');
 

@@ -1298,7 +1298,7 @@ class Grammar extends BaseGrammar
      */
     protected function concatenate($segments)
     {
-        return implode(' ', array_filter($segments, function ($value) {
+        return implode(' ', array_filter($segments, static function ($value) {
             return (string) $value !== '';
         }));
     }

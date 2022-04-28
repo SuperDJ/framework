@@ -14,7 +14,7 @@ class DatabaseEloquentModelAttributeCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_eloquent_model_with_custom_casts', function (Blueprint $table) {
+        Schema::create('test_eloquent_model_with_custom_casts', static function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -345,10 +345,10 @@ class TestEloquentModelWithAttributeCast extends Model
     public function uppercase(): Attribute
     {
         return Attribute::make(
-            function ($value) {
+            static function ($value) {
                 return strtoupper($value);
             },
-            function ($value) {
+            static function ($value) {
                 return strtoupper($value);
             }
         );
@@ -428,21 +428,21 @@ class TestEloquentModelWithAttributeCast extends Model
 
     public function virtualStringCached(): Attribute
     {
-        return Attribute::get(function () {
+        return Attribute::get( static function () {
             return Str::random(10);
         })->shouldCache();
     }
 
     public function virtualBooleanCached(): Attribute
     {
-        return Attribute::get(function () {
+        return Attribute::get( static function () {
             return (bool) mt_rand(0, 1);
         })->shouldCache();
     }
 
     public function virtualBoolean(): Attribute
     {
-        return Attribute::get(function () {
+        return Attribute::get( static function () {
             return (bool) mt_rand(0, 1);
         });
     }
@@ -496,14 +496,14 @@ class TestEloquentModelWithAttributeCast extends Model
 
     public function virtualObjectWithoutCaching(): Attribute
     {
-        return Attribute::get(function () {
+        return Attribute::get( static function () {
             return new AttributeCastAddress(Str::random(10), Str::random(10));
         })->withoutObjectCaching();
     }
 
     public function virtualDateTimeWithoutCaching(): Attribute
     {
-        return Attribute::get(function () {
+        return Attribute::get( static function () {
             return Date::now()->addSeconds(mt_rand(0, 10000));
         })->withoutObjectCaching();
     }

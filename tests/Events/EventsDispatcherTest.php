@@ -104,7 +104,7 @@ class EventsDispatcherTest extends TestCase
         $d->listen('foo', function () {
             return '';
         });
-        $d->listen('foo', function () {
+        $d->listen('foo', static function () {
         });
 
         $response = $d->dispatch('foo', ['bar']);
@@ -285,7 +285,7 @@ class EventsDispatcherTest extends TestCase
         $d = new Dispatcher;
         $this->assertFalse($d->hasListeners('foo'));
 
-        $d->listen('foo', function () {
+        $d->listen('foo', static function () {
             //
         });
         $this->assertTrue($d->hasListeners('foo'));
@@ -296,7 +296,7 @@ class EventsDispatcherTest extends TestCase
         $d = new Dispatcher;
         $this->assertFalse($d->hasListeners('foo.*'));
 
-        $d->listen('foo.*', function () {
+        $d->listen('foo.*', static function () {
             //
         });
         $this->assertTrue($d->hasListeners('foo.*'));

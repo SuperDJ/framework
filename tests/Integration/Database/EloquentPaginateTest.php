@@ -10,14 +10,14 @@ class EloquentPaginateTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('users', function ($table) {
+        Schema::create('users', static function ($table) {
             $table->increments('id');
             $table->timestamps();
         });

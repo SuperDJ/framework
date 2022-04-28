@@ -12,7 +12,7 @@ class EloquentBelongsToTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug')->nullable();
             $table->unsignedInteger('parent_id')->nullable();

@@ -15,7 +15,7 @@ class DatabaseSqlServerConnectionTest extends SqlServerTestCase
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
         if (! Schema::hasTable('json_table')) {
-            Schema::create('json_table', function (Blueprint $table) {
+            Schema::create('json_table', static function (Blueprint $table) {
                 $table->json('json_col')->nullable();
             });
         }

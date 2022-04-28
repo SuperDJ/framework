@@ -256,7 +256,7 @@ class FoundationApplicationTest extends TestCase
     public function testMethodAfterLoadingEnvironmentAddsClosure()
     {
         $app = new Application;
-        $closure = function () {
+        $closure = static function () {
             //
         };
         $app->afterLoadingEnvironment($closure);
@@ -266,7 +266,7 @@ class FoundationApplicationTest extends TestCase
     public function testBeforeBootstrappingAddsClosure()
     {
         $app = new Application;
-        $closure = function () {
+        $closure = static function () {
             //
         };
         $app->beforeBootstrapping(RegisterFacades::class, $closure);
@@ -302,7 +302,7 @@ class FoundationApplicationTest extends TestCase
     public function testAfterBootstrappingAddsClosure()
     {
         $app = new Application;
-        $closure = function () {
+        $closure = static function () {
             //
         };
         $app->afterBootstrapping(RegisterFacades::class, $closure);

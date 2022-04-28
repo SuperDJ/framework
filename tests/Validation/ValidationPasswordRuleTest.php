@@ -137,7 +137,7 @@ class ValidationPasswordRuleTest extends TestCase
 
     public function testMessagesOrder()
     {
-        $makeRules = function () {
+        $makeRules = static function () {
             return ['required', Password::min(8)->mixedCase()->numbers()];
         };
 
@@ -167,7 +167,7 @@ class ValidationPasswordRuleTest extends TestCase
 
         $this->passes($makeRules(), ['4564654564564Abc']);
 
-        $makeRules = function () {
+        $makeRules = static function () {
             return ['nullable', 'confirmed', Password::min(8)->letters()->symbols()->uncompromised()];
         };
 
@@ -223,7 +223,7 @@ class ValidationPasswordRuleTest extends TestCase
         $password = Password::min(3);
         $password2 = Password::min(2)->mixedCase();
 
-        Password::defaults(function () use ($password) {
+        Password::defaults( static function () use ($password) {
             return $password;
         });
 
@@ -272,7 +272,7 @@ class ValidationPasswordRuleTest extends TestCase
 
     public function testPassesWithCustomRules()
     {
-        $closureRule = function ($attribute, $value, $fail) {
+        $closureRule = static function ($attribute, $value, $fail) {
             if ($value !== 'aa') {
                 $fail('Custom rule closure failed');
             }

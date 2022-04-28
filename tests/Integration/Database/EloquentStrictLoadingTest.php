@@ -21,17 +21,17 @@ class EloquentStrictLoadingTest extends DatabaseTestCase
 
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model1', function (Blueprint $table) {
+        Schema::create('test_model1', static function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number')->default(1);
         });
 
-        Schema::create('test_model2', function (Blueprint $table) {
+        Schema::create('test_model2', static function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('model_1_id');
         });
 
-        Schema::create('test_model3', function (Blueprint $table) {
+        Schema::create('test_model3', static function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('model_2_id');
         });
@@ -119,7 +119,7 @@ class EloquentStrictLoadingTest extends DatabaseTestCase
     {
         Event::fake();
 
-        Model::handleLazyLoadingViolationUsing(function ($model, $key) {
+        Model::handleLazyLoadingViolationUsing( static function ($model, $key) {
             event(new ViolatedLazyLoadingEvent($model, $key));
         });
 

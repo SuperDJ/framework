@@ -19,7 +19,7 @@ class FacadesTest extends TestCase
 
     public function testFacadeResolvedCanResolveCallback()
     {
-        Auth::resolved(function () {
+        Auth::resolved( static function () {
             $_SERVER['__laravel.authResolved'] = true;
         });
 
@@ -36,7 +36,7 @@ class FacadesTest extends TestCase
 
         $this->assertFalse(isset($_SERVER['__laravel.authResolved']));
 
-        Auth::resolved(function () {
+        Auth::resolved( static function () {
             $_SERVER['__laravel.authResolved'] = true;
         });
 

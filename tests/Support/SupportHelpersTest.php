@@ -42,10 +42,10 @@ class SupportHelpersTest extends TestCase
     public function testValue()
     {
         $this->assertSame('foo', value('foo'));
-        $this->assertSame('foo', value(function () {
+        $this->assertSame('foo', value( static function () {
             return 'foo';
         }));
-        $this->assertSame('foo', value(function ($arg) {
+        $this->assertSame('foo', value( static function ($arg) {
             return $arg;
         }, 'foo'));
     }
@@ -70,7 +70,7 @@ class SupportHelpersTest extends TestCase
         $this->assertSame('Taylor', data_get($array, '0.users.0.name'));
         $this->assertNull(data_get($array, '0.users.3'));
         $this->assertSame('Not found', data_get($array, '0.users.3', 'Not found'));
-        $this->assertSame('Not found', data_get($array, '0.users.3', function () {
+        $this->assertSame('Not found', data_get($array, '0.users.3', static function () {
             return 'Not found';
         }));
         $this->assertSame('Taylor', data_get($dottedArray, ['users', 'first.name']));
@@ -389,7 +389,7 @@ class SupportHelpersTest extends TestCase
     public function testTap()
     {
         $object = (object) ['id' => 1];
-        $this->assertEquals(2, tap($object, function ($object) {
+        $this->assertEquals(2, tap($object, static function ($object) {
             $object->id = 2;
         })->id);
 
@@ -486,13 +486,13 @@ class SupportHelpersTest extends TestCase
 
     public function testOptionalWithCallback()
     {
-        $this->assertNull(optional(null, function () {
+        $this->assertNull(optional(null, static function () {
             throw new RuntimeException(
                 'The optional callback should not be called for null'
             );
         }));
 
-        $this->assertEquals(10, optional(5, function ($number) {
+        $this->assertEquals(10, optional(5, static function ($number) {
             return $number * 2;
         }));
     }
@@ -573,7 +573,7 @@ class SupportHelpersTest extends TestCase
     {
         $startTime = microtime(true);
 
-        $attempts = retry(2, function ($attempts) {
+        $attempts = retry(2, static function ($attempts) {
             if ($attempts > 1) {
                 return $attempts;
             }
@@ -592,13 +592,13 @@ class SupportHelpersTest extends TestCase
     {
         $startTime = microtime(true);
 
-        $attempts = retry(3, function ($attempts) {
+        $attempts = retry(3, static function ($attempts) {
             if ($attempts > 2) {
                 return $attempts;
             }
 
             throw new RuntimeException;
-        }, function ($attempt) {
+        }, static function ($attempt) {
             return $attempt * 100;
         });
 
@@ -613,13 +613,13 @@ class SupportHelpersTest extends TestCase
     {
         $startTime = microtime(true);
 
-        $attempts = retry(2, function ($attempts) {
+        $attempts = retry(2, static function ($attempts) {
             if ($attempts > 1) {
                 return $attempts;
             }
 
             throw new RuntimeException;
-        }, 100, function ($ex) {
+        }, 100, static function ($ex) {
             return true;
         });
 
@@ -634,13 +634,13 @@ class SupportHelpersTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        retry(2, function ($attempts) {
+        retry(2, static function ($attempts) {
             if ($attempts > 1) {
                 return $attempts;
             }
 
             throw new RuntimeException;
-        }, 100, function ($ex) {
+        }, 100, static function ($ex) {
             return false;
         });
     }
@@ -648,7 +648,7 @@ class SupportHelpersTest extends TestCase
     public function testRetryWithBackoff()
     {
         $startTime = microtime(true);
-        $attempts = retry([50, 100, 200], function ($attempts) {
+        $attempts = retry([50, 100, 200], static function ($attempts) {
             if ($attempts > 3) {
                 return $attempts;
             }
@@ -664,24 +664,24 @@ class SupportHelpersTest extends TestCase
 
     public function testTransform()
     {
-        $this->assertEquals(10, transform(5, function ($value) {
+        $this->assertEquals(10, transform(5, static function ($value) {
             return $value * 2;
         }));
 
-        $this->assertNull(transform(null, function () {
+        $this->assertNull(transform(null, static function () {
             return 10;
         }));
     }
 
     public function testTransformDefaultWhenBlank()
     {
-        $this->assertSame('baz', transform(null, function () {
+        $this->assertSame('baz', transform(null, static function () {
             return 'bar';
         }, 'baz'));
 
-        $this->assertSame('baz', transform('', function () {
+        $this->assertSame('baz', transform('', static function () {
             return 'bar';
-        }, function () {
+        }, static function () {
             return 'baz';
         }));
     }
@@ -690,7 +690,7 @@ class SupportHelpersTest extends TestCase
     {
         $this->assertEquals(10, with(10));
 
-        $this->assertEquals(10, with(5, function ($five) {
+        $this->assertEquals(10, with(5, static function ($five) {
             return $five + 5;
         }));
     }

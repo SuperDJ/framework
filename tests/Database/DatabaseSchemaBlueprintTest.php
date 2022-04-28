@@ -179,7 +179,7 @@ class DatabaseSchemaBlueprintTest extends TestCase
             return $this->addCommand('foo');
         });
 
-        MySqlGrammar::macro('compileFoo', function () {
+        MySqlGrammar::macro('compileFoo', static function () {
             return 'bar';
         });
 

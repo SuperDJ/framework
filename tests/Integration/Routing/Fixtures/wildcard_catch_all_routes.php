@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/foo', function () {
+Route::get('/foo', static function () {
     return 'Regular route';
 });
 
-Route::get('{slug}', function () {
+Route::get('{slug}', static function () {
     return 'Wildcard route';
 });

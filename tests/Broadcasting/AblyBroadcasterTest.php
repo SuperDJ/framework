@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection StaticClosureCanBeUsedInspection */
 
 namespace Illuminate\Tests\Broadcasting;
 

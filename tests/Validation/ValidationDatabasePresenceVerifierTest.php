@@ -43,7 +43,7 @@ class ValidationDatabasePresenceVerifierTest extends TestCase
         $conn->shouldReceive('table')->once()->with('table')->andReturn($builder = m::mock(stdClass::class));
         $builder->shouldReceive('useWritePdo')->once()->andReturn($builder);
         $builder->shouldReceive('where')->with('column', '=', 'value')->andReturn($builder);
-        $closure = function ($query) {
+        $closure = static function ($query) {
             $query->where('closure', 1);
         };
         $extra = ['foo' => 'NULL', 'bar' => 'NOT_NULL', 'baz' => 'taylor', 'faz' => true, 'not' => '!admin', 0 => $closure];

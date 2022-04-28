@@ -11,7 +11,7 @@ class EloquentModelStringCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('casting_table', function (Blueprint $table) {
+        Schema::create('casting_table', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('array_attributes');
             $table->string('json_attributes');

@@ -143,7 +143,7 @@ class MakesHttpRequestsTest extends TestCase
         $url = $this->app->make(UrlGenerator::class);
 
         $callOrder = [];
-        TerminatingMiddleware::$callback = function ($request) use (&$callOrder) {
+        TerminatingMiddleware::$callback = static function ($request) use (&$callOrder) {
             $callOrder[] = $request->path();
         };
 

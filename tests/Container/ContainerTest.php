@@ -199,7 +199,7 @@ class ContainerTest extends TestCase
     public function testArrayAccess()
     {
         $container = new Container;
-        $container['something'] = function () {
+        $container['something'] = static function () {
             return 'foo';
         };
         $this->assertTrue(isset($container['something']));
@@ -288,13 +288,13 @@ class ContainerTest extends TestCase
         unset($_SERVER['__test.rebind']);
 
         $container = new Container;
-        $container->bind('foo', function () {
+        $container->bind('foo', static function () {
             //
         });
         $container->rebinding('foo', function () {
             $_SERVER['__test.rebind'] = true;
         });
-        $container->bind('foo', function () {
+        $container->bind('foo', static function () {
             //
         });
 
@@ -306,13 +306,13 @@ class ContainerTest extends TestCase
         unset($_SERVER['__test.rebind']);
 
         $container = new Container;
-        $container->instance('foo', function () {
+        $container->instance('foo', static function () {
             //
         });
         $container->rebinding('foo', function () {
             $_SERVER['__test.rebind'] = true;
         });
-        $container->instance('foo', function () {
+        $container->instance('foo', static function () {
             //
         });
 
@@ -327,7 +327,7 @@ class ContainerTest extends TestCase
         $container->rebinding('foo', function () {
             $_SERVER['__test.rebind'] = true;
         });
-        $container->instance('foo', function () {
+        $container->instance('foo', static function () {
             //
         });
 

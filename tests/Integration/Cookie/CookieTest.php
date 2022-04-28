@@ -25,7 +25,7 @@ class CookieTest extends TestCase
     {
         $this->app['config']->set('session.expire_on_close', true);
 
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return 'hello world';
         })->middleware('web');
 
@@ -39,7 +39,7 @@ class CookieTest extends TestCase
         $this->app['config']->set('session.expire_on_close', false);
         $this->app['config']->set('session.lifetime', 1);
 
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return 'hello world';
         })->middleware('web');
 
@@ -61,7 +61,7 @@ class CookieTest extends TestCase
         $app['config']->set('app.key', Str::random(32));
         $app['config']->set('session.driver', 'fake-null');
 
-        Session::extend('fake-null', function () {
+        Session::extend('fake-null', static function () {
             return new NullSessionHandler;
         });
     }

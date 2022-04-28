@@ -15,15 +15,15 @@ class QueuedClosureListenerTest extends TestCase
     {
         Bus::fake();
 
-        Event::listen(queueable(function (TestEvent $event) {
+        Event::listen(queueable( static function (TestEvent $event) {
             //
-        })->catch(function (TestEvent $event) {
+        })->catch( static function (TestEvent $event) {
             //
         })->onConnection(null)->onQueue(null));
 
         Event::dispatch(new TestEvent);
 
-        Bus::assertDispatched(CallQueuedListener::class, function ($job) {
+        Bus::assertDispatched(CallQueuedListener::class, static function ($job) {
             return $job->class == InvokeQueuedClosure::class;
         });
     }

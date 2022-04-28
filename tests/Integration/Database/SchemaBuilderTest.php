@@ -20,7 +20,7 @@ class SchemaBuilderTest extends DatabaseTestCase
     {
         $this->expectNotToPerformAssertions();
 
-        Schema::create('table', function (Blueprint $table) {
+        Schema::create('table', static function (Blueprint $table) {
             $table->increments('id');
         });
 
@@ -28,7 +28,7 @@ class SchemaBuilderTest extends DatabaseTestCase
 
         $this->artisan('migrate:install');
 
-        Schema::create('table', function (Blueprint $table) {
+        Schema::create('table', static function (Blueprint $table) {
             $table->increments('id');
         });
     }
@@ -52,7 +52,7 @@ class SchemaBuilderTest extends DatabaseTestCase
 
         Schema::getConnection()->registerDoctrineType(TinyInteger::class, TinyInteger::NAME, 'TINYINT');
 
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->string('test_column');
         });
 
@@ -74,7 +74,7 @@ class SchemaBuilderTest extends DatabaseTestCase
 
         Schema::getConnection()->registerDoctrineType(TinyInteger::class, TinyInteger::NAME, 'TINYINT');
 
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->string('test_column');
         });
 

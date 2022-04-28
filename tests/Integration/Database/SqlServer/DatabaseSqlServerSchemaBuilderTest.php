@@ -11,7 +11,7 @@ class DatabaseSqlServerSchemaBuilderTest extends SqlServerTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->integer('id');
             $table->string('name');
             $table->string('age');

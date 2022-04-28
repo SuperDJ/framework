@@ -46,7 +46,7 @@ class SendingNotificationsWithLocaleTest extends TestCase
     {
         parent::setUp();
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->string('name')->nullable();
@@ -123,7 +123,7 @@ class SendingNotificationsWithLocaleTest extends TestCase
     {
         Carbon::setTestNow('2018-07-25');
 
-        Event::listen(LocaleUpdated::class, function ($event) {
+        Event::listen(LocaleUpdated::class, static function ($event) {
             Carbon::setLocale($event->locale);
         });
 

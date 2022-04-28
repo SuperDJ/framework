@@ -11,7 +11,7 @@ trait CountsEnumerations
     {
         $recorder = new Collection();
 
-        $generatorFunction = function () use ($numbers, $recorder) {
+        $generatorFunction = static function () use ($numbers, $recorder) {
             for ($i = 1; $i <= $numbers; $i++) {
                 $recorder->push($i);
 

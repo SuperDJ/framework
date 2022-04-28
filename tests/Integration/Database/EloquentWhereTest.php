@@ -13,7 +13,7 @@ class EloquentWhereTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('email');
@@ -79,7 +79,7 @@ class EloquentWhereTest extends DatabaseTestCase
             'address' => 'test-address1',
         ]);
 
-        $this->assertTrue($secondUser->is(UserWhereTest::whereNot(function ($query) use ($firstUser) {
+        $this->assertTrue($secondUser->is(UserWhereTest::whereNot( static function ($query) use ($firstUser) {
             $query->where('name', '=', $firstUser->name);
         })->first()));
         $this->assertTrue($firstUser->is(UserWhereTest::where('name', $firstUser->name)->whereNot(function ($query) use ($secondUser) {

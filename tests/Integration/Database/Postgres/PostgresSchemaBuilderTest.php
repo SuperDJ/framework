@@ -41,10 +41,10 @@ class PostgresSchemaBuilderTest extends PostgresTestCase
 
     public function testDropAllTablesOnAllSchemas()
     {
-        Schema::create('public.table', function (Blueprint $table) {
+        Schema::create('public.table', static function (Blueprint $table) {
             $table->increments('id');
         });
-        Schema::create('private.table', function (Blueprint $table) {
+        Schema::create('private.table', static function (Blueprint $table) {
             $table->increments('id');
         });
 
@@ -61,10 +61,10 @@ class PostgresSchemaBuilderTest extends PostgresTestCase
         $this->app['config']->set('database.connections.pgsql.dont_drop', ['spatial_ref_sys', 'table']);
         DB::purge('pgsql');
 
-        Schema::create('public.table', function (Blueprint $table) {
+        Schema::create('public.table', static function (Blueprint $table) {
             $table->increments('id');
         });
-        Schema::create('private.table', function (Blueprint $table) {
+        Schema::create('private.table', static function (Blueprint $table) {
             $table->increments('id');
         });
 
@@ -81,10 +81,10 @@ class PostgresSchemaBuilderTest extends PostgresTestCase
         $this->app['config']->set('database.connections.pgsql.dont_drop', ['spatial_ref_sys', 'private.table']);
         DB::purge('pgsql');
 
-        Schema::create('public.table', function (Blueprint $table) {
+        Schema::create('public.table', static function (Blueprint $table) {
             $table->increments('id');
         });
-        Schema::create('private.table', function (Blueprint $table) {
+        Schema::create('private.table', static function (Blueprint $table) {
             $table->increments('id');
         });
 

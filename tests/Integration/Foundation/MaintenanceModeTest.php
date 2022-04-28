@@ -28,7 +28,7 @@ class MaintenanceModeTest extends TestCase
             'refresh' => 60,
         ]));
 
-        Route::get('/foo', function () {
+        Route::get('/foo', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 
@@ -46,7 +46,7 @@ class MaintenanceModeTest extends TestCase
             'status' => 200,
         ]));
 
-        Route::get('/foo', function () {
+        Route::get('/foo', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 
@@ -63,7 +63,7 @@ class MaintenanceModeTest extends TestCase
             'template' => 'Rendered Content',
         ]));
 
-        Route::get('/foo', function () {
+        Route::get('/foo', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 
@@ -82,7 +82,7 @@ class MaintenanceModeTest extends TestCase
             'template' => 'Rendered Content',
         ]));
 
-        Route::get('/foo', function () {
+        Route::get('/foo', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 
@@ -101,7 +101,7 @@ class MaintenanceModeTest extends TestCase
 
         $cookie = MaintenanceModeBypassCookie::create('foo');
 
-        Route::get('/test', function () {
+        Route::get('/test', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 
@@ -122,7 +122,7 @@ class MaintenanceModeTest extends TestCase
 
         $cookie = MaintenanceModeBypassCookie::create('test-key');
 
-        Route::get('/test', function () {
+        Route::get('/test', static function () {
             return 'Hello World';
         })->middleware(PreventRequestsDuringMaintenance::class);
 

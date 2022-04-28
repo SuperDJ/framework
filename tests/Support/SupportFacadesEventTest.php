@@ -45,7 +45,7 @@ class SupportFacadesEventTest extends TestCase
 
     public function testFakeFor()
     {
-        Event::fakeFor(function () {
+        Event::fakeFor( static function () {
             (new FakeForStub)->dispatch();
 
             Event::assertDispatched(EventStub::class);

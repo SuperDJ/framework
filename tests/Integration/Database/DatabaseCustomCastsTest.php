@@ -14,7 +14,7 @@ class DatabaseCustomCastsTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_eloquent_model_with_custom_casts', function (Blueprint $table) {
+        Schema::create('test_eloquent_model_with_custom_casts', static function (Blueprint $table) {
             $table->increments('id');
             $table->text('array_object');
             $table->json('array_object_json');
@@ -23,7 +23,7 @@ class DatabaseCustomCastsTest extends DatabaseTestCase
             $table->timestamps();
         });
 
-        Schema::create('test_eloquent_model_with_custom_casts_nullables', function (Blueprint $table) {
+        Schema::create('test_eloquent_model_with_custom_casts_nullables', static function (Blueprint $table) {
             $table->increments('id');
             $table->text('array_object')->nullable();
             $table->json('array_object_json')->nullable();

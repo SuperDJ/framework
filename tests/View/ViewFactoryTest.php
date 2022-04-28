@@ -140,7 +140,7 @@ class ViewFactoryTest extends TestCase
     {
         $factory = $this->getFactory();
 
-        $resolver = function () {
+        $resolver = static function () {
             //
         };
 

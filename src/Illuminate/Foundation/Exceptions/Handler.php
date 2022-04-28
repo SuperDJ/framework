@@ -185,7 +185,7 @@ class Handler implements ExceptionHandlerContract
     public function map($from, $to = null)
     {
         if (is_string($to)) {
-            $to = fn ($exception) => new $to('', 0, $exception);
+            $to = static fn ($exception) => new $to('', 0, $exception);
         }
 
         if (is_callable($from) && is_null($to)) {
@@ -262,7 +262,7 @@ class Handler implements ExceptionHandlerContract
         }
 
         $level = Arr::first(
-            $this->levels, fn ($level, $type) => $e instanceof $type, LogLevel::ERROR
+            $this->levels, static fn ($level, $type) => $e instanceof $type, LogLevel::ERROR
         );
 
         $logger->log(
@@ -297,7 +297,7 @@ class Handler implements ExceptionHandlerContract
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
-        return ! is_null(Arr::first($dontReport, fn ($type) => $e instanceof $type));
+        return ! is_null(Arr::first($dontReport, static fn ($type) => $e instanceof $type));
     }
 
     /**

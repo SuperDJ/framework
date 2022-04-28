@@ -31,7 +31,7 @@ class HandleExceptionsTest extends TestCase
 
             $property->setValue(
                 $this->handleExceptions,
-                tap($this->app, function ($app) {
+                tap($this->app, static function ($app) {
                     $app->shouldReceive('runningUnitTests')->andReturn(false);
                     $app->shouldReceive('hasBeenBootstrapped')->andReturn(true);
                 })
@@ -244,7 +244,7 @@ class HandleExceptionsTest extends TestCase
 
         $this->assertSame($this->app, $appResolver());
 
-        $this->handleExceptions->bootstrap($newApp = tap(m::mock(Application::class), function ($app) {
+        $this->handleExceptions->bootstrap($newApp = tap(m::mock(Application::class), static function ($app) {
             $app->shouldReceive('environment')->once()->andReturn(true);
         }));
 

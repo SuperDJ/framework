@@ -666,7 +666,7 @@ class AssertTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Property [bar] is not scopeable.');
 
-        $assert->has('bar', function (AssertableJson $item) {
+        $assert->has('bar', static function (AssertableJson $item) {
             //
         });
     }
@@ -812,7 +812,7 @@ class AssertTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Cannot scope directly onto the first element of the root level because it is empty.');
 
-        $assert->first(function (AssertableJson $item) {
+        $assert->first( static function (AssertableJson $item) {
             //
         });
     }
@@ -827,7 +827,7 @@ class AssertTest extends TestCase
         $this->expectExceptionMessage('Cannot scope directly onto the first element of property [foo] because it is empty.');
 
         $assert->has('foo', function (AssertableJson $assert) {
-            $assert->first(function (AssertableJson $item) {
+            $assert->first( static function (AssertableJson $item) {
                 //
             });
         });
@@ -842,7 +842,7 @@ class AssertTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Property [foo] is not scopeable.');
 
-        $assert->first(function (AssertableJson $item) {
+        $assert->first( static function (AssertableJson $item) {
             //
         });
     }
@@ -870,7 +870,7 @@ class AssertTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Cannot scope directly onto each element of the root level because it is empty.');
 
-        $assert->each(function (AssertableJson $item) {
+        $assert->each( static function (AssertableJson $item) {
             //
         });
     }
@@ -885,7 +885,7 @@ class AssertTest extends TestCase
         $this->expectExceptionMessage('Cannot scope directly onto each element of property [foo] because it is empty.');
 
         $assert->has('foo', function (AssertableJson $assert) {
-            $assert->each(function (AssertableJson $item) {
+            $assert->each( static function (AssertableJson $item) {
                 //
             });
         });
@@ -900,7 +900,7 @@ class AssertTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Property [foo] is not scopeable.');
 
-        $assert->each(function (AssertableJson $item) {
+        $assert->each( static function (AssertableJson $item) {
             //
         });
     }
@@ -954,7 +954,7 @@ class AssertTest extends TestCase
         $assert->has('bar', function (AssertableJson $item) {
             $item
                 ->etc()
-                ->has('baz', function (AssertableJson $item) {
+                ->has('baz', static function (AssertableJson $item) {
                     //
                 });
         });
@@ -1253,7 +1253,7 @@ class AssertTest extends TestCase
 
     public function testMacroable()
     {
-        AssertableJson::macro('myCustomMacro', function () {
+        AssertableJson::macro('myCustomMacro', static function () {
             throw new RuntimeException('My Custom Macro was called!');
         });
 

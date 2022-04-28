@@ -93,7 +93,7 @@ class RedisBroadcasterTest extends TestCase
     {
         $this->expectException(AccessDeniedHttpException::class);
 
-        $this->broadcaster->channel('test', function () {
+        $this->broadcaster->channel('test', static function () {
             //
         });
 

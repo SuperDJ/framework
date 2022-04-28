@@ -46,7 +46,7 @@ class ResourceTest extends TestCase
 {
     public function testResourcesMayBeConvertedToJson()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResource(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -81,7 +81,7 @@ class ResourceTest extends TestCase
 
     public function testAnObjectsMayBeConvertedToJson()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return ObjectResource::make(
                 (object) ['first_name' => 'Bob', 'age' => 40]
             );
@@ -100,7 +100,7 @@ class ResourceTest extends TestCase
 
     public function testArraysWithObjectsMayBeConvertedToJson()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $objects = [
                 (object) ['first_name' => 'Bob', 'age' => 40],
                 (object) ['first_name' => 'Jack', 'age' => 25],
@@ -122,7 +122,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveNoWrap()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithoutWrap(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -141,7 +141,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalValues()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithOptionalData(new Post([
                 'id' => 5,
             ]));
@@ -166,7 +166,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalSelectedAttributes()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithOptionalAttributes(new Post([
                 'id' => 5,
             ]));
@@ -188,7 +188,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalAppendedAttributes()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post([
                 'id' => 5,
             ]);
@@ -218,7 +218,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesWithOptionalAppendedAttributesReturnDefaultValuesAndNotMissingValues()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithOptionalAppendedAttributes(new Post([
                 'id' => 5,
             ]));
@@ -241,7 +241,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalMerges()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithOptionalMerging(new Post([
                 'id' => 5,
             ]));
@@ -263,7 +263,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalRelationships()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithOptionalRelationship(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -285,7 +285,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayLoadOptionalRelationships()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -313,7 +313,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayShowsNullForLoadedRelationshipWithValueNull()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -341,7 +341,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalRelationshipsWithDefaultValues()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new AuthorResourceWithOptionalRelationship(new Author([
                 'name' => 'jrrmartin',
             ]));
@@ -364,7 +364,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalPivotRelationships()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post(['id' => 5]);
             $post->setRelation('pivot', new Subscription);
 
@@ -389,7 +389,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayHaveOptionalPivotRelationshipsWithCustomAccessor()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post(['id' => 5]);
             $post->setRelation('accessor', new Subscription);
 
@@ -429,7 +429,7 @@ class ResourceTest extends TestCase
             'title' => 'Test Title',
         ]));
 
-        Route::get('/post/{id}', function () use ($post) {
+        Route::get('/post/{id}', static function () use ($post) {
             return route('post.show', $post);
         })->name('post.show');
 
@@ -440,7 +440,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayBeSerializable()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new SerializablePostResource(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -462,7 +462,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeResponses()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResource(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -479,7 +479,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeExtraData()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithExtraData(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -501,7 +501,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeExtraDataWhenBuildingResponse()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return (new PostResourceWithExtraData(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -524,7 +524,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeJsonOptions()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithJsonOptions(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -544,7 +544,7 @@ class ResourceTest extends TestCase
 
     public function testCollectionResourcesMayCustomizeJsonOptions()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return PostResourceWithJsonOptions::collection(collect([
                 new Post(['id' => 5, 'title' => 'Test Title', 'reading_time' => 3.0]),
             ]));
@@ -562,7 +562,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeJsonOptionsOnPaginatedResponse()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $paginator = new LengthAwarePaginator(
                 collect([new Post(['id' => 5, 'title' => 'Test Title', 'reading_time' => 3.0])]),
                 10, 15, 1
@@ -583,7 +583,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayCustomizeJsonOptionsWithTypeHintedConstructor()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostResourceWithJsonOptionsAndTypeHints(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -603,7 +603,7 @@ class ResourceTest extends TestCase
 
     public function testCustomHeadersMayBeSetOnResponses()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return (new PostResource(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -620,7 +620,7 @@ class ResourceTest extends TestCase
 
     public function testResourcesMayReceiveProperStatusCodeForFreshModels()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $post = new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -640,7 +640,7 @@ class ResourceTest extends TestCase
 
     public function testCollectionsAreNotDoubledWrapped()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new PostCollectionResource(collect([new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -665,7 +665,7 @@ class ResourceTest extends TestCase
 
     public function testPaginatorsReceiveLinks()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $paginator = new LengthAwarePaginator(
                 collect([new Post(['id' => 5, 'title' => 'Test Title'])]),
                 10, 15, 1
@@ -707,7 +707,7 @@ class ResourceTest extends TestCase
 
     public function testPaginatorResourceCanPreserveQueryParameters()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $collection = collect([new Post(['id' => 2, 'title' => 'Laravel Nova'])]);
             $paginator = new LengthAwarePaginator(
                 $collection, 3, 1, 2
@@ -749,7 +749,7 @@ class ResourceTest extends TestCase
 
     public function testPaginatorResourceCanReceiveQueryParameters()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $collection = collect([new Post(['id' => 2, 'title' => 'Laravel Nova'])]);
             $paginator = new LengthAwarePaginator(
                 $collection, 3, 1, 2
@@ -791,7 +791,7 @@ class ResourceTest extends TestCase
 
     public function testCursorPaginatorReceiveLinks()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $paginator = new CursorPaginator(
                 collect([new Post(['id' => 5, 'title' => 'Test Title']), new Post(['id' => 6, 'title' => 'Hello'])]),
                 1, null, ['parameters' => ['id']]
@@ -830,7 +830,7 @@ class ResourceTest extends TestCase
 
     public function testCursorPaginatorResourceCanPreserveQueryParameters()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $collection = collect([new Post(['id' => 5, 'title' => 'Test Title']), new Post(['id' => 6, 'title' => 'Hello'])]);
             $paginator = new CursorPaginator(
                 $collection, 1, null, ['parameters' => ['id']]
@@ -867,7 +867,7 @@ class ResourceTest extends TestCase
 
     public function testCursorPaginatorResourceCanReceiveQueryParameters()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             $collection = collect([new Post(['id' => 5, 'title' => 'Test Title']), new Post(['id' => 6, 'title' => 'Hello'])]);
             $paginator = new CursorPaginator(
                 $collection, 1, null, ['parameters' => ['id']]
@@ -904,7 +904,7 @@ class ResourceTest extends TestCase
 
     public function testToJsonMayBeLeftOffOfCollection()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new EmptyPostCollectionResource(new LengthAwarePaginator(
                 collect([new Post(['id' => 5, 'title' => 'Test Title'])]),
                 10, 15, 1
@@ -945,7 +945,7 @@ class ResourceTest extends TestCase
 
     public function testToJsonMayBeLeftOffOfSingleResource()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return new ReallyEmptyPostResource(new Post([
                 'id' => 5,
                 'title' => 'Test Title',
@@ -969,7 +969,7 @@ class ResourceTest extends TestCase
     public function testOriginalOnResponseIsModelWhenSingleResource()
     {
         $createdPost = new Post(['id' => 5, 'title' => 'Test Title']);
-        Route::get('/', function () use ($createdPost) {
+        Route::get('/', static function () use ($createdPost) {
             return new ReallyEmptyPostResource($createdPost);
         });
         $response = $this->withoutExceptionHandling()->get(
@@ -984,7 +984,7 @@ class ResourceTest extends TestCase
             new Post(['id' => 5, 'title' => 'Test Title']),
             new Post(['id' => 6, 'title' => 'Test Title 2']),
         ]);
-        Route::get('/', function () use ($createdPosts) {
+        Route::get('/', static function () use ($createdPosts) {
             return new EmptyPostCollectionResource(new LengthAwarePaginator($createdPosts, 10, 15, 1));
         });
         $response = $this->withoutExceptionHandling()->get(
@@ -1001,7 +1001,7 @@ class ResourceTest extends TestCase
             new Post(['id' => 5, 'title' => 'Test Title']),
         ]);
 
-        Route::get('/', function () use ($posts) {
+        Route::get('/', static function () use ($posts) {
             return new PostCollectionResourceWithPaginationInformation(new LengthAwarePaginator($posts, 10, 1, 1));
         });
 
@@ -1032,7 +1032,7 @@ class ResourceTest extends TestCase
             new Post(['id' => 5, 'title' => 'Test Title']),
         ]);
 
-        Route::get('/', function () use ($posts) {
+        Route::get('/', static function () use ($posts) {
             return PostResourceWithAnonymousResourceCollectionWithPaginationInformation::collection(new LengthAwarePaginator($posts, 10, 1, 1));
         });
 
@@ -1108,7 +1108,7 @@ class ResourceTest extends TestCase
             ],
         ];
 
-        Route::get('/', function () use ($data) {
+        Route::get('/', static function () use ($data) {
             return new ResourceWithPreservedKeys($data);
         });
 
@@ -1141,7 +1141,7 @@ class ResourceTest extends TestCase
             ],
         ])->keyBy->id;
 
-        Route::get('/', function () use ($data) {
+        Route::get('/', static function () use ($data) {
             return ResourceWithPreservedKeys::collection($data);
         });
 
@@ -1181,7 +1181,7 @@ class ResourceTest extends TestCase
 
         $request = m::mock(Request::class, ['server' => ['CONTENT_LENGTH' => '2147483640']]);
         $post = new ValidatePostSize;
-        $post->handle($request, function () {
+        $post->handle($request, static function () {
         });
     }
 
@@ -1479,7 +1479,7 @@ class ResourceTest extends TestCase
 
     private function assertJsonResourceResponse($data, $expectedJson)
     {
-        Route::get('/', function () use ($data) {
+        Route::get('/', static function () use ($data) {
             return new JsonResource($data);
         });
 

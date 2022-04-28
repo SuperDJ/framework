@@ -22,7 +22,7 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return ['discounts.*.id' => 'distinct'];
             }),
         ];
@@ -50,9 +50,9 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return [
-                    'discounts.*.id' => Rule::forEach(function () {
+                    'discounts.*.id' => Rule::forEach( static function () {
                         return 'distinct';
                     }),
                 ];
@@ -92,10 +92,10 @@ class ValidationForEachTest extends TestCase
             ],
         ];
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return [
                     'discounts.*.id' => 'distinct',
-                    'discounts.*' => Rule::forEach(function () {
+                    'discounts.*' => Rule::forEach( static function () {
                         return [
                             'id' => 'distinct',
                             'percent' => 'numeric|min:0|max:100',
@@ -135,7 +135,7 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return ['discounts.*.id' => ['distinct', 'numeric']];
             }),
         ];
@@ -174,11 +174,11 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return [
                     'discounts.*.id' => 'distinct',
                     'discounts.*.type' => 'in:percent,absolute',
-                    'discounts.*' => Rule::forEach(function ($value) {
+                    'discounts.*' => Rule::forEach( static function ($value) {
                         return $value['type'] === 'percent'
                             ? ['discount' => 'numeric|min:0|max:100']
                             : ['discount' => 'numeric'];
@@ -210,7 +210,7 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return ['users.*.type' => 'regex:/^(super|admin)$/i'];
             }),
         ];
@@ -235,7 +235,7 @@ class ValidationForEachTest extends TestCase
         ];
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return ['users.*.type' => [
                     'regex:/^(super)$/i',
                     'notregex:/^(invalid)$/i',

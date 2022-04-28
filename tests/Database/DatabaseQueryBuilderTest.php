@@ -2884,7 +2884,7 @@ class DatabaseQueryBuilderTest extends TestCase
     public function testPreserveAddsClosureToArray()
     {
         $builder = $this->getBuilder();
-        $builder->beforeQuery(function () {
+        $builder->beforeQuery( static function () {
         });
         $this->assertCount(1, $builder->beforeQueryCallbacks);
         $this->assertInstanceOf(Closure::class, $builder->beforeQueryCallbacks[0]);
@@ -2893,7 +2893,7 @@ class DatabaseQueryBuilderTest extends TestCase
     public function testApplyPreserveCleansArray()
     {
         $builder = $this->getBuilder();
-        $builder->beforeQuery(function () {
+        $builder->beforeQuery( static function () {
         });
         $this->assertCount(1, $builder->beforeQueryCallbacks);
         $builder->applyBeforeQueryCallbacks();
@@ -3923,7 +3923,7 @@ SQL;
         $builder->shouldReceive('forPage')->once()->with($page, $perPage)->andReturnSelf();
         $builder->shouldReceive('get')->once()->andReturn($results);
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -3949,11 +3949,11 @@ SQL;
         $builder->shouldReceive('forPage')->once()->with($page, $perPage)->andReturnSelf();
         $builder->shouldReceive('get')->once()->andReturn($results);
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 1;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -3979,11 +3979,11 @@ SQL;
         $builder->shouldNotReceive('forPage');
         $builder->shouldNotReceive('get');
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 1;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4010,7 +4010,7 @@ SQL;
         $builder->shouldReceive('forPage')->once()->with($page, $perPage)->andReturnSelf();
         $builder->shouldReceive('get')->once()->andReturn($results);
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4047,7 +4047,7 @@ SQL;
             return $results;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4086,7 +4086,7 @@ SQL;
             return $results;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4123,11 +4123,11 @@ SQL;
             return $results;
         });
 
-        CursorPaginator::currentCursorResolver(function () use ($cursor) {
+        CursorPaginator::currentCursorResolver( static function () use ($cursor) {
             return $cursor;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4151,11 +4151,11 @@ SQL;
 
         $builder->shouldReceive('get')->once()->andReturn($results);
 
-        CursorPaginator::currentCursorResolver(function () {
+        CursorPaginator::currentCursorResolver( static function () {
             return null;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4193,7 +4193,7 @@ SQL;
             return $results;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4232,7 +4232,7 @@ SQL;
             return $results;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4269,11 +4269,11 @@ SQL;
             return $results;
         });
 
-        CursorPaginator::currentCursorResolver(function () use ($cursor) {
+        CursorPaginator::currentCursorResolver( static function () use ($cursor) {
             return $cursor;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 
@@ -4310,11 +4310,11 @@ SQL;
             return $results;
         });
 
-        CursorPaginator::currentCursorResolver(function () use ($cursor) {
+        CursorPaginator::currentCursorResolver( static function () use ($cursor) {
             return $cursor;
         });
 
-        Paginator::currentPathResolver(function () use ($path) {
+        Paginator::currentPathResolver( static function () use ($path) {
             return $path;
         });
 

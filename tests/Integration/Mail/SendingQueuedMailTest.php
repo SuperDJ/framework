@@ -25,7 +25,7 @@ class SendingQueuedMailTest extends TestCase
 
         Mail::to('test@mail.com')->queue(new SendingQueuedMailTestMail);
 
-        Queue::assertPushed(SendQueuedMailable::class, function ($job) {
+        Queue::assertPushed(SendQueuedMailable::class, static function ($job) {
             return $job->middleware[0] instanceof RateLimited;
         });
     }

@@ -13,7 +13,7 @@ class ModifyPeopleTable extends Migration
      */
     public function up()
     {
-        Schema::table('people', function (Blueprint $table) {
+        Schema::table('people', static function (Blueprint $table) {
             $table->string('first_name')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class ModifyPeopleTable extends Migration
      */
     public function down()
     {
-        Schema::table('people', function (Blueprint $table) {
+        Schema::table('people', static function (Blueprint $table) {
             $table->dropColumn('first_name');
         });
     }

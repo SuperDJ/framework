@@ -523,7 +523,7 @@ class DatabaseEloquentFactoryTest extends TestCase
 
     public function test_model_has_factory()
     {
-        Factory::guessFactoryNamesUsing(function ($model) {
+        Factory::guessFactoryNamesUsing( static function ($model) {
             return $model.'Factory';
         });
 
@@ -532,7 +532,7 @@ class DatabaseEloquentFactoryTest extends TestCase
 
     public function test_dynamic_has_and_for_methods()
     {
-        Factory::guessFactoryNamesUsing(function ($model) {
+        Factory::guessFactoryNamesUsing( static function ($model) {
             return $model.'Factory';
         });
 

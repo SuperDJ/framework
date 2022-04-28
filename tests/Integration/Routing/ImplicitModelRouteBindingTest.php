@@ -27,14 +27,14 @@ class ImplicitModelRouteBindingTest extends TestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->timestamps();
@@ -74,7 +74,7 @@ PHP);
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
+        Route::post('/user/{user}', static function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web']);
 
@@ -94,7 +94,7 @@ PHP);
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
+        Route::post('/user/{user}', static function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web']);
 
@@ -111,7 +111,7 @@ PHP);
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
+        Route::post('/user/{user}', static function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web'])->withTrashed();
 
@@ -132,7 +132,7 @@ PHP);
         config(['app.key' => str_repeat('a', 32)]);
 
         Route::scopeBindings()->group(function () {
-            Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
+            Route::get('/user/{user}/post/{post}', static function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
                 return [$user, $post];
             })->middleware(['web']);
         });
@@ -152,7 +152,7 @@ PHP);
 
         config(['app.key' => str_repeat('a', 32)]);
         Route::scopeBindings()->group(function () {
-            Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
+            Route::get('/user/{user}/post/{post}', static function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
                 return [$user, $post];
             })->middleware(['web'])->withTrashed();
         });
@@ -203,8 +203,8 @@ PHP);
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::group(['scoping' => false], function () {
-            Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
+        Route::group(['scoping' => false], static function () {
+            Route::get('/user/{user}/post/{post}', static function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
                 return [$user, $post];
             })->middleware(['web']);
         });

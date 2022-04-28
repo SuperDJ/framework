@@ -70,7 +70,7 @@ class ViewTest extends TestCase
             return '';
         }));
 
-        $this->assertSame('contents', $view->render(function () {
+        $this->assertSame('contents', $view->render( static function () {
             //
         }));
     }

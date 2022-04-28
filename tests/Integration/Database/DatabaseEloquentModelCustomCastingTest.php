@@ -17,7 +17,7 @@ class DatabaseEloquentModelCustomCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_eloquent_model_with_custom_casts', function (Blueprint $table) {
+        Schema::create('test_eloquent_model_with_custom_casts', static function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->decimal('price');

@@ -681,7 +681,7 @@ class DatabaseEloquentBuilderTest extends TestCase
 
     public function testGlobalMacrosAreCalledOnBuilder()
     {
-        Builder::macro('foo', function ($bar) {
+        Builder::macro('foo', static function ($bar) {
             return $bar;
         });
 
@@ -722,10 +722,10 @@ class DatabaseEloquentBuilderTest extends TestCase
     public function testEagerLoadRelationsLoadTopLevelRelationships()
     {
         $builder = m::mock(Builder::class.'[eagerLoadRelation]', [$this->getMockQueryBuilder()]);
-        $nop1 = function () {
+        $nop1 = static function () {
             //
         };
-        $nop2 = function () {
+        $nop2 = static function () {
             //
         };
         $builder->setEagerLoads(['foo' => $nop1, 'foo.bar' => $nop2]);
@@ -1214,14 +1214,14 @@ class DatabaseEloquentBuilderTest extends TestCase
     public function testWithCountAndGlobalScope()
     {
         $model = new EloquentBuilderTestModelParentStub;
-        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withCount', function ($query) {
+        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withCount', static function ($query) {
             return $query->addSelect('id');
         });
 
         $builder = $model->select('id')->withCount(['foo']);
 
         // Remove the global scope so it doesn't interfere with any other tests
-        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withCount', function ($query) {
+        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withCount', static function ($query) {
             //
         });
 
@@ -1325,14 +1325,14 @@ class DatabaseEloquentBuilderTest extends TestCase
     public function testWithExistsAndGlobalScope()
     {
         $model = new EloquentBuilderTestModelParentStub;
-        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withExists', function ($query) {
+        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withExists', static function ($query) {
             return $query->addSelect('id');
         });
 
         $builder = $model->select('id')->withExists(['foo']);
 
         // Remove the global scope so it doesn't interfere with any other tests
-        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withExists', function ($query) {
+        EloquentBuilderTestModelCloseRelatedStub::addGlobalScope('withExists', static function ($query) {
             //
         });
 
@@ -1684,7 +1684,7 @@ class DatabaseEloquentBuilderTest extends TestCase
         $builder = $this->getBuilder()->setModel($model);
         $keyName = $model->getQualifiedKeyName();
 
-        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '=', m::on(function ($argument) {
+        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '=', m::on( static function ($argument) {
             return $argument === null;
         }));
 
@@ -1723,7 +1723,7 @@ class DatabaseEloquentBuilderTest extends TestCase
         $builder = $this->getBuilder()->setModel($model);
         $keyName = $model->getQualifiedKeyName();
 
-        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '=', m::on(function ($argument) {
+        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '=', m::on( static function ($argument) {
             return $argument === '1';
         }));
 
@@ -1752,7 +1752,7 @@ class DatabaseEloquentBuilderTest extends TestCase
         $builder = $this->getBuilder()->setModel($model);
         $keyName = $model->getQualifiedKeyName();
 
-        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '!=', m::on(function ($argument) {
+        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '!=', m::on( static function ($argument) {
             return $argument === null;
         }));
 
@@ -1805,7 +1805,7 @@ class DatabaseEloquentBuilderTest extends TestCase
         $builder = $this->getBuilder()->setModel($model);
         $keyName = $model->getQualifiedKeyName();
 
-        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '!=', m::on(function ($argument) {
+        $builder->getQuery()->shouldReceive('where')->once()->with($keyName, '!=', m::on( static function ($argument) {
             return $argument === '1';
         }));
 

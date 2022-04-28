@@ -64,7 +64,7 @@ class SupportReflectorTest extends TestCase
 
     public function testIsCallable()
     {
-        $this->assertTrue(Reflector::isCallable(function () {
+        $this->assertTrue(Reflector::isCallable( static function () {
         }));
         $this->assertTrue(Reflector::isCallable([B::class, 'f']));
         $this->assertFalse(Reflector::isCallable([TestClassWithCall::class, 'f']));

@@ -23,7 +23,7 @@ class QueueDatabaseQueueUnitTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -50,7 +50,7 @@ class QueueDatabaseQueueUnitTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -114,7 +114,7 @@ class QueueDatabaseQueueUnitTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 

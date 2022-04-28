@@ -21,7 +21,7 @@ class CallbackEventTest extends TestCase
     {
         $success = null;
 
-        $event = (new CallbackEvent(m::mock(EventMutex::class), function () {
+        $event = (new CallbackEvent(m::mock(EventMutex::class), static function () {
         }))->onSuccess(function () use (&$success) {
             $success = true;
         })->onFailure(function () use (&$success) {

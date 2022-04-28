@@ -12,7 +12,7 @@ class PipelineTest extends TestCase
 {
     public function testPipelineBasicUsage()
     {
-        $pipeTwo = function ($piped, $next) {
+        $pipeTwo = static function ($piped, $next) {
             $_SERVER['__test.pipe.two'] = $piped;
 
             return $next($piped);
@@ -66,7 +66,7 @@ class PipelineTest extends TestCase
 
     public function testPipelineUsageWithCallable()
     {
-        $function = function ($piped, $next) {
+        $function = static function ($piped, $next) {
             $_SERVER['__test.pipe.one'] = 'foo';
 
             return $next($piped);
@@ -103,7 +103,7 @@ class PipelineTest extends TestCase
 
         $object->value = 0;
 
-        $function = function ($object, $next) {
+        $function = static function ($object, $next) {
             $object->value++;
 
             return $next($object);

@@ -14,7 +14,7 @@ class DatabaseMySqlSchemaBuilderAlterTableWithEnumTest extends MySqlTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->integer('id');
             $table->string('name');
             $table->string('age');
@@ -29,7 +29,7 @@ class DatabaseMySqlSchemaBuilderAlterTableWithEnumTest extends MySqlTestCase
 
     public function testRenameColumnOnTableWithEnum()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', static function (Blueprint $table) {
             $table->renameColumn('name', 'username');
         });
 
@@ -38,7 +38,7 @@ class DatabaseMySqlSchemaBuilderAlterTableWithEnumTest extends MySqlTestCase
 
     public function testChangeColumnOnTableWithEnum()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', static function (Blueprint $table) {
             $table->unsignedInteger('age')->charset('')->change();
         });
 
@@ -64,7 +64,7 @@ class DatabaseMySqlSchemaBuilderAlterTableWithEnumTest extends MySqlTestCase
             $this->assertContains($column, $columns);
         }
 
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->integer('id');
             $table->string('title');
         });

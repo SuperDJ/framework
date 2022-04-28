@@ -1390,7 +1390,7 @@ class DatabaseMySqlSchemaGrammarTest extends TestCase
     public function testGrammarsAreMacroable()
     {
         // compileReplace macro.
-        $this->getGrammar()::macro('compileReplace', function () {
+        $this->getGrammar()::macro('compileReplace', static function () {
             return true;
         });
 

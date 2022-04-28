@@ -56,7 +56,7 @@ class ForgotPasswordTest extends TestCase
 
         Notification::assertSentTo(
             $user,
-            function (ResetPassword $notification, $channels) use ($user) {
+            static function (ResetPassword $notification, $channels) use ($user) {
                 $message = $notification->toMail($user);
 
                 return ! is_null($notification->token)
@@ -70,7 +70,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        ResetPassword::createUrlUsing(function ($user, string $token) {
+        ResetPassword::createUrlUsing( static function ($user, string $token) {
             return route('custom.password.reset', $token);
         });
 
@@ -84,7 +84,7 @@ class ForgotPasswordTest extends TestCase
 
         Notification::assertSentTo(
             $user,
-            function (ResetPassword $notification, $channels) use ($user) {
+            static function (ResetPassword $notification, $channels) use ($user) {
                 $message = $notification->toMail($user);
 
                 return ! is_null($notification->token)
@@ -98,7 +98,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        ResetPassword::toMailUsing(function ($notifiable, $token) {
+        ResetPassword::toMailUsing( static function ($notifiable, $token) {
             return (new MailMessage)
                 ->subject(__('Reset Password Notification'))
                 ->line(__('You are receiving this email because we received a password reset request for your account.'))
@@ -116,7 +116,7 @@ class ForgotPasswordTest extends TestCase
 
         Notification::assertSentTo(
             $user,
-            function (ResetPassword $notification, $channels) use ($user) {
+            static function (ResetPassword $notification, $channels) use ($user) {
                 $message = $notification->toMail($user);
 
                 return ! is_null($notification->token)

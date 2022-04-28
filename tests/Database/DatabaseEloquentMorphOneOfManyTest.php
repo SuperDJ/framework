@@ -104,12 +104,12 @@ class DatabaseEloquentMorphOneOfManyTest extends TestCase
             'state' => 'active',
         ]);
 
-        $exists = MorphOneOfManyTestProduct::whereHas('current_state', function ($q) use ($previousState) {
+        $exists = MorphOneOfManyTestProduct::whereHas('current_state', static function ($q) use ($previousState) {
             $q->whereKey($previousState->getKey());
         })->exists();
         $this->assertFalse($exists);
 
-        $exists = MorphOneOfManyTestProduct::whereHas('current_state', function ($q) use ($currentState) {
+        $exists = MorphOneOfManyTestProduct::whereHas('current_state', static function ($q) use ($currentState) {
             $q->whereKey($currentState->getKey());
         })->exists();
         $this->assertTrue($exists);

@@ -10,7 +10,7 @@ class EloquentModelWithoutEventsTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('auto_filled_models', function (Blueprint $table) {
+        Schema::create('auto_filled_models', static function (Blueprint $table) {
             $table->increments('id');
             $table->text('project')->nullable();
         });
@@ -18,7 +18,7 @@ class EloquentModelWithoutEventsTest extends DatabaseTestCase
 
     public function testWithoutEventsRegistersBootedListenersForLater()
     {
-        $model = AutoFilledModel::withoutEvents(function () {
+        $model = AutoFilledModel::withoutEvents( static function () {
             return AutoFilledModel::create();
         });
 
@@ -40,7 +40,7 @@ class AutoFilledModel extends Model
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        static::saving( static function ($model) {
             $model->project = 'Laravel';
         });
     }

@@ -12,13 +12,13 @@ class EloquentUpdateTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model1', function (Blueprint $table) {
+        Schema::create('test_model1', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('title')->nullable();
         });
 
-        Schema::create('test_model2', function (Blueprint $table) {
+        Schema::create('test_model2', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('job')->nullable();
@@ -26,7 +26,7 @@ class EloquentUpdateTest extends DatabaseTestCase
             $table->timestamps();
         });
 
-        Schema::create('test_model3', function (Blueprint $table) {
+        Schema::create('test_model3', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('counter');
             $table->softDeletes();
@@ -70,7 +70,7 @@ class EloquentUpdateTest extends DatabaseTestCase
             'name' => Str::random(),
         ]);
 
-        TestUpdateModel2::join('test_model1', function ($join) {
+        TestUpdateModel2::join('test_model1', static function ($join) {
             $join->on('test_model1.id', '=', 'test_model2.id')
                 ->where('test_model1.title', '=', 'Mr.');
         })->update(['test_model2.name' => 'Abdul', 'job' => 'Engineer']);
@@ -91,7 +91,7 @@ class EloquentUpdateTest extends DatabaseTestCase
             'name' => Str::random(),
         ]);
 
-        TestUpdateModel2::join('test_model1', function ($join) {
+        TestUpdateModel2::join('test_model1', static function ($join) {
             $join->on('test_model1.id', '=', 'test_model2.id')
                 ->where('test_model1.title', '=', 'Mr.');
         })->delete();

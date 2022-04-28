@@ -784,7 +784,7 @@ class RedisConnectionTest extends TestCase
 
     public function testMacroable()
     {
-        Connection::macro('foo', function () {
+        Connection::macro('foo', static function () {
             return 'foo';
         });
 

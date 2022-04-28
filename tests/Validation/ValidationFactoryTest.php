@@ -26,13 +26,13 @@ class ValidationFactoryTest extends TestCase
         $this->assertEquals(['baz' => ['boom']], $validator->getRules());
 
         $presence = m::mock(PresenceVerifierInterface::class);
-        $noop1 = function () {
+        $noop1 = static function () {
             //
         };
-        $noop2 = function () {
+        $noop2 = static function () {
             //
         };
-        $noop3 = function () {
+        $noop3 = static function () {
             //
         };
         $factory->extend('foo', $noop1);

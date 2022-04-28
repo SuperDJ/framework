@@ -172,7 +172,7 @@ class EventFake implements Dispatcher
             return collect();
         }
 
-        $callback = $callback ?: fn () => true;
+        $callback = $callback ?: static fn () => true;
 
         return collect($this->events[$event])->filter(
             fn ($arguments) => $callback(...$arguments)

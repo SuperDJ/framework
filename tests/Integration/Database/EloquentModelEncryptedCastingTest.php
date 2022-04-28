@@ -29,7 +29,7 @@ class EloquentModelEncryptedCastingTest extends DatabaseTestCase
 
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('encrypted_casts', function (Blueprint $table) {
+        Schema::create('encrypted_casts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('secret', 1000)->nullable();
             $table->text('secret_array')->nullable();

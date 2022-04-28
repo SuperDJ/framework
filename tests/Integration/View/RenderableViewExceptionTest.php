@@ -12,7 +12,7 @@ class RenderableViewExceptionTest extends TestCase
 {
     public function testRenderMethodOfExceptionThrownInViewGetsHandled()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return View::make('renderable-exception');
         });
 

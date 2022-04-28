@@ -27,7 +27,7 @@ class DatabaseSqliteSchemaBuilderTest extends DatabaseTestCase
 
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->integer('id');
             $table->string('name');
             $table->string('age');
@@ -59,7 +59,7 @@ class DatabaseSqliteSchemaBuilderTest extends DatabaseTestCase
             $this->assertContains($column, $columns);
         }
 
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->integer('id');
             $table->string('title');
         });

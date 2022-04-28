@@ -2581,15 +2581,15 @@ class SupportCollectionTest extends TestCase
      */
     public function testTimesMethod($collection)
     {
-        $two = $collection::times(2, function ($number) {
+        $two = $collection::times(2, static function ($number) {
             return 'slug-'.$number;
         });
 
-        $zero = $collection::times(0, function ($number) {
+        $zero = $collection::times(0, static function ($number) {
             return 'slug-'.$number;
         });
 
-        $negative = $collection::times(-4, function ($number) {
+        $negative = $collection::times(-4, static function ($number) {
             return 'slug-'.$number;
         });
 
@@ -4008,7 +4008,7 @@ class SupportCollectionTest extends TestCase
     {
         $log = new Collection;
 
-        VarDumper::setHandler(function ($value) use ($log) {
+        VarDumper::setHandler( static function ($value) use ($log) {
             $log->add($value);
         });
 

@@ -130,11 +130,11 @@ class EloquentClosureGlobalScopesTestModel extends Model
 
     public static function boot()
     {
-        static::addGlobalScope(function ($query) {
+        static::addGlobalScope( static function ($query) {
             $query->orderBy('name');
         });
 
-        static::addGlobalScope('active_scope', function ($query) {
+        static::addGlobalScope('active_scope', static function ($query) {
             $query->where('active', 1);
         });
 
@@ -166,11 +166,11 @@ class EloquentClosureGlobalScopesWithOrTestModel extends EloquentClosureGlobalSc
 {
     public static function boot()
     {
-        static::addGlobalScope('or_scope', function ($query) {
+        static::addGlobalScope('or_scope', static function ($query) {
             $query->where('email', 'taylor@gmail.com')->orWhere('email', 'someone@else.com');
         });
 
-        static::addGlobalScope(function ($query) {
+        static::addGlobalScope( static function ($query) {
             $query->select('email', 'password');
         });
 

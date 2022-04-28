@@ -150,11 +150,11 @@ class DatabaseEloquentSoftDeletesIntegrationTest extends TestCase
         $query = SoftDeletesTestUser::query();
         $this->assertCount(1, $query->pluck('email')->all());
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 1;
         });
 
-        CursorPaginator::currentCursorResolver(function () {
+        CursorPaginator::currentCursorResolver( static function () {
             return null;
         });
 
@@ -226,7 +226,7 @@ class DatabaseEloquentSoftDeletesIntegrationTest extends TestCase
 
             public function newModelQuery()
             {
-                return m::spy(parent::newModelQuery(), function (MockInterface $mock) {
+                return m::spy(parent::newModelQuery(), static function (MockInterface $mock) {
                     $mock->shouldReceive('forceDelete')->andThrow(new Exception());
                 });
             }
@@ -642,12 +642,12 @@ class DatabaseEloquentSoftDeletesIntegrationTest extends TestCase
         $users = SoftDeletesTestUser::where('email', 'doesnt@exist.com')->orHas('posts')->get();
         $this->assertCount(1, $users);
 
-        $users = SoftDeletesTestUser::whereHas('posts', function ($query) {
+        $users = SoftDeletesTestUser::whereHas('posts', static function ($query) {
             $query->where('title', 'First Title');
         })->get();
         $this->assertCount(1, $users);
 
-        $users = SoftDeletesTestUser::whereHas('posts', function ($query) {
+        $users = SoftDeletesTestUser::whereHas('posts', static function ($query) {
             $query->where('title', 'Another Title');
         })->get();
         $this->assertCount(0, $users);
@@ -675,12 +675,12 @@ class DatabaseEloquentSoftDeletesIntegrationTest extends TestCase
         $users = SoftDeletesTestUser::has('posts')->get();
         $this->assertCount(0, $users);
 
-        $users = SoftDeletesTestUser::whereHas('posts', function ($q) {
+        $users = SoftDeletesTestUser::whereHas('posts', static function ($q) {
             $q->onlyTrashed();
         })->get();
         $this->assertCount(1, $users);
 
-        $users = SoftDeletesTestUser::whereHas('posts', function ($q) {
+        $users = SoftDeletesTestUser::whereHas('posts', static function ($q) {
             $q->withTrashed();
         })->get();
         $this->assertCount(1, $users);

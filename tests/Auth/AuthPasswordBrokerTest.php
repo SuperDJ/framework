@@ -79,7 +79,7 @@ class AuthPasswordBrokerTest extends TestCase
         $broker = $this->getBroker($mocks = $this->getMocks());
         $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(['creds'])->andReturn(null);
 
-        $this->assertSame(PasswordBrokerContract::INVALID_USER, $broker->reset(['creds'], function () {
+        $this->assertSame(PasswordBrokerContract::INVALID_USER, $broker->reset(['creds'], static function () {
             //
         }));
     }
@@ -91,7 +91,7 @@ class AuthPasswordBrokerTest extends TestCase
         $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(Arr::except($creds, ['token']))->andReturn($user = m::mock(CanResetPassword::class));
         $mocks['tokens']->shouldReceive('exists')->with($user, 'token')->andReturn(false);
 
-        $this->assertSame(PasswordBrokerContract::INVALID_TOKEN, $broker->reset($creds, function () {
+        $this->assertSame(PasswordBrokerContract::INVALID_TOKEN, $broker->reset($creds, static function () {
             //
         }));
     }

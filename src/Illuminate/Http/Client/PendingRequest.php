@@ -562,7 +562,7 @@ class PendingRequest
      */
     public function throw(callable $callback = null)
     {
-        $this->throwCallback = $callback ?: fn () => null;
+        $this->throwCallback = $callback ?: static fn () => null;
 
         return $this;
     }
@@ -1064,7 +1064,7 @@ class PendingRequest
      */
     protected function sinkStubHandler($sink)
     {
-        return function ($response) use ($sink) {
+        return static function ($response) use ($sink) {
             $body = $response->getBody()->getContents();
 
             if (is_string($sink)) {

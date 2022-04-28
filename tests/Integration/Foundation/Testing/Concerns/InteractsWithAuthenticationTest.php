@@ -27,7 +27,7 @@ class InteractsWithAuthenticationTest extends TestCase
     {
         parent::setUp();
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->string('username');
@@ -46,7 +46,7 @@ class InteractsWithAuthenticationTest extends TestCase
 
     public function testActingAsIsProperlyHandledForSessionAuth()
     {
-        Route::get('me', function (Request $request) {
+        Route::get('me', static function (Request $request) {
             return 'Hello '.$request->user()->username;
         })->middleware(['auth']);
 
@@ -60,11 +60,11 @@ class InteractsWithAuthenticationTest extends TestCase
 
     public function testActingAsIsProperlyHandledForAuthViaRequest()
     {
-        Route::get('me', function (Request $request) {
+        Route::get('me', static function (Request $request) {
             return 'Hello '.$request->user()->username;
         })->middleware(['auth:api']);
 
-        Auth::viaRequest('api', function ($request) {
+        Auth::viaRequest('api', static function ($request) {
             return $request->user();
         });
 

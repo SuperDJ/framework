@@ -14,18 +14,18 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->softDeletes();
         });
 
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('videos', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
         });
 
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', static function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('commentable');
             $table->softDeletes();
@@ -49,7 +49,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testWhereHasMorph()
     {
-        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], function (Builder $query) {
+        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], static function (Builder $query) {
             $query->where('title', 'foo');
         })->orderBy('id')->get();
 
@@ -63,7 +63,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
         Comment::where('commentable_type', Post::class)->update(['commentable_type' => 'posts']);
 
         try {
-            $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], function (Builder $query) {
+            $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], static function (Builder $query) {
                 $query->where('title', 'foo');
             })->orderBy('id')->get();
 
@@ -93,7 +93,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
         Comment::where('commentable_type', Post::class)->update(['commentable_type' => 'posts']);
 
         try {
-            $comments = Comment::whereHasMorph('commentable', '*', function (Builder $query) {
+            $comments = Comment::whereHasMorph('commentable', '*', static function (Builder $query) {
                 $query->where('title', 'foo');
             })->orderBy('id')->get();
 
@@ -105,7 +105,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testWhereHasMorphWithRelationConstraint()
     {
-        $comments = Comment::whereHasMorph('commentableWithConstraint', Video::class, function (Builder $query) {
+        $comments = Comment::whereHasMorph('commentableWithConstraint', Video::class, static function (Builder $query) {
             $query->where('title', 'like', 'ba%');
         })->orderBy('id')->get();
 
@@ -114,7 +114,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testWhereHasMorphWitDifferentConstraints()
     {
-        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], function (Builder $query, $type) {
+        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], static function (Builder $query, $type) {
             if ($type === Post::class) {
                 $query->where('title', 'foo');
             }
@@ -129,15 +129,15 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testWhereHasMorphWithOwnerKey()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('posts', static function (Blueprint $table) {
             $table->string('slug')->nullable();
         });
 
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', static function (Blueprint $table) {
             $table->dropIndex('comments_commentable_type_commentable_id_index');
         });
 
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', static function (Blueprint $table) {
             $table->string('commentable_id')->change();
         });
 
@@ -145,7 +145,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
         Comment::where('id', 1)->update(['commentable_id' => 'foo']);
 
-        $comments = Comment::whereHasMorph('commentableWithOwnerKey', Post::class, function (Builder $query) {
+        $comments = Comment::whereHasMorph('commentableWithOwnerKey', Post::class, static function (Builder $query) {
             $query->where('title', 'foo');
         })->orderBy('id')->get();
 
@@ -192,7 +192,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testWhereDoesntHaveMorph()
     {
-        $comments = Comment::whereDoesntHaveMorph('commentable', Post::class, function (Builder $query) {
+        $comments = Comment::whereDoesntHaveMorph('commentable', Post::class, static function (Builder $query) {
             $query->where('title', 'foo');
         })->orderBy('id')->get();
 
@@ -211,7 +211,7 @@ class EloquentWhereHasMorphTest extends DatabaseTestCase
 
     public function testModelScopesAreAccessible()
     {
-        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], function (Builder $query) {
+        $comments = Comment::whereHasMorph('commentable', [Post::class, Video::class], static function (Builder $query) {
             $query->someSharedModelScope();
         })->orderBy('id')->get();
 

@@ -255,7 +255,7 @@ class MailMailerTest extends TestCase
 
     public function testMacroable()
     {
-        Mailer::macro('foo', function () {
+        Mailer::macro('foo', static function () {
             return 'bar';
         });
 

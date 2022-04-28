@@ -18,7 +18,7 @@ class ValidatorTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('uuid');
             $table->string('first_name');

@@ -15,31 +15,31 @@ class SupportReflectsClosuresTest extends TestCase
             throw new RuntimeException;
         });
 
-        $this->assertParameterTypes([], function () {
+        $this->assertParameterTypes([], static function () {
             //
         });
 
-        $this->assertParameterTypes([null], function ($one) {
+        $this->assertParameterTypes([null], static function ($one) {
             //
         });
 
-        $this->assertParameterTypes([null, ExampleParameter::class], function ($one, ExampleParameter $two = null) {
+        $this->assertParameterTypes([null, ExampleParameter::class], static function ($one, ExampleParameter $two = null) {
             //
         });
 
-        $this->assertParameterTypes([null, ExampleParameter::class], function (string $one, ?ExampleParameter $two) {
+        $this->assertParameterTypes([null, ExampleParameter::class], static function (string $one, ?ExampleParameter $two) {
             //
         });
 
         // Because the parameter is variadic, the closure will always receive an array.
-        $this->assertParameterTypes([null], function (ExampleParameter ...$vars) {
+        $this->assertParameterTypes([null], static function (ExampleParameter ...$vars) {
             //
         });
     }
 
     public function testItReturnsTheFirstParameterType()
     {
-        $type = ReflectsClosuresClass::reflectFirst(function (ExampleParameter $a) {
+        $type = ReflectsClosuresClass::reflectFirst( static function (ExampleParameter $a) {
             //
         });
 
@@ -50,7 +50,7 @@ class SupportReflectsClosuresTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        ReflectsClosuresClass::reflectFirst(function () {
+        ReflectsClosuresClass::reflectFirst( static function () {
             //
         });
     }
@@ -59,14 +59,14 @@ class SupportReflectsClosuresTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        ReflectsClosuresClass::reflectFirst(function ($a, ExampleParameter $b) {
+        ReflectsClosuresClass::reflectFirst( static function ($a, ExampleParameter $b) {
             //
         });
     }
 
     public function testItWorksWithUnionTypes()
     {
-        $types = ReflectsClosuresClass::reflectFirstAll(function (ExampleParameter $a, $b) {
+        $types = ReflectsClosuresClass::reflectFirstAll( static function (ExampleParameter $a, $b) {
             //
         });
 
@@ -88,7 +88,7 @@ class SupportReflectsClosuresTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        $types = ReflectsClosuresClass::reflectFirstAll(function ($a, $b) {
+        $types = ReflectsClosuresClass::reflectFirstAll( static function ($a, $b) {
             //
         });
     }
@@ -97,7 +97,7 @@ class SupportReflectsClosuresTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        $types = ReflectsClosuresClass::reflectFirstAll(function () {
+        $types = ReflectsClosuresClass::reflectFirstAll( static function () {
             //
         });
     }

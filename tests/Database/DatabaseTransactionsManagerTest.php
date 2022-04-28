@@ -83,14 +83,14 @@ class DatabaseTransactionsManagerTest extends TestCase
 
         $manager->begin('default', 1);
 
-        $manager->addCallback(function () use (&$callbacks) {
+        $manager->addCallback( static function () use (&$callbacks) {
         });
 
         $manager->begin('default', 2);
 
         $manager->begin('admin', 1);
 
-        $manager->addCallback(function () use (&$callbacks) {
+        $manager->addCallback( static function () use (&$callbacks) {
         });
 
         $this->assertCount(1, $manager->getTransactions()[0]->getCallbacks());

@@ -14,14 +14,14 @@ class EloquentModelCustomEventsTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        Event::listen(CustomEvent::class, function () {
+        Event::listen(CustomEvent::class, static function () {
             $_SERVER['fired_event'] = true;
         });
     }
 
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model1', function (Blueprint $table) {
+        Schema::create('test_model1', static function (Blueprint $table) {
             $table->increments('id');
         });
     }

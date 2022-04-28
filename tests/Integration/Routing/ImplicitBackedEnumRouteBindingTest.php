@@ -40,7 +40,7 @@ PHP);
     {
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/categories/{category}', function (CategoryBackedEnum $category) {
+        Route::post('/categories/{category}', static function (CategoryBackedEnum $category) {
             return $category->value;
         })->middleware(['web']);
 

@@ -11,7 +11,7 @@ class EloquentModelDecimalCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model1', function (Blueprint $table) {
+        Schema::create('test_model1', static function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('decimal_field_2', 8, 2)->nullable();
             $table->decimal('decimal_field_4', 8, 4)->nullable();

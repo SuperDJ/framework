@@ -247,7 +247,7 @@ class FoundationExceptionsHandlerTest extends TestCase
                 ->andReturn($responser = m::mock(RedirectResponse::class));
 
             $responser->shouldReceive('withInput')->once()->with(m::on(
-                function ($argument) use (&$argumentActual) {
+                static function ($argument) use (&$argumentActual) {
                     $argumentActual = $argument;
 
                     return true;

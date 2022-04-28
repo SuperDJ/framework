@@ -246,7 +246,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         EloquentTestUser::create(['id' => 2, 'email' => 'abigailotwell@gmail.com']);
         EloquentTestUser::create(['id' => 3, 'email' => 'foo@gmail.com']);
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 1;
         });
         $models = EloquentTestUser::oldest('id')->paginate(2);
@@ -258,7 +258,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $this->assertSame('taylorotwell@gmail.com', $models[0]->email);
         $this->assertSame('abigailotwell@gmail.com', $models[1]->email);
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 2;
         });
         $models = EloquentTestUser::oldest('id')->paginate(2);
@@ -271,7 +271,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
     public function testPaginatedModelCollectionRetrievalWhenNoElements()
     {
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 1;
         });
         $models = EloquentTestUser::oldest('id')->paginate(2);
@@ -279,7 +279,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $this->assertCount(0, $models);
         $this->assertInstanceOf(LengthAwarePaginator::class, $models);
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return 2;
         });
         $models = EloquentTestUser::oldest('id')->paginate(2);
@@ -331,7 +331,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         EloquentTestUser::create($secondParams = ['id' => 2, 'email' => 'abigailotwell@gmail.com']);
         EloquentTestUser::create(['id' => 3, 'email' => 'foo@gmail.com']);
 
-        CursorPaginator::currentCursorResolver(function () {
+        CursorPaginator::currentCursorResolver( static function () {
             return null;
         });
         $models = EloquentTestUser::oldest('id')->cursorPaginate(2);
@@ -345,7 +345,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $this->assertTrue($models->hasMorePages());
         $this->assertTrue($models->hasPages());
 
-        CursorPaginator::currentCursorResolver(function () use ($secondParams) {
+        CursorPaginator::currentCursorResolver( static function () use ($secondParams) {
             return new Cursor($secondParams);
         });
         $models = EloquentTestUser::oldest('id')->cursorPaginate(2);
@@ -364,7 +364,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         EloquentTestUser::create(['id' => 2, 'email' => 'abigailotwell@gmail.com']);
         EloquentTestUser::create($thirdParams = ['id' => 3, 'email' => 'foo@gmail.com']);
 
-        CursorPaginator::currentCursorResolver(function () use ($thirdParams) {
+        CursorPaginator::currentCursorResolver( static function () use ($thirdParams) {
             return new Cursor($thirdParams, false);
         });
         $models = EloquentTestUser::oldest('id')->cursorPaginate(2);
@@ -381,7 +381,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
     public function testCursorPaginatedModelCollectionRetrievalWhenNoElements()
     {
-        CursorPaginator::currentCursorResolver(function () {
+        CursorPaginator::currentCursorResolver( static function () {
             return null;
         });
         $models = EloquentTestUser::oldest('id')->cursorPaginate(2);
@@ -389,7 +389,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $this->assertCount(0, $models);
         $this->assertInstanceOf(CursorPaginator::class, $models);
 
-        Paginator::currentPageResolver(function () {
+        Paginator::currentPageResolver( static function () {
             return new Cursor(['id' => 1]);
         });
         $models = EloquentTestUser::oldest('id')->cursorPaginate(2);
@@ -756,7 +756,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $user = EloquentTestUser::create(['email' => 'taylorotwell@gmail.com']);
         $user->friends()->create(['email' => 'abigailotwell@gmail.com']);
 
-        $results = EloquentTestUser::whereHas('friends', function ($query) {
+        $results = EloquentTestUser::whereHas('friends', static function ($query) {
             $query->where('email', 'abigailotwell@gmail.com');
         })->get();
 
@@ -782,7 +782,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $friend = $user->friends()->create(['email' => 'abigailotwell@gmail.com']);
         $friend->friends()->create(['email' => 'foo@gmail.com']);
 
-        $results = EloquentTestUser::whereHas('friends.friends', function ($query) {
+        $results = EloquentTestUser::whereHas('friends.friends', static function ($query) {
             $query->where('email', 'foo@gmail.com');
         })->get();
 
@@ -838,7 +838,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $parentPost = EloquentTestPost::create(['name' => 'Parent Post', 'user_id' => 1]);
         EloquentTestPost::create(['name' => 'Child Post', 'parent_id' => $parentPost->id, 'user_id' => 2]);
 
-        $results = EloquentTestPost::whereHas('parentPost', function ($query) {
+        $results = EloquentTestPost::whereHas('parentPost', static function ($query) {
             $query->where('name', 'Parent Post');
         })->get();
 
@@ -864,7 +864,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $parentPost = EloquentTestPost::create(['name' => 'Parent Post', 'parent_id' => $grandParentPost->id, 'user_id' => 2]);
         EloquentTestPost::create(['name' => 'Child Post', 'parent_id' => $parentPost->id, 'user_id' => 3]);
 
-        $results = EloquentTestPost::whereHas('parentPost.parentPost', function ($query) {
+        $results = EloquentTestPost::whereHas('parentPost.parentPost', static function ($query) {
             $query->where('name', 'Grandparent Post');
         })->get();
 
@@ -888,7 +888,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $parentPost = EloquentTestPost::create(['name' => 'Parent Post', 'user_id' => 1]);
         EloquentTestPost::create(['name' => 'Child Post', 'parent_id' => $parentPost->id, 'user_id' => 2]);
 
-        $results = EloquentTestPost::whereHas('childPosts', function ($query) {
+        $results = EloquentTestPost::whereHas('childPosts', static function ($query) {
             $query->where('name', 'Child Post');
         })->get();
 
@@ -914,7 +914,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
         $parentPost = EloquentTestPost::create(['name' => 'Parent Post', 'parent_id' => $grandParentPost->id, 'user_id' => 2]);
         EloquentTestPost::create(['name' => 'Child Post', 'parent_id' => $parentPost->id, 'user_id' => 3]);
 
-        $results = EloquentTestPost::whereHas('childPosts.childPosts', function ($query) {
+        $results = EloquentTestPost::whereHas('childPosts.childPosts', static function ($query) {
             $query->where('name', 'Child Post');
         })->get();
 
@@ -1707,7 +1707,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingUser::withoutTouching(function () use ($post) {
+        EloquentTouchingUser::withoutTouching( static function () use ($post) {
             $post->touch();
         });
 
@@ -1734,7 +1734,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingUser::withoutTouching(function () use ($post) {
+        EloquentTouchingUser::withoutTouching( static function () use ($post) {
             $post->update(['name' => 'Updated']);
         });
 
@@ -1754,7 +1754,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        Model::withoutTouching(function () use ($post) {
+        Model::withoutTouching( static function () use ($post) {
             $post->update(['name' => 'Updated']);
         });
 
@@ -1774,7 +1774,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingUser::withoutTouching(function () use ($post) {
+        EloquentTouchingUser::withoutTouching( static function () use ($post) {
             $post->delete();
         });
 
@@ -1793,7 +1793,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingUser::withoutTouching(function () {
+        EloquentTouchingUser::withoutTouching( static function () {
             EloquentTouchingComment::create(['content' => 'Comment content', 'post_id' => 1]);
         });
 
@@ -1813,7 +1813,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingPost::withoutTouching(function () {
+        EloquentTouchingPost::withoutTouching( static function () {
             EloquentTouchingComment::create(['content' => 'Comment content', 'post_id' => 1]);
         });
 
@@ -1833,8 +1833,8 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        EloquentTouchingUser::withoutTouching(function () {
-            EloquentTouchingPost::withoutTouching(function () {
+        EloquentTouchingUser::withoutTouching( static function () {
+            EloquentTouchingPost::withoutTouching( static function () {
                 EloquentTouchingComment::create(['content' => 'Comment content', 'post_id' => 1]);
             });
         });
@@ -1855,7 +1855,7 @@ class DatabaseEloquentIntegrationTest extends TestCase
 
         Carbon::setTestNow($future = $before->copy()->addDays(3));
 
-        Model::withoutTouchingOn([EloquentTouchingUser::class, EloquentTouchingPost::class], function () {
+        Model::withoutTouchingOn([EloquentTouchingUser::class, EloquentTouchingPost::class], static function () {
             EloquentTouchingComment::create(['content' => 'Comment content', 'post_id' => 1]);
         });
 
@@ -2047,7 +2047,7 @@ class EloquentTestUserWithGlobalScope extends EloquentTestUser
     {
         parent::boot();
 
-        static::addGlobalScope(function ($builder) {
+        static::addGlobalScope( static function ($builder) {
             $builder->with('posts');
         });
     }
@@ -2059,7 +2059,7 @@ class EloquentTestUserWithOmittingGlobalScope extends EloquentTestUser
     {
         parent::boot();
 
-        static::addGlobalScope(function ($builder) {
+        static::addGlobalScope( static function ($builder) {
             $builder->where('email', '!=', 'taylorotwell@gmail.com');
         });
     }
@@ -2075,7 +2075,7 @@ class EloquentTestUserWithGlobalScopeRemovingOtherScope extends Eloquent
 
     public static function boot()
     {
-        static::addGlobalScope(function ($builder) {
+        static::addGlobalScope( static function ($builder) {
             $builder->withoutGlobalScope(SoftDeletingScope::class);
         });
 

@@ -36,7 +36,7 @@ class EloquentMassPrunableTest extends DatabaseTestCase
             'mass_prunable_soft_delete_test_models',
             'mass_prunable_test_model_missing_prunable_methods',
         ])->each(function ($table) {
-            Schema::create($table, function (Blueprint $table) {
+            Schema::create($table, static function (Blueprint $table) {
                 $table->increments('id');
                 $table->softDeletes();
                 $table->boolean('pruned')->default(false);

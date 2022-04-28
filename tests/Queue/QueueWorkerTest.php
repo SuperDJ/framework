@@ -350,7 +350,7 @@ class QueueWorkerTest extends TestCase
 
         $worker2->setName('myworker');
 
-        Worker::popUsing('myworker', function ($pop) {
+        Worker::popUsing('myworker', static function ($pop) {
             return $pop('custom');
         });
 
@@ -379,7 +379,7 @@ class QueueWorkerTest extends TestCase
             new WorkerFakeManager($connectionName, new WorkerFakeConnection($jobs)),
             $this->events,
             $this->exceptionHandler,
-            $isInMaintenanceMode ?? function () {
+            $isInMaintenanceMode ?? static function () {
                 return false;
             },
         ];
@@ -494,7 +494,7 @@ class WorkerFakeJob implements QueueJobContract
 
     public function __construct($callback = null)
     {
-        $this->callback = $callback ?: function () {
+        $this->callback = $callback ?: static function () {
             //
         };
     }

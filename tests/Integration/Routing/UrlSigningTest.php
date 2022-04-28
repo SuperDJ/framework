@@ -22,7 +22,7 @@ class UrlSigningTest extends TestCase
 
     public function testSigningUrl()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -32,7 +32,7 @@ class UrlSigningTest extends TestCase
 
     public function testSigningUrlWithCustomRouteSlug()
     {
-        Route::get('/foo/{post:slug}', function (Request $request, $slug) {
+        Route::get('/foo/{post:slug}', static function (Request $request, $slug) {
             return ['slug' => $slug, 'valid' => $request->hasValidSignature() ? 'valid' : 'invalid'];
         })->name('foo');
 
@@ -46,7 +46,7 @@ class UrlSigningTest extends TestCase
 
     public function testTemporarySignedUrls()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -63,7 +63,7 @@ class UrlSigningTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('reserved');
 
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -72,7 +72,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithUrlWithoutSignatureParameter()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -81,7 +81,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithNullParameter()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -91,7 +91,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithEmptyStringParameter()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -101,7 +101,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithMultipleParameters()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -111,7 +111,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithSignatureTextInKeyOrValue()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -121,7 +121,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlWithAppendedNullParameterInvalid()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -131,7 +131,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedUrlParametersParsedCorrectly()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature()
                 && intval($id) === 1
                 && $request->has('paramEmpty')
@@ -151,7 +151,7 @@ class UrlSigningTest extends TestCase
 
     public function testExceptedParametersCanBeAddedInAnyOrder()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignatureWhileIgnoring(['one', 'two', 'three']) ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -166,7 +166,7 @@ class UrlSigningTest extends TestCase
     public function testUnusualExceptedParametersWorksAsExpexted()
     {
         $this->withoutExceptionHandling();
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignatureWhileIgnoring(['']) ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -176,7 +176,7 @@ class UrlSigningTest extends TestCase
 
         $this->assertSame('valid', $this->get($url)->original);
 
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignatureWhileIgnoring(['*', '[a-z]+']) ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -189,7 +189,7 @@ class UrlSigningTest extends TestCase
 
     public function testExceptedParameterCanBeAPrefixOrSuffixOfAnotherParameter()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignatureWhileIgnoring(['pre', 'fix']) ? 'valid' : 'invalid';
         })->name('foo');
 
@@ -203,7 +203,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedMiddleware()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo')->middleware(ValidateSignature::class);
 
@@ -214,7 +214,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedMiddlewareWithInvalidUrl()
     {
-        Route::get('/foo/{id}', function (Request $request, $id) {
+        Route::get('/foo/{id}', static function (Request $request, $id) {
             return $request->hasValidSignature() ? 'valid' : 'invalid';
         })->name('foo')->middleware(ValidateSignature::class);
 
@@ -231,7 +231,7 @@ class UrlSigningTest extends TestCase
         $model = new RoutableInterfaceStub;
         $model->routable = 'routable';
 
-        Route::get('/foo/{bar}', function (Request $request, $routable) {
+        Route::get('/foo/{bar}', static function (Request $request, $routable) {
             return $request->hasValidSignature() ? $routable : 'invalid';
         })->name('foo');
 
@@ -241,7 +241,7 @@ class UrlSigningTest extends TestCase
 
     public function testSignedMiddlewareWithRelativePath()
     {
-        Route::get('/foo/relative', function (Request $request) {
+        Route::get('/foo/relative', static function (Request $request) {
             return $request->hasValidSignature($absolute = false) ? 'valid' : 'invalid';
         })->name('foo')->middleware('signed:relative');
 

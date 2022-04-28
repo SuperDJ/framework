@@ -23,7 +23,7 @@ class QueueRedisQueueTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -44,7 +44,7 @@ class QueueRedisQueueTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -54,7 +54,7 @@ class QueueRedisQueueTest extends TestCase
         $redis->shouldReceive('connection')->once()->andReturn($redis);
         $redis->shouldReceive('eval')->once()->with(LuaScripts::push(), 2, 'queues:default', 'queues:default:notify', json_encode(['uuid' => $uuid, 'displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'maxExceptions' => null, 'failOnTimeout' => false, 'backoff' => null, 'timeout' => null, 'data' => ['data'], 'custom' => 'taylor', 'id' => 'foo', 'attempts' => 0]));
 
-        Queue::createPayloadUsing(function ($connection, $queue, $payload) {
+        Queue::createPayloadUsing( static function ($connection, $queue, $payload) {
             return ['custom' => 'taylor'];
         });
 
@@ -71,7 +71,7 @@ class QueueRedisQueueTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -81,11 +81,11 @@ class QueueRedisQueueTest extends TestCase
         $redis->shouldReceive('connection')->once()->andReturn($redis);
         $redis->shouldReceive('eval')->once()->with(LuaScripts::push(), 2, 'queues:default', 'queues:default:notify', json_encode(['uuid' => $uuid, 'displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'maxExceptions' => null, 'failOnTimeout' => false, 'backoff' => null, 'timeout' => null, 'data' => ['data'], 'custom' => 'taylor', 'bar' => 'foo', 'id' => 'foo', 'attempts' => 0]));
 
-        Queue::createPayloadUsing(function ($connection, $queue, $payload) {
+        Queue::createPayloadUsing( static function ($connection, $queue, $payload) {
             return ['custom' => 'taylor'];
         });
 
-        Queue::createPayloadUsing(function ($connection, $queue, $payload) {
+        Queue::createPayloadUsing( static function ($connection, $queue, $payload) {
             return ['bar' => 'foo'];
         });
 
@@ -102,7 +102,7 @@ class QueueRedisQueueTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 
@@ -129,7 +129,7 @@ class QueueRedisQueueTest extends TestCase
     {
         $uuid = Str::uuid();
 
-        Str::createUuidsUsing(function () use ($uuid) {
+        Str::createUuidsUsing( static function () use ($uuid) {
             return $uuid;
         });
 

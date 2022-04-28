@@ -176,7 +176,7 @@ class CacheEventsTest extends TestCase
 
     protected function assertEventMatches($eventClass, $properties = [])
     {
-        return m::on(function ($event) use ($eventClass, $properties) {
+        return m::on( static function ($event) use ($eventClass, $properties) {
             if (! $event instanceof $eventClass) {
                 return false;
             }

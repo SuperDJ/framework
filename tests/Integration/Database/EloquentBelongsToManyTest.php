@@ -24,28 +24,28 @@ class EloquentBelongsToManyTest extends DatabaseTestCase
 
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('uuid');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('uuid');
             $table->string('title');
             $table->timestamps();
         });
 
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('tags', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('type')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('users_posts', function (Blueprint $table) {
+        Schema::create('users_posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_uuid');
             $table->string('post_uuid');
@@ -53,7 +53,7 @@ class EloquentBelongsToManyTest extends DatabaseTestCase
             $table->timestamps();
         });
 
-        Schema::create('posts_tags', function (Blueprint $table) {
+        Schema::create('posts_tags', static function (Blueprint $table) {
             $table->integer('post_id');
             $table->integer('tag_id')->default(0);
             $table->string('tag_name')->default('')->nullable();
@@ -1166,7 +1166,7 @@ class User extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating( static function ($model) {
             $model->setAttribute('uuid', Str::random());
         });
     }
@@ -1198,7 +1198,7 @@ class Post extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating( static function ($model) {
             $model->setAttribute('uuid', Str::random());
         });
     }
@@ -1331,7 +1331,7 @@ class TagWithGlobalScope extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(function ($query) {
+        static::addGlobalScope( static function ($query) {
             $query->select('tags.id');
         });
     }

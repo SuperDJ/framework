@@ -14,7 +14,7 @@ class ResponseTest extends TestCase
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Malformed UTF-8 characters, possibly incorrectly encoded');
 
-        Route::get('/response', function () {
+        Route::get('/response', static function () {
             return (new Response())->setContent(new class implements JsonSerializable
             {
                 public function jsonSerialize(): string

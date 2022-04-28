@@ -12,7 +12,7 @@ class EloquentModelImmutableDateCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model_immutable', function (Blueprint $table) {
+        Schema::create('test_model_immutable', static function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_field')->nullable();
             $table->datetime('datetime_field')->nullable();

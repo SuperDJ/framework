@@ -14,7 +14,7 @@ class FulltextTest extends PostgresTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('articles', static function (Blueprint $table) {
             $table->id('id');
             $table->string('title', 200);
             $table->text('body');

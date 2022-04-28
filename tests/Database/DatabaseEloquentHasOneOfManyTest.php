@@ -109,7 +109,7 @@ class DatabaseEloquentHasOneOfManyTest extends TestCase
 
     public function testGlobalScopeIsNotAppliedWhenRelationIsDefinedWithoutGlobalScope()
     {
-        HasOneOfManyTestLogin::addGlobalScope('test', function ($query) {
+        HasOneOfManyTestLogin::addGlobalScope('test', static function ($query) {
             $query->orderBy('id');
         });
 
@@ -118,13 +118,13 @@ class DatabaseEloquentHasOneOfManyTest extends TestCase
         $relation->addEagerConstraints([$user]);
         $this->assertSame('select "logins".* from "logins" inner join (select MAX("logins"."id") as "id_aggregate", "logins"."user_id" from "logins" where "logins"."user_id" = ? and "logins"."user_id" is not null and "logins"."user_id" in (1) group by "logins"."user_id") as "latestOfMany" on "latestOfMany"."id_aggregate" = "logins"."id" and "latestOfMany"."user_id" = "logins"."user_id" where "logins"."user_id" = ? and "logins"."user_id" is not null', $relation->getQuery()->toSql());
 
-        HasOneOfManyTestLogin::addGlobalScope('test', function ($query) {
+        HasOneOfManyTestLogin::addGlobalScope('test', static function ($query) {
         });
     }
 
     public function testGlobalScopeIsNotAppliedWhenRelationIsDefinedWithoutGlobalScopeWithComplexQuery()
     {
-        HasOneOfManyTestPrice::addGlobalScope('test', function ($query) {
+        HasOneOfManyTestPrice::addGlobalScope('test', static function ($query) {
             $query->orderBy('id');
         });
 
@@ -132,7 +132,7 @@ class DatabaseEloquentHasOneOfManyTest extends TestCase
         $relation = $user->price_without_global_scope();
         $this->assertSame('select "prices".* from "prices" inner join (select max("prices"."id") as "id_aggregate", "prices"."user_id" from "prices" inner join (select max("prices"."published_at") as "published_at_aggregate", "prices"."user_id" from "prices" where "published_at" < ? and "prices"."user_id" = ? and "prices"."user_id" is not null group by "prices"."user_id") as "price_without_global_scope" on "price_without_global_scope"."published_at_aggregate" = "prices"."published_at" and "price_without_global_scope"."user_id" = "prices"."user_id" where "published_at" < ? group by "prices"."user_id") as "price_without_global_scope" on "price_without_global_scope"."id_aggregate" = "prices"."id" and "price_without_global_scope"."user_id" = "prices"."user_id" where "prices"."user_id" = ? and "prices"."user_id" is not null', $relation->getQuery()->toSql());
 
-        HasOneOfManyTestPrice::addGlobalScope('test', function ($query) {
+        HasOneOfManyTestPrice::addGlobalScope('test', static function ($query) {
         });
     }
 
@@ -256,12 +256,12 @@ class DatabaseEloquentHasOneOfManyTest extends TestCase
         $previousLogin = $user->logins()->create();
         $latestLogin = $user->logins()->create();
 
-        $found = HasOneOfManyTestUser::whereHas('latest_login', function ($query) use ($latestLogin) {
+        $found = HasOneOfManyTestUser::whereHas('latest_login', static function ($query) use ($latestLogin) {
             $query->where('logins.id', $latestLogin->id);
         })->exists();
         $this->assertTrue($found);
 
-        $found = HasOneOfManyTestUser::whereHas('latest_login', function ($query) use ($previousLogin) {
+        $found = HasOneOfManyTestUser::whereHas('latest_login', static function ($query) use ($previousLogin) {
             $query->where('logins.id', $previousLogin->id);
         })->exists();
         $this->assertFalse($found);

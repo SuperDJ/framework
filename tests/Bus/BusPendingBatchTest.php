@@ -37,9 +37,9 @@ class BusPendingBatchTest extends TestCase
 
         $pendingBatch = new PendingBatch($container, new Collection([$job]));
 
-        $pendingBatch = $pendingBatch->then(function () {
+        $pendingBatch = $pendingBatch->then( static function () {
             //
-        })->catch(function () {
+        })->catch( static function () {
             //
         })->allowFailures()->onConnection('test-connection')->onQueue('test-queue')->withOption('extra-option', 123);
 

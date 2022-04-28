@@ -287,7 +287,7 @@ class CacheRepositoryTest extends TestCase
     public function testRegisterMacroWithNonStaticCall()
     {
         $repo = $this->getRepository();
-        $repo::macro(__CLASS__, function () {
+        $repo::macro(__CLASS__, static function () {
             return 'Taylor';
         });
         $this->assertSame('Taylor', $repo->{__CLASS__}());

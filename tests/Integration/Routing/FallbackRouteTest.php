@@ -9,11 +9,11 @@ class FallbackRouteTest extends TestCase
 {
     public function testBasicFallback()
     {
-        Route::fallback(function () {
+        Route::fallback( static function () {
             return response('fallback', 404);
         });
 
-        Route::get('one', function () {
+        Route::get('one', static function () {
             return 'one';
         });
 
@@ -24,12 +24,12 @@ class FallbackRouteTest extends TestCase
 
     public function testFallbackWithPrefix()
     {
-        Route::group(['prefix' => 'prefix'], function () {
-            Route::fallback(function () {
+        Route::group(['prefix' => 'prefix'], static function () {
+            Route::fallback( static function () {
                 return response('fallback', 404);
             });
 
-            Route::get('one', function () {
+            Route::get('one', static function () {
                 return 'one';
             });
         });
@@ -42,15 +42,15 @@ class FallbackRouteTest extends TestCase
 
     public function testFallbackWithWildcards()
     {
-        Route::fallback(function () {
+        Route::fallback( static function () {
             return response('fallback', 404);
         });
 
-        Route::get('one', function () {
+        Route::get('one', static function () {
             return 'one';
         });
 
-        Route::get('{any}', function () {
+        Route::get('{any}', static function () {
             return 'wildcard';
         })->where('any', '.*');
 
@@ -61,7 +61,7 @@ class FallbackRouteTest extends TestCase
 
     public function testNoRoutes()
     {
-        Route::fallback(function () {
+        Route::fallback( static function () {
             return response('fallback', 404);
         });
 
@@ -71,11 +71,11 @@ class FallbackRouteTest extends TestCase
 
     public function testRespondWithNamedFallbackRoute()
     {
-        Route::fallback(function () {
+        Route::fallback( static function () {
             return response('fallback', 404);
         })->name('testFallbackRoute');
 
-        Route::get('one', function () {
+        Route::get('one', static function () {
             return Route::respondWithRoute('testFallbackRoute');
         });
 
@@ -85,7 +85,7 @@ class FallbackRouteTest extends TestCase
 
     public function testNoFallbacks()
     {
-        Route::get('one', function () {
+        Route::get('one', static function () {
             return 'one';
         });
 

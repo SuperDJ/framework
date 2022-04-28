@@ -12,14 +12,14 @@ class EloquentCursorPaginateTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_posts', function (Blueprint $table) {
+        Schema::create('test_posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('test_users', function ($table) {
+        Schema::create('test_users', static function ($table) {
             $table->increments('id');
             $table->timestamps();
         });

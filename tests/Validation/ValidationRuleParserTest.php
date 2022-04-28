@@ -17,13 +17,13 @@ class ValidationRuleParserTest extends TestCase
             'password' => Rule::when(true, 'required|min:2'),
             'username' => ['required', Rule::when(true, ['min:2'])],
             'address' => ['required', Rule::when(false, ['min:2'])],
-            'city' => ['required', Rule::when(function (Fluent $input) {
+            'city' => ['required', Rule::when( static function (Fluent $input) {
                 return true;
             }, ['min:2'])],
-            'state' => ['required', Rule::when(true, function (Fluent $input) {
+            'state' => ['required', Rule::when(true, static function (Fluent $input) {
                 return 'min:2';
             })],
-            'zip' => ['required', Rule::when(false, [], function (Fluent $input) {
+            'zip' => ['required', Rule::when(false, [], static function (Fluent $input) {
                 return ['min:2'];
             })],
         ]);
@@ -284,7 +284,7 @@ class ValidationRuleParserTest extends TestCase
         ]));
 
         $rules = [
-            'items.*' => Rule::forEach(function () {
+            'items.*' => Rule::forEach( static function () {
                 return ['discounts.*.id' => 'distinct'];
             }),
         ];

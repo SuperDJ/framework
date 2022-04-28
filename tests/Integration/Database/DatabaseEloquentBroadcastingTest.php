@@ -20,7 +20,7 @@ class DatabaseEloquentBroadcastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_eloquent_broadcasting_users', function (Blueprint $table) {
+        Schema::create('test_eloquent_broadcasting_users', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->softDeletes();
@@ -36,7 +36,7 @@ class DatabaseEloquentBroadcastingTest extends DatabaseTestCase
         $model->name = 'Taylor';
         $model->save();
 
-        Event::assertDispatched(function (BroadcastableModelEventOccurred $event) {
+        Event::assertDispatched( static function (BroadcastableModelEventOccurred $event) {
             return $event->model instanceof TestEloquentBroadcastUser
                     && count($event->broadcastOn()) === 1
                     && $event->model->name === 'Taylor'
@@ -61,7 +61,7 @@ class DatabaseEloquentBroadcastingTest extends DatabaseTestCase
 
         $model->delete();
 
-        Event::assertDispatched(function (BroadcastableModelEventOccurred $event) {
+        Event::assertDispatched( static function (BroadcastableModelEventOccurred $event) {
             return $event->model instanceof SoftDeletableTestEloquentBroadcastUser
                 && $event->event() == 'trashed'
                 && count($event->broadcastOn()) === 1
@@ -78,7 +78,7 @@ class DatabaseEloquentBroadcastingTest extends DatabaseTestCase
         $model->name = 'James';
         $model->save();
 
-        Event::assertDispatched(function (BroadcastableModelEventOccurred $event) {
+        Event::assertDispatched( static function (BroadcastableModelEventOccurred $event) {
             return $event->model instanceof TestEloquentBroadcastUserOnSpecificEventsOnly
                 && $event->event() == 'created'
                 && count($event->broadcastOn()) === 1
@@ -89,7 +89,7 @@ class DatabaseEloquentBroadcastingTest extends DatabaseTestCase
         $model->name = 'Graham';
         $model->save();
 
-        Event::assertNotDispatched(function (BroadcastableModelEventOccurred $event) {
+        Event::assertNotDispatched( static function (BroadcastableModelEventOccurred $event) {
             return $event->model instanceof TestEloquentBroadcastUserOnSpecificEventsOnly
                 && $event->model->name === 'Graham'
                 && $event->event() == 'updated';

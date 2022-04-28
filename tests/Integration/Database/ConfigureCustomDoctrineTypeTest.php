@@ -46,15 +46,15 @@ class ConfigureCustomDoctrineTypeTest extends DatabaseTestCase
             $this->markTestSkipped('Test requires a Postgres connection.');
         }
 
-        Grammar::macro('typeXml', function () {
+        Grammar::macro('typeXml', static function () {
             return 'xml';
         });
 
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->addColumn('xml', 'test_column');
         });
 
-        Schema::table('test', function (Blueprint $table) {
+        Schema::table('test', static function (Blueprint $table) {
             $table->renameColumn('test_column', 'renamed_column');
         });
 
@@ -68,15 +68,15 @@ class ConfigureCustomDoctrineTypeTest extends DatabaseTestCase
             $this->markTestSkipped('Test requires a MySQL connection.');
         }
 
-        Grammar::macro('typeBit', function () {
+        Grammar::macro('typeBit', static function () {
             return 'bit';
         });
 
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->addColumn('bit', 'test_column');
         });
 
-        Schema::table('test', function (Blueprint $table) {
+        Schema::table('test', static function (Blueprint $table) {
             $table->renameColumn('test_column', 'renamed_column');
         });
 

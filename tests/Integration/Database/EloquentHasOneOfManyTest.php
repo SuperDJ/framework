@@ -10,11 +10,11 @@ class EloquentHasOneOfManyTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function ($table) {
+        Schema::create('users', static function ($table) {
             $table->id();
         });
 
-        Schema::create('logins', function ($table) {
+        Schema::create('logins', static function ($table) {
             $table->id();
             $table->foreignId('user_id');
         });

@@ -9,7 +9,7 @@ class SimpleRouteTest extends TestCase
 {
     public function testSimpleRouteThroughTheFramework()
     {
-        Route::get('/', function () {
+        Route::get('/', static function () {
             return 'Hello World';
         });
 

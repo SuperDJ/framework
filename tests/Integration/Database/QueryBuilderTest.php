@@ -14,7 +14,7 @@ class QueryBuilderTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->text('content');
@@ -106,7 +106,7 @@ class QueryBuilderTest extends DatabaseTestCase
     {
         $this->assertSame(
             'Fake Post',
-            DB::table(function ($query) {
+            DB::table( static function ($query) {
                 $query->selectRaw("'Fake Post' as title");
             }, 'posts')->first()->title
         );

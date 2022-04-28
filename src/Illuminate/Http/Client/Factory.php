@@ -154,7 +154,7 @@ class Factory
         $this->recorded = [];
 
         if (is_null($callback)) {
-            $callback = function () {
+            $callback = static function () {
                 return static::response();
             };
         }
@@ -271,7 +271,7 @@ class Factory
         $this->assertSentCount(count($callbacks));
 
         foreach ($callbacks as $index => $url) {
-            $callback = is_callable($url) ? $url : function ($request) use ($url) {
+            $callback = is_callable($url) ? $url : static function ($request) use ($url) {
                 return $request->url() == $url;
             };
 
@@ -347,7 +347,7 @@ class Factory
             return collect();
         }
 
-        $callback = $callback ?: function () {
+        $callback = $callback ?: static function () {
             return true;
         };
 

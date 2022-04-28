@@ -12,17 +12,17 @@ class EloquentMorphConstrainTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('post_visible');
         });
 
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('videos', static function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('video_visible');
         });
 
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('commentable_type');
             $table->integer('commentable_id');

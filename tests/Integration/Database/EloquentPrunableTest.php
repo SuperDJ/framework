@@ -22,7 +22,7 @@ class EloquentPrunableTest extends DatabaseTestCase
             'prunable_test_model_missing_prunable_methods',
             'prunable_with_custom_prune_method_test_models',
         ])->each(function ($table) {
-            Schema::create($table, function (Blueprint $table) {
+            Schema::create($table, static function (Blueprint $table) {
                 $table->increments('id');
                 $table->softDeletes();
                 $table->boolean('pruned')->default(false);

@@ -114,7 +114,7 @@ class DatabaseEloquentHasManyThroughIntegrationTest extends TestCase
     public function testWhereHasOnARelationWithCustomIntermediateAndLocalKey()
     {
         $this->seedData();
-        $country = HasManyThroughIntermediateTestCountry::whereHas('posts', function ($query) {
+        $country = HasManyThroughIntermediateTestCountry::whereHas('posts', static function ($query) {
             $query->where('title', 'A title');
         })->get();
 

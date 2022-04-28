@@ -28,11 +28,11 @@ class TimestampTypeTest extends DatabaseTestCase
 
     public function testChangeDatetimeColumnToTimestampColumn()
     {
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->addColumn('datetime', 'datetime_to_timestamp');
         });
 
-        Schema::table('test', function (Blueprint $table) {
+        Schema::table('test', static function (Blueprint $table) {
             $table->timestamp('datetime_to_timestamp')->nullable(true)->change();
         });
 
@@ -45,11 +45,11 @@ class TimestampTypeTest extends DatabaseTestCase
 
     public function testChangeTimestampColumnToDatetimeColumn()
     {
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('test', static function (Blueprint $table) {
             $table->addColumn('timestamp', 'timestamp_to_datetime');
         });
 
-        Schema::table('test', function (Blueprint $table) {
+        Schema::table('test', static function (Blueprint $table) {
             $table->dateTime('timestamp_to_datetime')->nullable(true)->change();
         });
 

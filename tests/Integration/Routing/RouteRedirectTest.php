@@ -37,15 +37,15 @@ class RouteRedirectTest extends TestCase
 
     public function testToRouteHelper()
     {
-        Route::get('to', function () {
+        Route::get('to', static function () {
             // ..
         })->name('to');
 
-        Route::get('from-301', function () {
+        Route::get('from-301', static function () {
             return to_route('to', [], 301);
         });
 
-        Route::get('from-302', function () {
+        Route::get('from-302', static function () {
             return to_route('to');
         });
 

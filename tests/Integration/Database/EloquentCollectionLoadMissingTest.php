@@ -12,37 +12,37 @@ class EloquentCollectionLoadMissingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->increments('id');
         });
 
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
         });
 
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('post_id');
         });
 
-        Schema::create('revisions', function (Blueprint $table) {
+        Schema::create('revisions', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('comment_id');
         });
 
-        Schema::create('post_relations', function (Blueprint $table) {
+        Schema::create('post_relations', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('post_id');
         });
 
-        Schema::create('post_sub_relations', function (Blueprint $table) {
+        Schema::create('post_sub_relations', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('post_relation_id');
         });
 
-        Schema::create('post_sub_sub_relations', function (Blueprint $table) {
+        Schema::create('post_sub_sub_relations', static function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('post_sub_relation_id');
         });

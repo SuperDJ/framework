@@ -67,7 +67,7 @@ class QueueSyncQueueTest extends TestCase
         $container->bind(\Illuminate\Contracts\Container\Container::class, \Illuminate\Container\Container::class);
         $sync->setContainer($container);
 
-        SyncQueue::createPayloadUsing(function ($connection, $queue, $payload) {
+        SyncQueue::createPayloadUsing( static function ($connection, $queue, $payload) {
             return ['data' => ['extra' => 'extraValue']];
         });
 

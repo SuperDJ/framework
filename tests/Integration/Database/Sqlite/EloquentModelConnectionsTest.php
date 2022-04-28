@@ -33,12 +33,12 @@ class EloquentModelConnectionsTest extends TestCase
 
     protected function defineDatabaseMigrations()
     {
-        Schema::create('parent', function (Blueprint $table) {
+        Schema::create('parent', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
         });
 
-        Schema::create('child', function (Blueprint $table) {
+        Schema::create('child', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('parent_id');

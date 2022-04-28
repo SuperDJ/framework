@@ -250,7 +250,7 @@ class Builder
      */
     public function create($table, Closure $callback)
     {
-        $this->build(tap($this->createBlueprint($table), function ($blueprint) use ($callback) {
+        $this->build(tap($this->createBlueprint($table), static function ($blueprint) use ($callback) {
             $blueprint->create();
 
             $callback($blueprint);
@@ -265,7 +265,7 @@ class Builder
      */
     public function drop($table)
     {
-        $this->build(tap($this->createBlueprint($table), function ($blueprint) {
+        $this->build(tap($this->createBlueprint($table), static function ($blueprint) {
             $blueprint->drop();
         }));
     }
@@ -278,7 +278,7 @@ class Builder
      */
     public function dropIfExists($table)
     {
-        $this->build(tap($this->createBlueprint($table), function ($blueprint) {
+        $this->build(tap($this->createBlueprint($table), static function ($blueprint) {
             $blueprint->dropIfExists();
         }));
     }
@@ -354,7 +354,7 @@ class Builder
      */
     public function rename($from, $to)
     {
-        $this->build(tap($this->createBlueprint($from), function ($blueprint) use ($to) {
+        $this->build(tap($this->createBlueprint($from), static function ($blueprint) use ($to) {
             $blueprint->rename($to);
         }));
     }

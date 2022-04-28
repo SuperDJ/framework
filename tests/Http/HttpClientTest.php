@@ -1019,7 +1019,7 @@ class HttpClientTest extends TestCase
     {
         $dumped = [];
 
-        VarDumper::setHandler(function ($value) use (&$dumped) {
+        VarDumper::setHandler( static function ($value) use (&$dumped) {
             $dumped[] = $value;
         });
 
@@ -1212,7 +1212,7 @@ class HttpClientTest extends TestCase
 
     public function testRequestIsMacroable()
     {
-        Request::macro('customMethod', function () {
+        Request::macro('customMethod', static function () {
             return 'yes!';
         });
 

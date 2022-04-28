@@ -30,7 +30,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testBeforeCanTakeAnArrayCallbackAsObject()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -41,7 +41,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testBeforeCanTakeAnArrayCallbackAsObjectStatic()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -52,7 +52,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testBeforeCanTakeAnArrayCallbackWithStaticMethod()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -63,7 +63,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testBeforeCanAllowGuests()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -76,7 +76,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testAfterCanAllowGuests()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -89,7 +89,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testClosuresCanAllowGuestUsers()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -109,7 +109,7 @@ class AuthAccessGateTest extends TestCase
     {
         unset($_SERVER['__laravel.testBefore']);
 
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -133,7 +133,7 @@ class AuthAccessGateTest extends TestCase
     {
         $_SERVER['__laravel.testBefore'] = false;
 
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -153,7 +153,7 @@ class AuthAccessGateTest extends TestCase
         $_SERVER['__laravel.gateAfter'] = false;
         $_SERVER['__laravel.gateAfter2'] = false;
 
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 
@@ -244,7 +244,7 @@ class AuthAccessGateTest extends TestCase
         $gate->define('foo', function ($user) {
             return true;
         });
-        $gate->before(function () {
+        $gate->before( static function () {
             //
         });
 
@@ -1074,7 +1074,7 @@ class AuthAccessGateTest extends TestCase
 
     public function testClassesCanBeDefinedAsCallbacksUsingAtNotationForGuests()
     {
-        $gate = new Gate(new Container, function () {
+        $gate = new Gate(new Container, static function () {
             //
         });
 

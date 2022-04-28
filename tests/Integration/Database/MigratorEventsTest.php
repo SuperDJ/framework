@@ -41,29 +41,29 @@ class MigratorEventsTest extends TestCase
         $this->artisan('migrate', $this->migrateOptions());
         $this->artisan('migrate:rollback', $this->migrateOptions());
 
-        Event::assertDispatched(MigrationsStarted::class, function ($event) {
+        Event::assertDispatched(MigrationsStarted::class, static function ($event) {
             return $event->method === 'up';
         });
-        Event::assertDispatched(MigrationsStarted::class, function ($event) {
+        Event::assertDispatched(MigrationsStarted::class, static function ($event) {
             return $event->method === 'down';
         });
-        Event::assertDispatched(MigrationsEnded::class, function ($event) {
+        Event::assertDispatched(MigrationsEnded::class, static function ($event) {
             return $event->method === 'up';
         });
-        Event::assertDispatched(MigrationsEnded::class, function ($event) {
+        Event::assertDispatched(MigrationsEnded::class, static function ($event) {
             return $event->method === 'down';
         });
 
-        Event::assertDispatched(MigrationStarted::class, function ($event) {
+        Event::assertDispatched(MigrationStarted::class, static function ($event) {
             return $event->method === 'up' && $event->migration instanceof Migration;
         });
-        Event::assertDispatched(MigrationStarted::class, function ($event) {
+        Event::assertDispatched(MigrationStarted::class, static function ($event) {
             return $event->method === 'down' && $event->migration instanceof Migration;
         });
-        Event::assertDispatched(MigrationEnded::class, function ($event) {
+        Event::assertDispatched(MigrationEnded::class, static function ($event) {
             return $event->method === 'up' && $event->migration instanceof Migration;
         });
-        Event::assertDispatched(MigrationEnded::class, function ($event) {
+        Event::assertDispatched(MigrationEnded::class, static function ($event) {
             return $event->method === 'down' && $event->migration instanceof Migration;
         });
     }
@@ -75,10 +75,10 @@ class MigratorEventsTest extends TestCase
         $this->artisan('migrate');
         $this->artisan('migrate:rollback');
 
-        Event::assertDispatched(NoPendingMigrations::class, function ($event) {
+        Event::assertDispatched(NoPendingMigrations::class, static function ($event) {
             return $event->method === 'up';
         });
-        Event::assertDispatched(NoPendingMigrations::class, function ($event) {
+        Event::assertDispatched(NoPendingMigrations::class, static function ($event) {
             return $event->method === 'down';
         });
     }

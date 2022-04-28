@@ -11,12 +11,12 @@ class EloquentMorphOneIsTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', static function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
 
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('attachments', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('attachable_type')->nullable();
             $table->integer('attachable_id')->nullable();

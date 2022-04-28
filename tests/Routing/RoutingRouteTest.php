@@ -186,7 +186,7 @@ class RoutingRouteTest extends TestCase
     public function testClosureMiddleware()
     {
         $router = $this->getRouter();
-        $middleware = function ($request, $next) {
+        $middleware = static function ($request, $next) {
             return 'caught';
         };
         $router->get('foo/bar', ['middleware' => $middleware, function () {
@@ -223,7 +223,7 @@ class RoutingRouteTest extends TestCase
     {
         // Before calling controller
         $router = $this->getRouter();
-        $middleware = function ($request, $next) {
+        $middleware = static function ($request, $next) {
             return 'caught';
         };
         $router->get('foo/bar', ['middleware' => $middleware, function () {
@@ -475,7 +475,7 @@ class RoutingRouteTest extends TestCase
             return $router;
         });
 
-        $container->bind(RoutingTestUserModel::class, function () {
+        $container->bind(RoutingTestUserModel::class, static function () {
         });
 
         $router->get('foo/{team}/{post}', [
@@ -541,7 +541,7 @@ class RoutingRouteTest extends TestCase
 
     public function testNonGreedyMatches()
     {
-        $route = new Route('GET', 'images/{id}.{ext}', function () {
+        $route = new Route('GET', 'images/{id}.{ext}', static function () {
             //
         });
 
@@ -560,7 +560,7 @@ class RoutingRouteTest extends TestCase
         $this->assertSame('png', $route->parameter('ext'));
 
         // Test parameter() default value
-        $route = new Route('GET', 'foo/{foo?}', function () {
+        $route = new Route('GET', 'foo/{foo?}', static function () {
             //
         });
 
@@ -694,13 +694,13 @@ class RoutingRouteTest extends TestCase
          * Basic
          */
         $request = Request::create('foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', function () {
+        $route = new Route('GET', 'foo/{bar}', static function () {
             //
         });
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/bar', 'GET');
-        $route = new Route('GET', 'foo', function () {
+        $route = new Route('GET', 'foo', static function () {
             //
         });
         $this->assertFalse($route->matches($request));
@@ -709,13 +709,13 @@ class RoutingRouteTest extends TestCase
          * Method checks
          */
         $request = Request::create('foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', function () {
+        $route = new Route('GET', 'foo/{bar}', static function () {
             //
         });
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/bar', 'POST');
-        $route = new Route('GET', 'foo', function () {
+        $route = new Route('GET', 'foo', static function () {
             //
         });
         $this->assertFalse($route->matches($request));
@@ -724,13 +724,13 @@ class RoutingRouteTest extends TestCase
          * Domain checks
          */
         $request = Request::create('http://something.foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['domain' => '{foo}.foo.com', function () {
+        $route = new Route('GET', 'foo/{bar}', ['domain' => '{foo}.foo.com', static function () {
             //
         }]);
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('http://something.bar.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['domain' => '{foo}.foo.com', function () {
+        $route = new Route('GET', 'foo/{bar}', ['domain' => '{foo}.foo.com', static function () {
             //
         }]);
         $this->assertFalse($route->matches($request));
@@ -739,19 +739,19 @@ class RoutingRouteTest extends TestCase
          * HTTPS checks
          */
         $request = Request::create('https://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['https', function () {
+        $route = new Route('GET', 'foo/{bar}', ['https', static function () {
             //
         }]);
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('https://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['https', 'baz' => true, function () {
+        $route = new Route('GET', 'foo/{bar}', ['https', 'baz' => true, static function () {
             //
         }]);
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('http://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['https', function () {
+        $route = new Route('GET', 'foo/{bar}', ['https', static function () {
             //
         }]);
         $this->assertFalse($route->matches($request));
@@ -760,19 +760,19 @@ class RoutingRouteTest extends TestCase
          * HTTP checks
          */
         $request = Request::create('https://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['http', function () {
+        $route = new Route('GET', 'foo/{bar}', ['http', static function () {
             //
         }]);
         $this->assertFalse($route->matches($request));
 
         $request = Request::create('http://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['http', function () {
+        $route = new Route('GET', 'foo/{bar}', ['http', static function () {
             //
         }]);
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('http://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['baz' => true, function () {
+        $route = new Route('GET', 'foo/{bar}', ['baz' => true, static function () {
             //
         }]);
         $this->assertTrue($route->matches($request));
@@ -781,35 +781,35 @@ class RoutingRouteTest extends TestCase
     public function testWherePatternsProperlyFilter()
     {
         $request = Request::create('foo/123', 'GET');
-        $route = new Route('GET', 'foo/{bar}', function () {
+        $route = new Route('GET', 'foo/{bar}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123abc', 'GET');
-        $route = new Route('GET', 'foo/{bar}', function () {
+        $route = new Route('GET', 'foo/{bar}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
         $this->assertFalse($route->matches($request));
 
         $request = Request::create('foo/123abc', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '[0-9]+'], function () {
+        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '[0-9]+'], static function () {
             //
         }]);
         $route->where('bar', '[0-9]+');
         $this->assertFalse($route->matches($request));
 
         $request = Request::create('foo/123', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '123|456'], function () {
+        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '123|456'], static function () {
             //
         }]);
         $route->where('bar', '123|456');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123abc', 'GET');
-        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '123|456'], function () {
+        $route = new Route('GET', 'foo/{bar}', ['where' => ['bar' => '123|456'], static function () {
             //
         }]);
         $route->where('bar', '123|456');
@@ -819,35 +819,35 @@ class RoutingRouteTest extends TestCase
          * Optional
          */
         $request = Request::create('foo/123', 'GET');
-        $route = new Route('GET', 'foo/{bar?}', function () {
+        $route = new Route('GET', 'foo/{bar?}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123', 'GET');
-        $route = new Route('GET', 'foo/{bar?}', ['where' => ['bar' => '[0-9]+'], function () {
+        $route = new Route('GET', 'foo/{bar?}', ['where' => ['bar' => '[0-9]+'], static function () {
             //
         }]);
         $route->where('bar', '[0-9]+');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123', 'GET');
-        $route = new Route('GET', 'foo/{bar?}/{baz?}', function () {
+        $route = new Route('GET', 'foo/{bar?}/{baz?}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123/foo', 'GET');
-        $route = new Route('GET', 'foo/{bar?}/{baz?}', function () {
+        $route = new Route('GET', 'foo/{bar?}/{baz?}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
         $this->assertTrue($route->matches($request));
 
         $request = Request::create('foo/123abc', 'GET');
-        $route = new Route('GET', 'foo/{bar?}', function () {
+        $route = new Route('GET', 'foo/{bar?}', static function () {
             //
         });
         $route->where('bar', '[0-9]+');
@@ -856,7 +856,7 @@ class RoutingRouteTest extends TestCase
 
     public function testRoutePrefixParameterParsing()
     {
-        $route = new Route('GET', '/foo', ['prefix' => 'profiles/{user:username}/portfolios', 'uses' => function () {
+        $route = new Route('GET', '/foo', ['prefix' => 'profiles/{user:username}/portfolios', 'uses' => static function () {
             //
         }]);
 
@@ -865,7 +865,7 @@ class RoutingRouteTest extends TestCase
 
     public function testDotDoesNotMatchEverything()
     {
-        $route = new Route('GET', 'images/{id}.{ext}', function () {
+        $route = new Route('GET', 'images/{id}.{ext}', static function () {
             //
         });
 
@@ -1515,7 +1515,7 @@ class RoutingRouteTest extends TestCase
         });
 
         $request = Request::create('http://foo.com/foo/bar', 'GET');
-        $route = new Route('GET', 'foo/bar', ['http', function () {
+        $route = new Route('GET', 'foo/bar', ['http', static function () {
             //
         }]);
 

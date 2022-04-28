@@ -281,7 +281,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
         });
 
         $this->assertEnumeratesOnce(function ($collection) {
-            $collection->each(function ($value, $key) {
+            $collection->each( static function ($value, $key) {
                 // Silence is golden!
             });
         });
@@ -314,7 +314,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
         });
 
         $this->assertEnumeratesCollectionOnce($data, function ($collection) {
-            $collection->eachSpread(function ($first, $second, $key) {
+            $collection->eachSpread( static function ($first, $second, $key) {
                 // Silence is golden!
             });
         });
@@ -768,7 +768,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testPipeDoesNotEnumerate()
     {
         $this->assertDoesNotEnumerate(function ($collection) {
-            $collection->pipe(function () {
+            $collection->pipe( static function () {
                 // Silence is golden!
             });
         });
@@ -1302,7 +1302,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testTapDoesNotEnumerate()
     {
         $this->assertDoesNotEnumerate(function ($collection) {
-            $collection->tap(function ($collection) {
+            $collection->tap( static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1311,13 +1311,13 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testTapEachIsLazy()
     {
         $this->assertDoesNotEnumerate(function ($collection) {
-            $collection->tapEach(function ($value) {
+            $collection->tapEach( static function ($value) {
                 // Silence is golden!
             });
         });
 
         $this->assertEnumeratesOnce(function ($collection) {
-            $collection->tapEach(function ($value) {
+            $collection->tapEach( static function ($value) {
                 // Silence is golden!
             })->all();
         });
@@ -1382,11 +1382,11 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testUnlessDoesNotEnumerate()
     {
         $this->assertDoesNotEnumerate(function ($collection) {
-            $collection->unless(true, function ($collection) {
+            $collection->unless(true, static function ($collection) {
                 // Silence is golden!
             });
 
-            $collection->unless(false, function ($collection) {
+            $collection->unless(false, static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1395,7 +1395,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testUnlessEmptyIsLazy()
     {
         $this->assertEnumerates(1, function ($collection) {
-            $collection->unlessEmpty(function ($collection) {
+            $collection->unlessEmpty( static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1404,7 +1404,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testUnlessNotEmptyIsLazy()
     {
         $this->assertEnumerates(1, function ($collection) {
-            $collection->unlessNotEmpty(function ($collection) {
+            $collection->unlessNotEmpty( static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1431,11 +1431,11 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testWhenDoesNotEnumerate()
     {
         $this->assertDoesNotEnumerate(function ($collection) {
-            $collection->when(true, function ($collection) {
+            $collection->when(true, static function ($collection) {
                 // Silence is golden!
             });
 
-            $collection->when(false, function ($collection) {
+            $collection->when(false, static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1444,7 +1444,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testWhenEmptyIsLazy()
     {
         $this->assertEnumerates(1, function ($collection) {
-            $collection->whenEmpty(function ($collection) {
+            $collection->whenEmpty( static function ($collection) {
                 // Silence is golden!
             });
         });
@@ -1453,7 +1453,7 @@ class SupportLazyCollectionIsLazyTest extends TestCase
     public function testWhenNotEmptyIsLazy()
     {
         $this->assertEnumerates(1, function ($collection) {
-            $collection->whenNotEmpty(function ($collection) {
+            $collection->whenNotEmpty( static function ($collection) {
                 // Silence is golden!
             });
         });

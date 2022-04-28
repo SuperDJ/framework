@@ -109,7 +109,7 @@ class DatabaseEloquentHasOneThroughIntegrationTest extends TestCase
     public function testWhereHasOnARelationWithCustomIntermediateAndLocalKey()
     {
         $this->seedData();
-        $position = HasOneThroughIntermediateTestPosition::whereHas('contract', function ($query) {
+        $position = HasOneThroughIntermediateTestPosition::whereHas('contract', static function ($query) {
             $query->where('title', 'A title');
         })->get();
 

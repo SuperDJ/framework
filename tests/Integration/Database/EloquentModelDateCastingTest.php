@@ -13,7 +13,7 @@ class EloquentModelDateCastingTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('test_model1', function (Blueprint $table) {
+        Schema::create('test_model1', static function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_field')->nullable();
             $table->datetime('datetime_field')->nullable();

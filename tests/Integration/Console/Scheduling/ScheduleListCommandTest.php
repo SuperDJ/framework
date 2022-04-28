@@ -16,7 +16,7 @@ class ScheduleListCommandTest extends TestCase
         parent::setUp();
 
         Carbon::setTestNow(now()->startOfYear());
-        ScheduleListCommand::resolveTerminalWidthUsing(fn () => 80);
+        ScheduleListCommand::resolveTerminalWidthUsing( static fn () => 80);
 
         $this->schedule = $this->app->make(Schedule::class);
     }

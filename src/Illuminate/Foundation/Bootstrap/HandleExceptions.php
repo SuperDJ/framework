@@ -101,7 +101,7 @@ class HandleExceptions
 
         $this->ensureDeprecationLoggerIsConfigured();
 
-        with($logger->channel('deprecations'), function ($log) use ($message, $file, $line) {
+        with($logger->channel('deprecations'), static function ($log) use ($message, $file, $line) {
             $log->warning(sprintf('%s in %s on line %s',
                 $message, $file, $line
             ));
@@ -135,7 +135,7 @@ class HandleExceptions
      */
     protected function ensureNullLogDriverIsConfigured()
     {
-        with(static::$app['config'], function ($config) {
+        with(static::$app['config'], static function ($config) {
             if ($config->get('logging.channels.null')) {
                 return;
             }

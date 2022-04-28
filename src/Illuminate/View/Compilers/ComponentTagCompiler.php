@@ -347,7 +347,7 @@ class ComponentTagCompiler
      */
     public function formatClassName(string $component)
     {
-        $componentPieces = array_map(function ($componentPiece) {
+        $componentPieces = array_map( static function ($componentPiece) {
             return ucfirst(Str::camel($componentPiece));
         }, explode('.', $component));
 

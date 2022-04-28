@@ -2980,7 +2980,7 @@ class ValidationValidatorTest extends TestCase
         $this->assertTrue($v->passes());
 
         $trans = $this->getIlluminateArrayTranslator();
-        $closure = function () {
+        $closure = static function () {
             //
         };
         $v = new Validator($trans, [['email' => 'foo', 'type' => 'bar']], [

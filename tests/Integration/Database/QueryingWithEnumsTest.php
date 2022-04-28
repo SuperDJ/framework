@@ -17,7 +17,7 @@ class QueryingWithEnumsTest extends DatabaseTestCase
 {
     protected function defineDatabaseMigrationsAfterDatabaseRefreshed()
     {
-        Schema::create('enum_casts', function (Blueprint $table) {
+        Schema::create('enum_casts', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('string_status', 100)->nullable();
             $table->integer('integer_status')->nullable();
