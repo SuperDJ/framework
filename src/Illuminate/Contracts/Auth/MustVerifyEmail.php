@@ -9,26 +9,26 @@ interface MustVerifyEmail
      *
      * @return bool
      */
-    public function hasVerifiedEmail();
+    public function hasVerifiedEmail(): bool;
 
     /**
      * Mark the given user's email as verified.
      *
      * @return bool
      */
-    public function markEmailAsVerified();
+    public function markEmailAsVerified(): bool;
 
     /**
      * Send the email verification notification.
      *
      * @return void
      */
-    public function sendEmailVerificationNotification();
+    public function sendEmailVerificationNotification(): void;
 
     /**
      * Get the email address that should be used for verification.
      *
      * @return string
      */
-    public function getEmailForVerification();
+    public function getEmailForVerification(): string;
 }

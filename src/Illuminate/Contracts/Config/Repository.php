@@ -10,7 +10,7 @@ interface Repository
      * @param  string  $key
      * @return bool
      */
-    public function has($key);
+    public function has(string $key): bool;
 
     /**
      * Get the specified configuration value.
@@ -19,14 +19,14 @@ interface Repository
      * @param  mixed  $default
      * @return mixed
      */
-    public function get($key, $default = null);
+    public function get(array|string $key, mixed $default = null): mixed;
 
     /**
      * Get all of the configuration items for the application.
      *
      * @return array
      */
-    public function all();
+    public function all(): array;
 
     /**
      * Set a given configuration value.
@@ -35,7 +35,7 @@ interface Repository
      * @param  mixed  $value
      * @return void
      */
-    public function set($key, $value = null);
+    public function set(array|string $key, mixed $value = null): void;
 
     /**
      * Prepend a value onto an array configuration value.
@@ -44,7 +44,7 @@ interface Repository
      * @param  mixed  $value
      * @return void
      */
-    public function prepend($key, $value);
+    public function prepend(string $key, mixed $value): void;
 
     /**
      * Push a value onto an array configuration value.
@@ -53,5 +53,5 @@ interface Repository
      * @param  mixed  $value
      * @return void
      */
-    public function push($key, $value);
+    public function push(string $key, mixed $value): void;
 }

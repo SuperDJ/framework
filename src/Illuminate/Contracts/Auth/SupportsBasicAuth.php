@@ -11,7 +11,7 @@ interface SupportsBasicAuth
      * @param  array  $extraConditions
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-    public function basic($field = 'email', $extraConditions = []);
+    public function basic(string $field = 'email', array $extraConditions = []): \Symfony\Component\HttpFoundation\Response|null;
 
     /**
      * Perform a stateless HTTP Basic login attempt.
@@ -20,5 +20,5 @@ interface SupportsBasicAuth
      * @param  array  $extraConditions
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-    public function onceBasic($field = 'email', $extraConditions = []);
+    public function onceBasic(string $field = 'email', array $extraConditions = []): \Symfony\Component\HttpFoundation\Response|null;
 }

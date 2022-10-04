@@ -10,5 +10,5 @@ interface Factory
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Cache\Repository
      */
-    public function store($name = null);
+    public function store(string|null $name = null): \Illuminate\Contracts\Cache\Repository;
 }

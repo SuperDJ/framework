@@ -9,7 +9,7 @@ interface Kernel
      *
      * @return void
      */
-    public function bootstrap();
+    public function bootstrap(): void;
 
     /**
      * Handle an incoming console command.
@@ -18,7 +18,7 @@ interface Kernel
      * @param  \Symfony\Component\Console\Output\OutputInterface|null  $output
      * @return int
      */
-    public function handle($input, $output = null);
+    public function handle(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface|null $output = null): int;
 
     /**
      * Run an Artisan console command by name.
@@ -28,7 +28,7 @@ interface Kernel
      * @param  \Symfony\Component\Console\Output\OutputInterface|null  $outputBuffer
      * @return int
      */
-    public function call($command, array $parameters = [], $outputBuffer = null);
+    public function call(string $command, array $parameters = [], \Symfony\Component\Console\Output\OutputInterface|null $outputBuffer = null): int;
 
     /**
      * Queue an Artisan console command by name.
@@ -37,21 +37,21 @@ interface Kernel
      * @param  array  $parameters
      * @return \Illuminate\Foundation\Bus\PendingDispatch
      */
-    public function queue($command, array $parameters = []);
+    public function queue(string $command, array $parameters = []): \Illuminate\Foundation\Bus\PendingDispatch;
 
     /**
      * Get all of the commands registered with the console.
      *
      * @return array
      */
-    public function all();
+    public function all(): array;
 
     /**
      * Get the output for the last run command.
      *
      * @return string
      */
-    public function output();
+    public function output(): string;
 
     /**
      * Terminate the application.
@@ -60,5 +60,5 @@ interface Kernel
      * @param  int  $status
      * @return void
      */
-    public function terminate($input, $status);
+    public function terminate(\Symfony\Component\Console\Input\InputInterface $input, int $status): void;
 }

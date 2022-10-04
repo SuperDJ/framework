@@ -10,7 +10,7 @@ interface QueueingFactory extends Factory
      * @param  array  $parameters
      * @return void
      */
-    public function queue(...$parameters);
+    public function queue(array ...$parameters): void;
 
     /**
      * Remove a cookie from the queue.
@@ -19,12 +19,12 @@ interface QueueingFactory extends Factory
      * @param  string|null  $path
      * @return void
      */
-    public function unqueue($name, $path = null);
+    public function unqueue(string $name, string|null $path = null): void;
 
     /**
      * Get the cookies which have been queued for the next request.
      *
      * @return array
      */
-    public function getQueuedCookies();
+    public function getQueuedCookies(): array;
 }

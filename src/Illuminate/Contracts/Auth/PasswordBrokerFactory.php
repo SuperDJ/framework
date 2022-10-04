@@ -10,5 +10,5 @@ interface PasswordBrokerFactory
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    public function broker($name = null);
+    public function broker(string|null $name = null): \Illuminate\Contracts\Auth\PasswordBroker;
 }

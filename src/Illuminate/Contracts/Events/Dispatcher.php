@@ -11,7 +11,7 @@ interface Dispatcher
      * @param  \Closure|string|array|null  $listener
      * @return void
      */
-    public function listen($events, $listener = null);
+    public function listen(\Closure|string|array $events, \Closure|string|array|null $listener = null): void;
 
     /**
      * Determine if a given event has listeners.
@@ -19,7 +19,7 @@ interface Dispatcher
      * @param  string  $eventName
      * @return bool
      */
-    public function hasListeners($eventName);
+    public function hasListeners(string $eventName): bool;
 
     /**
      * Register an event subscriber with the dispatcher.
@@ -27,7 +27,7 @@ interface Dispatcher
      * @param  object|string  $subscriber
      * @return void
      */
-    public function subscribe($subscriber);
+    public function subscribe(object|string $subscriber): void;
 
     /**
      * Dispatch an event until the first non-null response is returned.
@@ -36,7 +36,7 @@ interface Dispatcher
      * @param  mixed  $payload
      * @return array|null
      */
-    public function until($event, $payload = []);
+    public function until(string|object $event, mixed $payload = []): array|null;
 
     /**
      * Dispatch an event and call the listeners.
@@ -46,7 +46,7 @@ interface Dispatcher
      * @param  bool  $halt
      * @return array|null
      */
-    public function dispatch($event, $payload = [], $halt = false);
+    public function dispatch(string|object $event, mixed $payload = [], bool $halt = false): array|null;
 
     /**
      * Register an event and payload to be fired later.
@@ -55,7 +55,7 @@ interface Dispatcher
      * @param  array  $payload
      * @return void
      */
-    public function push($event, $payload = []);
+    public function push(string $event, array $payload = []): void;
 
     /**
      * Flush a set of pushed events.
@@ -63,7 +63,7 @@ interface Dispatcher
      * @param  string  $event
      * @return void
      */
-    public function flush($event);
+    public function flush(string $event): void;
 
     /**
      * Remove a set of listeners from the dispatcher.
@@ -71,12 +71,12 @@ interface Dispatcher
      * @param  string  $event
      * @return void
      */
-    public function forget($event);
+    public function forget(string $event): void;
 
     /**
      * Forget all of the queued listeners.
      *
      * @return void
      */
-    public function forgetPushed();
+    public function forgetPushed(): void;
 }

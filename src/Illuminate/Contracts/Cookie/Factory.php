@@ -18,7 +18,7 @@ interface Factory
      * @param  string|null  $sameSite
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    public function make($name, $value, $minutes = 0, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null);
+    public function make(string $name, string $value, int $minutes = 0, string|null $path = null, string|null $domain = null, bool|null $secure = null, bool $httpOnly = true, bool $raw = false, string|null $sameSite = null): \Symfony\Component\HttpFoundation\Cookie;
 
     /**
      * Create a cookie that lasts "forever" (five years).
@@ -33,7 +33,7 @@ interface Factory
      * @param  string|null  $sameSite
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    public function forever($name, $value, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null);
+    public function forever(string $name, string $value, string|null $path = null, string|null $domain = null, bool|null $secure = null, bool $httpOnly = true, bool $raw = false, string|null $sameSite = null): \Symfony\Component\HttpFoundation\Cookie;
 
     /**
      * Expire the given cookie.
@@ -43,5 +43,5 @@ interface Factory
      * @param  string|null  $domain
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    public function forget($name, $path = null, $domain = null);
+    public function forget(string $name, string|null $path = null, string|null $domain = null): \Symfony\Component\HttpFoundation\Cookie;
 }

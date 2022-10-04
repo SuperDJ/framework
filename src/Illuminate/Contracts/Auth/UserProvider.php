@@ -10,7 +10,7 @@ interface UserProvider
      * @param  mixed  $identifier
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function retrieveById($identifier);
+    public function retrieveById(mixed $identifier): \Illuminate\Contracts\Auth\Authenticatable|null;
 
     /**
      * Retrieve a user by their unique identifier and "remember me" token.
@@ -19,7 +19,7 @@ interface UserProvider
      * @param  string  $token
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function retrieveByToken($identifier, $token);
+    public function retrieveByToken(mixed $identifier, string $token): \Illuminate\Contracts\Auth\Authenticatable|null;
 
     /**
      * Update the "remember me" token for the given user in storage.
@@ -28,7 +28,7 @@ interface UserProvider
      * @param  string  $token
      * @return void
      */
-    public function updateRememberToken(Authenticatable $user, $token);
+    public function updateRememberToken(Authenticatable $user, string $token): void;
 
     /**
      * Retrieve a user by the given credentials.
@@ -36,7 +36,7 @@ interface UserProvider
      * @param  array  $credentials
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function retrieveByCredentials(array $credentials);
+    public function retrieveByCredentials(array $credentials): \Illuminate\Contracts\Auth\Authenticatable|null;
 
     /**
      * Validate a user against the given credentials.
@@ -45,5 +45,5 @@ interface UserProvider
      * @param  array  $credentials
      * @return bool
      */
-    public function validateCredentials(Authenticatable $user, array $credentials);
+    public function validateCredentials(Authenticatable $user, array $credentials): bool;
 }

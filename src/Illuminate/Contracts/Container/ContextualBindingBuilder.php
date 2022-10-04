@@ -10,7 +10,7 @@ interface ContextualBindingBuilder
      * @param  string  $abstract
      * @return $this
      */
-    public function needs($abstract);
+    public function needs(string $abstract): self;
 
     /**
      * Define the implementation for the contextual binding.
@@ -18,7 +18,7 @@ interface ContextualBindingBuilder
      * @param  \Closure|string|array  $implementation
      * @return void
      */
-    public function give($implementation);
+    public function give(\Closure|string|array $implementation): void;
 
     /**
      * Define tagged services to be used as the implementation for the contextual binding.
@@ -26,7 +26,7 @@ interface ContextualBindingBuilder
      * @param  string  $tag
      * @return void
      */
-    public function giveTagged($tag);
+    public function giveTagged(string $tag): void;
 
     /**
      * Specify the configuration item to bind as a primitive.
@@ -35,5 +35,5 @@ interface ContextualBindingBuilder
      * @param  mixed  $default
      * @return void
      */
-    public function giveConfig($key, $default = null);
+    public function giveConfig(string $key, mixed $default = null): void;
 }

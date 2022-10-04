@@ -9,5 +9,5 @@ interface Attachable
      *
      * @return \Illuminate\Mail\Attachment
      */
-    public function toMailAttachment();
+    public function toMailAttachment(): \Illuminate\Mail\Attachment;
 }

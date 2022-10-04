@@ -13,5 +13,5 @@ interface CastsInboundAttributes
      * @param  array  $attributes
      * @return mixed
      */
-    public function set($model, string $key, $value, array $attributes);
+    public function set(\Illuminate\Database\Eloquent\Model $model, string $key, mixed $value, array $attributes): mixed;
 }

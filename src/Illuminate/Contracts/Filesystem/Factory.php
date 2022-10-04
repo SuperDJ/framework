@@ -10,5 +10,5 @@ interface Factory
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
-    public function disk($name = null);
+    public function disk(string|null $name = null): \Illuminate\Contracts\Filesystem\Filesystem;
 }

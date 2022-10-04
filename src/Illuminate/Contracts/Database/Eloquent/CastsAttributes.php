@@ -13,7 +13,7 @@ interface CastsAttributes
      * @param  array  $attributes
      * @return mixed
      */
-    public function get($model, string $key, $value, array $attributes);
+    public function get(\Illuminate\Database\Eloquent\Model $model, string $key, mixed $value, array $attributes): mixed;
 
     /**
      * Transform the attribute to its underlying model values.
@@ -24,5 +24,5 @@ interface CastsAttributes
      * @param  array  $attributes
      * @return mixed
      */
-    public function set($model, string $key, $value, array $attributes);
+    public function set(\Illuminate\Database\Eloquent\Model $model, string $key, mixed $value, array $attributes): mixed;
 }

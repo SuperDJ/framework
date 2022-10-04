@@ -13,7 +13,7 @@ interface DeviatesCastableAttributes
      * @param  array  $attributes
      * @return mixed
      */
-    public function increment($model, string $key, $value, array $attributes);
+    public function increment(\Illuminate\Database\Eloquent\Model $model, string $key, mixed $value, array $attributes): mixed;
 
     /**
      * Decrement the attribute.
@@ -24,5 +24,5 @@ interface DeviatesCastableAttributes
      * @param  array  $attributes
      * @return mixed
      */
-    public function decrement($model, string $key, $value, array $attributes);
+    public function decrement(\Illuminate\Database\Eloquent\Model $model, string $key, mixed $value, array $attributes): mixed;
 }

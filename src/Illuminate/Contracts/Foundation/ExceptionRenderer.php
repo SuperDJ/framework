@@ -10,5 +10,5 @@ interface ExceptionRenderer
      * @param  \Throwable  $throwable
      * @return string
      */
-    public function render($throwable);
+    public function render(\Throwable $throwable): string;
 }

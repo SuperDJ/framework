@@ -14,7 +14,7 @@ interface ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function report(Throwable $e);
+    public function report(Throwable $e): void;
 
     /**
      * Determine if the exception should be reported.
@@ -22,7 +22,7 @@ interface ExceptionHandler
      * @param  \Throwable  $e
      * @return bool
      */
-    public function shouldReport(Throwable $e);
+    public function shouldReport(Throwable $e): bool;
 
     /**
      * Render an exception into an HTTP response.
@@ -33,7 +33,7 @@ interface ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $e);
+    public function render(\Illuminate\Http\Request $request, Throwable $e): \Symfony\Component\HttpFoundation\Response;
 
     /**
      * Render an exception to the console.
@@ -44,5 +44,5 @@ interface ExceptionHandler
      *
      * @internal This method is not meant to be used or overwritten outside the framework.
      */
-    public function renderForConsole($output, Throwable $e);
+    public function renderForConsole(\Symfony\Component\Console\Output\OutputInterface $output, Throwable $e): void;
 }

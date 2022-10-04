@@ -11,7 +11,7 @@ interface StatefulGuard extends Guard
      * @param  bool  $remember
      * @return bool
      */
-    public function attempt(array $credentials = [], $remember = false);
+    public function attempt(array $credentials = [], bool $remember = false): bool;
 
     /**
      * Log a user into the application without sessions or cookies.
@@ -19,7 +19,7 @@ interface StatefulGuard extends Guard
      * @param  array  $credentials
      * @return bool
      */
-    public function once(array $credentials = []);
+    public function once(array $credentials = []): bool;
 
     /**
      * Log a user into the application.
@@ -28,7 +28,7 @@ interface StatefulGuard extends Guard
      * @param  bool  $remember
      * @return void
      */
-    public function login(Authenticatable $user, $remember = false);
+    public function login(Authenticatable $user, bool $remember = false): void;
 
     /**
      * Log the given user ID into the application.
@@ -37,7 +37,7 @@ interface StatefulGuard extends Guard
      * @param  bool  $remember
      * @return \Illuminate\Contracts\Auth\Authenticatable|bool
      */
-    public function loginUsingId($id, $remember = false);
+    public function loginUsingId(mixed $id, bool $remember = false): \Illuminate\Contracts\Auth\Authenticatable|bool;
 
     /**
      * Log the given user ID into the application without sessions or cookies.
@@ -45,19 +45,19 @@ interface StatefulGuard extends Guard
      * @param  mixed  $id
      * @return \Illuminate\Contracts\Auth\Authenticatable|bool
      */
-    public function onceUsingId($id);
+    public function onceUsingId(mixed $id): \Illuminate\Contracts\Auth\Authenticatable|bool;
 
     /**
      * Determine if the user was authenticated via "remember me" cookie.
      *
      * @return bool
      */
-    public function viaRemember();
+    public function viaRemember(): bool;
 
     /**
      * Log the user out of the application.
      *
      * @return void
      */
-    public function logout();
+    public function logout(): void;
 }

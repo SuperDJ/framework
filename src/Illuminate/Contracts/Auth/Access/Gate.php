@@ -10,7 +10,7 @@ interface Gate
      * @param  string  $ability
      * @return bool
      */
-    public function has($ability);
+    public function has(string $ability): bool;
 
     /**
      * Define a new ability.
@@ -19,7 +19,7 @@ interface Gate
      * @param  callable|string  $callback
      * @return $this
      */
-    public function define($ability, $callback);
+    public function define(string $ability, callable|string $callback): self;
 
     /**
      * Define abilities for a resource.
@@ -29,7 +29,7 @@ interface Gate
      * @param  array|null  $abilities
      * @return $this
      */
-    public function resource($name, $class, array $abilities = null);
+    public function resource(string $name, string $class, array|null $abilities = null): self;
 
     /**
      * Define a policy class for a given class type.
@@ -38,7 +38,7 @@ interface Gate
      * @param  string  $policy
      * @return $this
      */
-    public function policy($class, $policy);
+    public function policy(string $class, string $policy): self;
 
     /**
      * Register a callback to run before all Gate checks.
@@ -46,7 +46,7 @@ interface Gate
      * @param  callable  $callback
      * @return $this
      */
-    public function before(callable $callback);
+    public function before(callable $callback): self;
 
     /**
      * Register a callback to run after all Gate checks.
@@ -54,7 +54,7 @@ interface Gate
      * @param  callable  $callback
      * @return $this
      */
-    public function after(callable $callback);
+    public function after(callable $callback): self;
 
     /**
      * Determine if the given ability should be granted for the current user.
@@ -63,7 +63,7 @@ interface Gate
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function allows($ability, $arguments = []);
+    public function allows(string $ability, array $arguments = []): bool;
 
     /**
      * Determine if the given ability should be denied for the current user.
@@ -72,7 +72,7 @@ interface Gate
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function denies($ability, $arguments = []);
+    public function denies(string $ability, array $arguments = []): bool;
 
     /**
      * Determine if all of the given abilities should be granted for the current user.
@@ -81,7 +81,7 @@ interface Gate
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function check($abilities, $arguments = []);
+    public function check(iterable|string $abilities, array $arguments = []): bool;
 
     /**
      * Determine if any one of the given abilities should be granted for the current user.
@@ -90,7 +90,7 @@ interface Gate
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function any($abilities, $arguments = []);
+    public function any(iterable|string $abilities, array $arguments = []): bool;
 
     /**
      * Determine if the given ability should be granted for the current user.
@@ -101,7 +101,7 @@ interface Gate
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function authorize($ability, $arguments = []);
+    public function authorize(string $ability, array $arguments = []): \Illuminate\Auth\Access\Response;
 
     /**
      * Inspect the user for the given ability.
@@ -110,7 +110,7 @@ interface Gate
      * @param  array|mixed  $arguments
      * @return \Illuminate\Auth\Access\Response
      */
-    public function inspect($ability, $arguments = []);
+    public function inspect(string $ability, array $arguments = []): \Illuminate\Auth\Access\Response;
 
     /**
      * Get the raw result from the authorization callback.
@@ -121,7 +121,7 @@ interface Gate
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function raw($ability, $arguments = []);
+    public function raw(string $ability, array $arguments = []): mixed;
 
     /**
      * Get a policy instance for a given class.
@@ -131,7 +131,7 @@ interface Gate
      *
      * @throws \InvalidArgumentException
      */
-    public function getPolicyFor($class);
+    public function getPolicyFor(object|string $class): mixed;
 
     /**
      * Get a guard instance for the given user.
@@ -139,12 +139,12 @@ interface Gate
      * @param  \Illuminate\Contracts\Auth\Authenticatable|mixed  $user
      * @return static
      */
-    public function forUser($user);
+    public function forUser(\Illuminate\Contracts\Auth\Authenticatable $user): static;
 
     /**
      * Get all of the defined abilities.
      *
      * @return array
      */
-    public function abilities();
+    public function abilities(): array;
 }

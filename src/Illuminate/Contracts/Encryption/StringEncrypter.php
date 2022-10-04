@@ -12,7 +12,7 @@ interface StringEncrypter
      *
      * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
-    public function encryptString($value);
+    public function encryptString(string $value): string;
 
     /**
      * Decrypt the given string without unserialization.
@@ -22,5 +22,5 @@ interface StringEncrypter
      *
      * @throws \Illuminate\Contracts\Encryption\DecryptException
      */
-    public function decryptString($payload);
+    public function decryptString(string $payload): string;
 }

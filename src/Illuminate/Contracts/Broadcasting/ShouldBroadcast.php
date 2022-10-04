@@ -9,5 +9,5 @@ interface ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]|string[]|string
      */
-    public function broadcastOn();
+    public function broadcastOn(): \Illuminate\Broadcasting\Channel|array|string;
 }

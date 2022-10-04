@@ -10,7 +10,7 @@ interface Hasher
      * @param  string  $hashedValue
      * @return array
      */
-    public function info($hashedValue);
+    public function info(string $hashedValue): array;
 
     /**
      * Hash the given value.
@@ -19,7 +19,7 @@ interface Hasher
      * @param  array  $options
      * @return string
      */
-    public function make($value, array $options = []);
+    public function make(string $value, array $options = []): string;
 
     /**
      * Check the given plain value against a hash.
@@ -29,7 +29,7 @@ interface Hasher
      * @param  array  $options
      * @return bool
      */
-    public function check($value, $hashedValue, array $options = []);
+    public function check(string $value, string $hashedValue, array $options = []): bool;
 
     /**
      * Check if the given hash has been hashed using the given options.
@@ -38,5 +38,5 @@ interface Hasher
      * @param  array  $options
      * @return bool
      */
-    public function needsRehash($hashedValue, array $options = []);
+    public function needsRehash(string $hashedValue, array $options = []): bool;
 }

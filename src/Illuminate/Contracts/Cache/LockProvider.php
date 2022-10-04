@@ -12,7 +12,7 @@ interface LockProvider
      * @param  string|null  $owner
      * @return \Illuminate\Contracts\Cache\Lock
      */
-    public function lock($name, $seconds = 0, $owner = null);
+    public function lock(string $name, int $seconds = 0, string|null $owner = null): \Illuminate\Contracts\Cache\Lock;
 
     /**
      * Restore a lock instance using the owner identifier.
@@ -21,5 +21,5 @@ interface LockProvider
      * @param  string  $owner
      * @return \Illuminate\Contracts\Cache\Lock
      */
-    public function restoreLock($name, $owner);
+    public function restoreLock(string $name, string $owner): \Illuminate\Contracts\Cache\Lock;
 }

@@ -13,7 +13,7 @@ interface Encrypter
      *
      * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
-    public function encrypt($value, $serialize = true);
+    public function encrypt(mixed $value, bool $serialize = true): string;
 
     /**
      * Decrypt the given value.
@@ -24,12 +24,12 @@ interface Encrypter
      *
      * @throws \Illuminate\Contracts\Encryption\DecryptException
      */
-    public function decrypt($payload, $unserialize = true);
+    public function decrypt(string $payload, bool $unserialize = true): mixed;
 
     /**
      * Get the encryption key that the encrypter is currently using.
      *
      * @return string
      */
-    public function getKey();
+    public function getKey(): string;
 }

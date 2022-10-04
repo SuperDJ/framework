@@ -10,7 +10,7 @@ interface Broadcaster
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public function auth($request);
+    public function auth(\Illuminate\Http\Request $request): mixed;
 
     /**
      * Return the valid authentication response.
@@ -19,7 +19,7 @@ interface Broadcaster
      * @param  mixed  $result
      * @return mixed
      */
-    public function validAuthenticationResponse($request, $result);
+    public function validAuthenticationResponse(\Illuminate\Http\Request $request, mixed $result): mixed;
 
     /**
      * Broadcast the given event.
@@ -31,5 +31,5 @@ interface Broadcaster
      *
      * @throws \Illuminate\Broadcasting\BroadcastException
      */
-    public function broadcast(array $channels, $event, array $payload = []);
+    public function broadcast(array $channels, string $event, array $payload = []): void;
 }

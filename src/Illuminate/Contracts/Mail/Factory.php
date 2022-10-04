@@ -10,5 +10,5 @@ interface Factory
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Mail\Mailer
      */
-    public function mailer($name = null);
+    public function mailer(string|null $name = null): \Illuminate\Contracts\Mail\Mailer;
 }

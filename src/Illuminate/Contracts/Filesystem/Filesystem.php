@@ -24,7 +24,7 @@ interface Filesystem
      * @param  string  $path
      * @return bool
      */
-    public function exists($path);
+    public function exists(string $path): bool;
 
     /**
      * Get the contents of a file.
@@ -32,7 +32,7 @@ interface Filesystem
      * @param  string  $path
      * @return string|null
      */
-    public function get($path);
+    public function get(string $path): string|null;
 
     /**
      * Get a resource to read the file.
@@ -40,7 +40,7 @@ interface Filesystem
      * @param  string  $path
      * @return resource|null The path resource or null on failure.
      */
-    public function readStream($path);
+    public function readStream(string $path): string|null;
 
     /**
      * Write the contents of a file.
@@ -50,7 +50,7 @@ interface Filesystem
      * @param  mixed  $options
      * @return bool
      */
-    public function put($path, $contents, $options = []);
+    public function put(string $path, string $contents, mixed $options = []): bool;
 
     /**
      * Write a new file using a stream.
@@ -60,7 +60,7 @@ interface Filesystem
      * @param  array  $options
      * @return bool
      */
-    public function writeStream($path, $resource, array $options = []);
+    public function writeStream(string $path, string $resource, array $options = []): bool;
 
     /**
      * Get the visibility for the given path.
@@ -68,7 +68,7 @@ interface Filesystem
      * @param  string  $path
      * @return string
      */
-    public function getVisibility($path);
+    public function getVisibility(string $path): string;
 
     /**
      * Set the visibility for the given path.
@@ -77,7 +77,7 @@ interface Filesystem
      * @param  string  $visibility
      * @return bool
      */
-    public function setVisibility($path, $visibility);
+    public function setVisibility(string $path, string $visibility): string;
 
     /**
      * Prepend to a file.
@@ -86,7 +86,7 @@ interface Filesystem
      * @param  string  $data
      * @return bool
      */
-    public function prepend($path, $data);
+    public function prepend(string $path, string $data): bool;
 
     /**
      * Append to a file.
@@ -95,7 +95,7 @@ interface Filesystem
      * @param  string  $data
      * @return bool
      */
-    public function append($path, $data);
+    public function append(string $path, string $data): bool;
 
     /**
      * Delete the file at a given path.
@@ -103,7 +103,7 @@ interface Filesystem
      * @param  string|array  $paths
      * @return bool
      */
-    public function delete($paths);
+    public function delete(string|array $paths): bool;
 
     /**
      * Copy a file to a new location.
@@ -112,7 +112,7 @@ interface Filesystem
      * @param  string  $to
      * @return bool
      */
-    public function copy($from, $to);
+    public function copy(string $from, string $to): bool;
 
     /**
      * Move a file to a new location.
@@ -121,7 +121,7 @@ interface Filesystem
      * @param  string  $to
      * @return bool
      */
-    public function move($from, $to);
+    public function move(string $from, string $to): bool;
 
     /**
      * Get the file size of a given file.
@@ -129,7 +129,7 @@ interface Filesystem
      * @param  string  $path
      * @return int
      */
-    public function size($path);
+    public function size(string $path): int;
 
     /**
      * Get the file's last modification time.
@@ -137,7 +137,7 @@ interface Filesystem
      * @param  string  $path
      * @return int
      */
-    public function lastModified($path);
+    public function lastModified(string $path): int;
 
     /**
      * Get an array of all files in a directory.
@@ -146,7 +146,7 @@ interface Filesystem
      * @param  bool  $recursive
      * @return array
      */
-    public function files($directory = null, $recursive = false);
+    public function files(string|null $directory = null, bool $recursive = false): array;
 
     /**
      * Get all of the files from the given directory (recursive).
@@ -154,7 +154,7 @@ interface Filesystem
      * @param  string|null  $directory
      * @return array
      */
-    public function allFiles($directory = null);
+    public function allFiles(string|null $directory = null): array;
 
     /**
      * Get all of the directories within a given directory.
@@ -163,7 +163,7 @@ interface Filesystem
      * @param  bool  $recursive
      * @return array
      */
-    public function directories($directory = null, $recursive = false);
+    public function directories(string|null $directory = null, bool $recursive = false): array;
 
     /**
      * Get all (recursive) of the directories within a given directory.
@@ -171,7 +171,7 @@ interface Filesystem
      * @param  string|null  $directory
      * @return array
      */
-    public function allDirectories($directory = null);
+    public function allDirectories(string|null $directory = null): array;
 
     /**
      * Create a directory.
@@ -179,7 +179,7 @@ interface Filesystem
      * @param  string  $path
      * @return bool
      */
-    public function makeDirectory($path);
+    public function makeDirectory(string $path): bool;
 
     /**
      * Recursively delete a directory.
@@ -187,5 +187,5 @@ interface Filesystem
      * @param  string  $directory
      * @return bool
      */
-    public function deleteDirectory($directory);
+    public function deleteDirectory(string $directory): bool;
 }

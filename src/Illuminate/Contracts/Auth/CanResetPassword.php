@@ -9,7 +9,7 @@ interface CanResetPassword
      *
      * @return string
      */
-    public function getEmailForPasswordReset();
+    public function getEmailForPasswordReset(): string;
 
     /**
      * Send the password reset notification.
@@ -17,5 +17,5 @@ interface CanResetPassword
      * @param  string  $token
      * @return void
      */
-    public function sendPasswordResetNotification($token);
+    public function sendPasswordResetNotification(string $token): void;
 }

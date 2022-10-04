@@ -11,5 +11,5 @@ interface Authorizable
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function can($abilities, $arguments = []);
+    public function can(iterable|string $abilities, array $arguments = []): bool;
 }

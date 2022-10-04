@@ -10,7 +10,7 @@ interface Dispatcher
      * @param  mixed  $command
      * @return mixed
      */
-    public function dispatch($command);
+    public function dispatch(mixed $command): mixed;
 
     /**
      * Dispatch a command to its appropriate handler in the current process.
@@ -21,7 +21,7 @@ interface Dispatcher
      * @param  mixed  $handler
      * @return mixed
      */
-    public function dispatchSync($command, $handler = null);
+    public function dispatchSync(mixed $command, mixed $handler = null): mixed;
 
     /**
      * Dispatch a command to its appropriate handler in the current process.
@@ -30,7 +30,7 @@ interface Dispatcher
      * @param  mixed  $handler
      * @return mixed
      */
-    public function dispatchNow($command, $handler = null);
+    public function dispatchNow(mixed $command, mixed $handler = null): mixed;
 
     /**
      * Determine if the given command has a handler.
@@ -38,7 +38,7 @@ interface Dispatcher
      * @param  mixed  $command
      * @return bool
      */
-    public function hasCommandHandler($command);
+    public function hasCommandHandler(mixed $command): bool;
 
     /**
      * Retrieve the handler for a command.
@@ -46,7 +46,7 @@ interface Dispatcher
      * @param  mixed  $command
      * @return bool|mixed
      */
-    public function getCommandHandler($command);
+    public function getCommandHandler(mixed $command): mixed;
 
     /**
      * Set the pipes commands should be piped through before dispatching.
@@ -54,7 +54,7 @@ interface Dispatcher
      * @param  array  $pipes
      * @return $this
      */
-    public function pipeThrough(array $pipes);
+    public function pipeThrough(array $pipes): self;
 
     /**
      * Map a command to a handler.
@@ -62,5 +62,5 @@ interface Dispatcher
      * @param  array  $map
      * @return $this
      */
-    public function map(array $map);
+    public function map(array $map): self;
 }

@@ -12,12 +12,12 @@ interface Application
      * @param  \Symfony\Component\Console\Output\OutputInterface|null  $outputBuffer
      * @return int
      */
-    public function call($command, array $parameters = [], $outputBuffer = null);
+    public function call(string $command, array $parameters = [], \Symfony\Component\Console\Output\OutputInterface|null $outputBuffer = null): int;
 
     /**
      * Get the output from the last command.
      *
      * @return string
      */
-    public function output();
+    public function output(): string;
 }

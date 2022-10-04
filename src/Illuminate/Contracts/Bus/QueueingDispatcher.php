@@ -10,7 +10,7 @@ interface QueueingDispatcher extends Dispatcher
      * @param  string  $batchId
      * @return \Illuminate\Bus\Batch|null
      */
-    public function findBatch(string $batchId);
+    public function findBatch(string $batchId): \Illuminate\Bus\Batch|null;
 
     /**
      * Create a new batch of queueable jobs.
@@ -18,7 +18,7 @@ interface QueueingDispatcher extends Dispatcher
      * @param  \Illuminate\Support\Collection|array  $jobs
      * @return \Illuminate\Bus\PendingBatch
      */
-    public function batch($jobs);
+    public function batch(\Illuminate\Support\Collection|array $jobs): \Illuminate\Bus\PendingBatch;
 
     /**
      * Dispatch a command to its appropriate handler behind a queue.
@@ -26,5 +26,5 @@ interface QueueingDispatcher extends Dispatcher
      * @param  mixed  $command
      * @return mixed
      */
-    public function dispatchToQueue($command);
+    public function dispatchToQueue(mixed $command): mixed;
 }
