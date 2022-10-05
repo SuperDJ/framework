@@ -167,7 +167,7 @@ interface Application extends Container
      * @param  array  $bootstrappers
      * @return void
      */
-    public function bootstrapWith(array $bootstrappers): ;
+    public function bootstrapWith(array $bootstrappers): void;
 
     /**
      * Get the current application locale.
