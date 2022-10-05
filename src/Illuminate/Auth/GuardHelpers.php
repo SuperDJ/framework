@@ -45,7 +45,7 @@ trait GuardHelpers
      *
      * @return bool
      */
-    public function hasUser()
+    public function hasUser(): bool
     {
         return ! is_null($this->user);
     }
@@ -55,7 +55,7 @@ trait GuardHelpers
      *
      * @return bool
      */
-    public function check()
+    public function check(): bool
     {
         return ! is_null($this->user());
     }
@@ -65,7 +65,7 @@ trait GuardHelpers
      *
      * @return bool
      */
-    public function guest()
+    public function guest(): bool
     {
         return ! $this->check();
     }
@@ -75,7 +75,7 @@ trait GuardHelpers
      *
      * @return int|string|null
      */
-    public function id()
+    public function id(): int|string|null
     {
         if ($this->user()) {
             return $this->user()->getAuthIdentifier();
@@ -88,7 +88,7 @@ trait GuardHelpers
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return void
      */
-    public function setUser(AuthenticatableContract $user)
+    public function setUser(AuthenticatableContract $user): void
     {
         $this->user = $user;
     }

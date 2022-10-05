@@ -59,7 +59,7 @@ class AuthManager implements FactoryContract
      * @param  string|null  $name
      * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function guard($name = null)
+    public function guard(string|null $name = null): \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
     {
         $name = $name ?: $this->getDefaultDriver();
 
@@ -193,10 +193,10 @@ class AuthManager implements FactoryContract
     /**
      * Set the default guard driver the factory should serve.
      *
-     * @param  string  $name
+     * @param string $name
      * @return void
      */
-    public function shouldUse($name)
+    public function shouldUse(string $name): void
     {
         $name = $name ?: $this->getDefaultDriver();
 

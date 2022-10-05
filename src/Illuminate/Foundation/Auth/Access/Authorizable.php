@@ -13,7 +13,7 @@ trait Authorizable
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function can($abilities, $arguments = [])
+    public function can(iterable|string $abilities, array $arguments = []): bool
     {
         return app(Gate::class)->forUser($this)->check($abilities, $arguments);
     }

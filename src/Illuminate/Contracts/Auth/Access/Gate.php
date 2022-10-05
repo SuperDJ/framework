@@ -7,19 +7,19 @@ interface Gate
     /**
      * Determine if a given ability has been defined.
      *
-     * @param  string  $ability
+     * @param  string|array  $ability
      * @return bool
      */
-    public function has(string $ability): bool;
+    public function has(string|array $ability): bool;
 
     /**
      * Define a new ability.
      *
      * @param  string  $ability
-     * @param  callable|string  $callback
+     * @param  callable|array|string  $callback
      * @return $this
      */
-    public function define(string $ability, callable|string $callback): self;
+    public function define(string $ability, callable|array|string $callback): self;
 
     /**
      * Define abilities for a resource.

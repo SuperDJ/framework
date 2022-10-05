@@ -16,7 +16,7 @@ trait Authenticatable
      *
      * @return string
      */
-    public function getAuthIdentifierName()
+    public function getAuthIdentifierName(): string
     {
         return $this->getKeyName();
     }
@@ -26,7 +26,7 @@ trait Authenticatable
      *
      * @return mixed
      */
-    public function getAuthIdentifier()
+    public function getAuthIdentifier(): mixed
     {
         return $this->{$this->getAuthIdentifierName()};
     }
@@ -56,7 +56,7 @@ trait Authenticatable
      *
      * @return string|null
      */
-    public function getRememberToken()
+    public function getRememberToken(): string|null
     {
         if (! empty($this->getRememberTokenName())) {
             return (string) $this->{$this->getRememberTokenName()};
@@ -69,7 +69,7 @@ trait Authenticatable
      * @param  string  $value
      * @return void
      */
-    public function setRememberToken($value)
+    public function setRememberToken($value): void
     {
         if (! empty($this->getRememberTokenName())) {
             $this->{$this->getRememberTokenName()} = $value;
@@ -81,7 +81,7 @@ trait Authenticatable
      *
      * @return string
      */
-    public function getRememberTokenName()
+    public function getRememberTokenName(): string
     {
         return $this->rememberTokenName;
     }

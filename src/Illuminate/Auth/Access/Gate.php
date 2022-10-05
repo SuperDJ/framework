@@ -106,7 +106,7 @@ class Gate implements GateContract
      * @param  string|array  $ability
      * @return bool
      */
-    public function has($ability)
+    public function has(string|array $ability): bool
     {
         $abilities = is_array($ability) ? $ability : func_get_args();
 
@@ -186,7 +186,7 @@ class Gate implements GateContract
      *
      * @throws \InvalidArgumentException
      */
-    public function define($ability, $callback)
+    public function define(string $ability, callable|array|string $callback): self
     {
         if (is_array($callback) && isset($callback[0]) && is_string($callback[0])) {
             $callback = $callback[0].'@'.$callback[1];
@@ -213,7 +213,7 @@ class Gate implements GateContract
      * @param  array|null  $abilities
      * @return $this
      */
-    public function resource($name, $class, array $abilities = null)
+    public function resource(string $name, string $class, array|null $abilities = null): self
     {
         $abilities = $abilities ?: [
             'viewAny' => 'viewAny',
@@ -273,7 +273,7 @@ class Gate implements GateContract
      * @param  string  $policy
      * @return $this
      */
-    public function policy($class, $policy)
+    public function policy(string $class, string $policy): self
     {
         $this->policies[$class] = $policy;
 
@@ -299,7 +299,7 @@ class Gate implements GateContract
      * @param  callable  $callback
      * @return $this
      */
-    public function after(callable $callback)
+    public function before(callable $callback): self
     {
         $this->afterCallbacks[] = $callback;
 
@@ -313,7 +313,7 @@ class Gate implements GateContract
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function allows($ability, $arguments = [])
+    public function allows(string $ability, array $arguments = []): bool
     {
         return $this->check($ability, $arguments);
     }
@@ -325,7 +325,7 @@ class Gate implements GateContract
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function denies($ability, $arguments = [])
+    public function denies(string $ability, array $arguments = []): bool
     {
         return ! $this->allows($ability, $arguments);
     }
@@ -337,7 +337,7 @@ class Gate implements GateContract
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function check($abilities, $arguments = [])
+    public function check(iterable|string $abilities, array $arguments = []): bool
     {
         return collect($abilities)->every(
             fn ($ability) => $this->inspect($ability, $arguments)->allowed()
@@ -351,7 +351,7 @@ class Gate implements GateContract
      * @param  array|mixed  $arguments
      * @return bool
      */
-    public function any($abilities, $arguments = [])
+    public function any(iterable|string $abilities, array $arguments = []): bool
     {
         return collect($abilities)->contains(fn ($ability) => $this->check($ability, $arguments));
     }
@@ -377,7 +377,7 @@ class Gate implements GateContract
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function authorize($ability, $arguments = [])
+    public function authorize(string $ability, array $arguments = []): \Illuminate\Auth\Access\Response
     {
         return $this->inspect($ability, $arguments)->authorize();
     }
@@ -389,7 +389,7 @@ class Gate implements GateContract
      * @param  array|mixed  $arguments
      * @return \Illuminate\Auth\Access\Response
      */
-    public function inspect($ability, $arguments = [])
+    public function inspect(string $ability, array $arguments = []): \Illuminate\Auth\Access\Response
     {
         try {
             $result = $this->raw($ability, $arguments);
@@ -413,7 +413,7 @@ class Gate implements GateContract
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function raw($ability, $arguments = [])
+    public function raw(string $ability, array $arguments = []): mixed
     {
         $arguments = Arr::wrap($arguments);
 
@@ -638,7 +638,7 @@ class Gate implements GateContract
      * @param  object|string  $class
      * @return mixed
      */
-    public function getPolicyFor($class)
+    public function getPolicyFor(object|string $class): mixed
     {
         if (is_object($class)) {
             $class = get_class($class);
@@ -816,7 +816,7 @@ class Gate implements GateContract
      * @param  \Illuminate\Contracts\Auth\Authenticatable|mixed  $user
      * @return static
      */
-    public function forUser($user)
+    public function forUser(\Illuminate\Contracts\Auth\Authenticatable $user): static
     {
         $callback = fn () => $user;
 
@@ -842,7 +842,7 @@ class Gate implements GateContract
      *
      * @return array
      */
-    public function abilities()
+    public function abilities(): array
     {
         return $this->abilities;
     }
