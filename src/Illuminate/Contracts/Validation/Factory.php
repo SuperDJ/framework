@@ -13,7 +13,7 @@ interface Factory
      * @param  array  $customAttributes
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function make(array $data, array $rules, array $messages = [], array $customAttributes = []);
+    public function make(array $data, array $rules, array $messages = [], array $customAttributes = []): \Illuminate\Contracts\Validation\Validator;
 
     /**
      * Register a custom validator extension.
@@ -23,7 +23,7 @@ interface Factory
      * @param  string|null  $message
      * @return void
      */
-    public function extend($rule, $extension, $message = null);
+    public function extend(string $rule, \Closure|string $extension, string|null $message = null): void;
 
     /**
      * Register a custom implicit validator extension.
@@ -33,7 +33,7 @@ interface Factory
      * @param  string|null  $message
      * @return void
      */
-    public function extendImplicit($rule, $extension, $message = null);
+    public function extendImplicit(string $rule, \Closure|string $extension, string|null $message = null): void;
 
     /**
      * Register a custom implicit validator message replacer.
@@ -42,5 +42,5 @@ interface Factory
      * @param  \Closure|string  $replacer
      * @return void
      */
-    public function replacer($rule, $replacer);
+    public function replacer(string $rule, \Closure|string $replacer): void;
 }

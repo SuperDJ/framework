@@ -11,7 +11,7 @@ interface Dispatcher
      * @param  mixed  $notification
      * @return void
      */
-    public function send($notifiables, $notification);
+    public function send(\Illuminate\Support\Collection|array $notifiables, mixed $notification): void;
 
     /**
      * Send the given notification immediately.
@@ -20,5 +20,5 @@ interface Dispatcher
      * @param  mixed  $notification
      * @return void
      */
-    public function sendNow($notifiables, $notification);
+    public function sendNow(\Illuminate\Support\Collection|array $notifiables, mixed $notification): void;
 }

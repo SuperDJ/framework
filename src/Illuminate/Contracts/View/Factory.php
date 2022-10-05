@@ -10,7 +10,7 @@ interface Factory
      * @param  string  $view
      * @return bool
      */
-    public function exists($view);
+    public function exists(string $view): bool;
 
     /**
      * Get the evaluated view contents for the given path.
@@ -20,7 +20,7 @@ interface Factory
      * @param  array  $mergeData
      * @return \Illuminate\Contracts\View\View
      */
-    public function file($path, $data = [], $mergeData = []);
+    public function file(string $path, \Illuminate\Contracts\Support\Arrayable|array $data = [], array $mergeData = []): \Illuminate\Contracts\View\View;
 
     /**
      * Get the evaluated view contents for the given view.
@@ -30,7 +30,7 @@ interface Factory
      * @param  array  $mergeData
      * @return \Illuminate\Contracts\View\View
      */
-    public function make($view, $data = [], $mergeData = []);
+    public function make(string $view, \Illuminate\Contracts\Support\Arrayable|array $data = [], array $mergeData = []): \Illuminate\Contracts\View\View;
 
     /**
      * Add a piece of shared data to the environment.
@@ -39,7 +39,7 @@ interface Factory
      * @param  mixed  $value
      * @return mixed
      */
-    public function share($key, $value = null);
+    public function share(array|string $key, mixed $value = null): mixed;
 
     /**
      * Register a view composer event.
@@ -48,7 +48,7 @@ interface Factory
      * @param  \Closure|string  $callback
      * @return array
      */
-    public function composer($views, $callback);
+    public function composer(array|string $views, \Closure|string $callback): array;
 
     /**
      * Register a view creator event.
@@ -57,7 +57,7 @@ interface Factory
      * @param  \Closure|string  $callback
      * @return array
      */
-    public function creator($views, $callback);
+    public function creator(array|string $views, \Closure|string $callback): array;
 
     /**
      * Add a new namespace to the loader.
@@ -66,7 +66,7 @@ interface Factory
      * @param  string|array  $hints
      * @return $this
      */
-    public function addNamespace($namespace, $hints);
+    public function addNamespace(string $namespace, string|array $hints): self;
 
     /**
      * Replace the namespace hints for the given namespace.
@@ -75,5 +75,5 @@ interface Factory
      * @param  string|array  $hints
      * @return $this
      */
-    public function replaceNamespace($namespace, $hints);
+    public function replaceNamespace(string $namespace, string|array $hints): self;
 }

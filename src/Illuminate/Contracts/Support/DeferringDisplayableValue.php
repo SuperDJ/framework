@@ -9,5 +9,5 @@ interface DeferringDisplayableValue
      *
      * @return \Illuminate\Contracts\Support\Htmlable|string
      */
-    public function resolveDisplayableValue();
+    public function resolveDisplayableValue(): \Illuminate\Contracts\Support\Htmlable|string;
 }

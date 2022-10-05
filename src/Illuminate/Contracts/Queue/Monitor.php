@@ -10,7 +10,7 @@ interface Monitor
      * @param  mixed  $callback
      * @return void
      */
-    public function looping($callback);
+    public function looping(mixed $callback): void;
 
     /**
      * Register a callback to be executed when a job fails after the maximum number of retries.
@@ -18,7 +18,7 @@ interface Monitor
      * @param  mixed  $callback
      * @return void
      */
-    public function failing($callback);
+    public function failing(mixed $callback): void;
 
     /**
      * Register a callback to be executed when a daemon queue is stopping.
@@ -26,5 +26,5 @@ interface Monitor
      * @param  mixed  $callback
      * @return void
      */
-    public function stopping($callback);
+    public function stopping(mixed $callback): void;
 }

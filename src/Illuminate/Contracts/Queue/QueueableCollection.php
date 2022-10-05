@@ -9,26 +9,26 @@ interface QueueableCollection
      *
      * @return string|null
      */
-    public function getQueueableClass();
+    public function getQueueableClass(): string|null;
 
     /**
      * Get the identifiers for all of the entities.
      *
      * @return array<int, mixed>
      */
-    public function getQueueableIds();
+    public function getQueueableIds(): array;
 
     /**
      * Get the relationships of the entities being queued.
      *
      * @return array<int, string>
      */
-    public function getQueueableRelations();
+    public function getQueueableRelations(): array;
 
     /**
      * Get the connection of the entities being queued.
      *
      * @return string|null
      */
-    public function getQueueableConnection();
+    public function getQueueableConnection(): string|null;
 }

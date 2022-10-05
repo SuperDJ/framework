@@ -11,7 +11,7 @@ interface Connector
      * @param  array  $options
      * @return \Illuminate\Redis\Connections\Connection
      */
-    public function connect(array $config, array $options);
+    public function connect(array $config, array $options): \Illuminate\Redis\Connections\Connection;
 
     /**
      * Create a connection to a Redis instance.
@@ -21,5 +21,5 @@ interface Connector
      * @param  array  $options
      * @return \Illuminate\Redis\Connections\Connection
      */
-    public function connectToCluster(array $config, array $clusterOptions, array $options);
+    public function connectToCluster(array $config, array $clusterOptions, array $options): \Illuminate\Redis\Connections\Connection;
 }

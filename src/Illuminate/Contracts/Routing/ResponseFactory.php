@@ -12,7 +12,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Illuminate\Http\Response
      */
-    public function make($content = '', $status = 200, array $headers = []);
+    public function make(array|string $content = '', int $status = 200, array $headers = []): \Illuminate\Http\Response;
 
     /**
      * Create a new "no content" response.
@@ -21,7 +21,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Illuminate\Http\Response
      */
-    public function noContent($status = 204, array $headers = []);
+    public function noContent(int $status = 204, array $headers = []): \Illuminate\Http\Response;
 
     /**
      * Create a new response for a given view.
@@ -32,7 +32,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Illuminate\Http\Response
      */
-    public function view($view, $data = [], $status = 200, array $headers = []);
+    public function view(string|array $view, array $data = [], int $status = 200, array $headers = []): \Illuminate\Http\Response;
 
     /**
      * Create a new JSON response instance.
@@ -43,7 +43,7 @@ interface ResponseFactory
      * @param  int  $options
      * @return \Illuminate\Http\JsonResponse
      */
-    public function json($data = [], $status = 200, array $headers = [], $options = 0);
+    public function json(mixed $data = [], int $status = 200, array $headers = [], int $options = 0): \Illuminate\Http\JsonResponse;
 
     /**
      * Create a new JSONP response instance.
@@ -55,7 +55,7 @@ interface ResponseFactory
      * @param  int  $options
      * @return \Illuminate\Http\JsonResponse
      */
-    public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0);
+    public function jsonp(string $callback, mixed $data = [], int $status = 200, array $headers = [], int $options = 0): \Illuminate\Http\JsonResponse;
 
     /**
      * Create a new streamed response instance.
@@ -65,7 +65,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function stream($callback, $status = 200, array $headers = []);
+    public function stream(\Closure $callback, int $status = 200, array $headers = []): \Symfony\Component\HttpFoundation\StreamedResponse;
 
     /**
      * Create a new streamed response instance as a file download.
@@ -76,7 +76,7 @@ interface ResponseFactory
      * @param  string|null  $disposition
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment');
+    public function streamDownload(\Closure $callback, string|null $name = null, array $headers = [], string|null $disposition = 'attachment'): \Symfony\Component\HttpFoundation\StreamedResponse;
 
     /**
      * Create a new file download response.
@@ -87,7 +87,7 @@ interface ResponseFactory
      * @param  string|null  $disposition
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download($file, $name = null, array $headers = [], $disposition = 'attachment');
+    public function download(\SplFileInfo|string $file, string|null $name = null, array $headers = [], string|null $disposition = 'attachment'): \Symfony\Component\HttpFoundation\BinaryFileResponse;
 
     /**
      * Return the raw contents of a binary file.
@@ -96,7 +96,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function file($file, array $headers = []);
+    public function file(\SplFileInfo|string $file, array $headers = []): \Symfony\Component\HttpFoundation\BinaryFileResponse;
 
     /**
      * Create a new redirect response to the given path.
@@ -107,7 +107,7 @@ interface ResponseFactory
      * @param  bool|null  $secure
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectTo($path, $status = 302, $headers = [], $secure = null);
+    public function redirectTo(string $path, int $status = 302, array $headers = [], bool|null $secure = null): \Illuminate\Http\RedirectResponse;
 
     /**
      * Create a new redirect response to a named route.
@@ -118,7 +118,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToRoute($route, $parameters = [], $status = 302, $headers = []);
+    public function redirectToRoute(string $route, mixed $parameters = [], int $status = 302, array $headers = []): \Illuminate\Http\RedirectResponse;
 
     /**
      * Create a new redirect response to a controller action.
@@ -129,7 +129,7 @@ interface ResponseFactory
      * @param  array  $headers
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToAction($action, $parameters = [], $status = 302, $headers = []);
+    public function redirectToAction(string $action, mixed $parameters = [], int $status = 302, array $headers = []): \Illuminate\Http\RedirectResponse;
 
     /**
      * Create a new redirect response, while putting the current URL in the session.
@@ -140,7 +140,7 @@ interface ResponseFactory
      * @param  bool|null  $secure
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectGuest($path, $status = 302, $headers = [], $secure = null);
+    public function redirectGuest(string $path, int $status = 302, array $headers = [], bool|null $secure = null): \Illuminate\Http\RedirectResponse;
 
     /**
      * Create a new redirect response to the previously intended location.
@@ -151,5 +151,5 @@ interface ResponseFactory
      * @param  bool|null  $secure
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null);
+    public function redirectToIntended(string $default = '/', int $status = 302, array $headers = [], bool|null $secure = null): \Illuminate\Http\RedirectResponse;
 }

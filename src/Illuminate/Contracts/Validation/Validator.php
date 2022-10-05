@@ -13,7 +13,7 @@ interface Validator extends MessageProvider
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function validate();
+    public function validate(): array;
 
     /**
      * Get the attributes and values that were validated.
@@ -22,21 +22,21 @@ interface Validator extends MessageProvider
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function validated();
+    public function validated(): array;
 
     /**
      * Determine if the data fails the validation rules.
      *
      * @return bool
      */
-    public function fails();
+    public function fails(): bool;
 
     /**
      * Get the failed validation rules.
      *
      * @return array
      */
-    public function failed();
+    public function failed(): array;
 
     /**
      * Add conditions to a given field based on a Closure.
@@ -46,7 +46,7 @@ interface Validator extends MessageProvider
      * @param  callable  $callback
      * @return $this
      */
-    public function sometimes($attribute, $rules, callable $callback);
+    public function sometimes(string|array $attribute, string|array $rules, callable $callback): self;
 
     /**
      * Add an after validation callback.
@@ -54,12 +54,12 @@ interface Validator extends MessageProvider
      * @param  callable|string  $callback
      * @return $this
      */
-    public function after($callback);
+    public function after(callable|string $callback): self;
 
     /**
      * Get all of the validation error messages.
      *
      * @return \Illuminate\Support\MessageBag
      */
-    public function errors();
+    public function errors(): \Illuminate\Support\MessageBag;
 }

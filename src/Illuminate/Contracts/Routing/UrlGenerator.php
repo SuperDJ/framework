@@ -9,7 +9,7 @@ interface UrlGenerator
      *
      * @return string
      */
-    public function current();
+    public function current(): string;
 
     /**
      * Get the URL for the previous request.
@@ -17,7 +17,7 @@ interface UrlGenerator
      * @param  mixed  $fallback
      * @return string
      */
-    public function previous($fallback = false);
+    public function previous(mixed $fallback = false): string;
 
     /**
      * Generate an absolute URL to the given path.
@@ -27,7 +27,7 @@ interface UrlGenerator
      * @param  bool|null  $secure
      * @return string
      */
-    public function to($path, $extra = [], $secure = null);
+    public function to(string $path, mixed $extra = [], bool|null $secure = null): string;
 
     /**
      * Generate a secure, absolute URL to the given path.
@@ -36,7 +36,7 @@ interface UrlGenerator
      * @param  array  $parameters
      * @return string
      */
-    public function secure($path, $parameters = []);
+    public function secure(string $path, array $parameters = []): string;
 
     /**
      * Generate the URL to an application asset.
@@ -45,7 +45,7 @@ interface UrlGenerator
      * @param  bool|null  $secure
      * @return string
      */
-    public function asset($path, $secure = null);
+    public function asset(string $path, bool|null $secure = null): string;
 
     /**
      * Get the URL to a named route.
@@ -57,7 +57,7 @@ interface UrlGenerator
      *
      * @throws \InvalidArgumentException
      */
-    public function route($name, $parameters = [], $absolute = true);
+    public function route(string $name, mixed $parameters = [], bool $absolute = true): string;
 
     /**
      * Get the URL to a controller action.
@@ -67,14 +67,14 @@ interface UrlGenerator
      * @param  bool  $absolute
      * @return string
      */
-    public function action($action, $parameters = [], $absolute = true);
+    public function action(string|array $action, mixed $parameters = [], bool $absolute = true): string;
 
     /**
      * Get the root controller namespace.
      *
      * @return string
      */
-    public function getRootControllerNamespace();
+    public function getRootControllerNamespace(): string;
 
     /**
      * Set the root controller namespace.
@@ -82,5 +82,5 @@ interface UrlGenerator
      * @param  string  $rootNamespace
      * @return $this
      */
-    public function setRootControllerNamespace($rootNamespace);
+    public function setRootControllerNamespace(string $rootNamespace): self;
 }

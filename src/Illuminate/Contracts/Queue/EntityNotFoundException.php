@@ -13,10 +13,10 @@ class EntityNotFoundException extends InvalidArgumentException
      * @param  mixed  $id
      * @return void
      */
-    public function __construct($type, $id)
+    public function __construct(string $type, mixed $id)
     {
         $id = (string) $id;
 
-        parent::__construct("Queueable entity [{$type}] not found for ID [{$id}].");
+        parent::__construct("Queueable entity [{$type}] not found for ID [{$id}]."): ;
     }
 }

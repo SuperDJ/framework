@@ -10,5 +10,5 @@ interface UncompromisedVerifier
      * @param  array  $data
      * @return bool
      */
-    public function verify($data);
+    public function verify(array $data): bool;
 }

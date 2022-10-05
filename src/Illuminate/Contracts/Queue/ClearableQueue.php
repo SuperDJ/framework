@@ -10,5 +10,5 @@ interface ClearableQueue
      * @param  string  $queue
      * @return int
      */
-    public function clear($queue);
+    public function clear(string $queue): int;
 }

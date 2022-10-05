@@ -12,7 +12,7 @@ interface Pipeline
      * @param  mixed  $traveler
      * @return $this
      */
-    public function send($traveler);
+    public function send(mixed $traveler): self;
 
     /**
      * Set the stops of the pipeline.
@@ -20,7 +20,7 @@ interface Pipeline
      * @param  dynamic|array  $stops
      * @return $this
      */
-    public function through($stops);
+    public function through(array $stops): self;
 
     /**
      * Set the method to call on the stops.
@@ -28,7 +28,7 @@ interface Pipeline
      * @param  string  $method
      * @return $this
      */
-    public function via($method);
+    public function via(string $method): self;
 
     /**
      * Run the pipeline with a final destination callback.
@@ -36,5 +36,5 @@ interface Pipeline
      * @param  \Closure  $destination
      * @return mixed
      */
-    public function then(Closure $destination);
+    public function then(Closure $destination): mixed;
 }

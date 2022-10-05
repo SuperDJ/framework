@@ -11,7 +11,7 @@ interface BindingRegistrar
      * @param  string|callable  $binder
      * @return void
      */
-    public function bind($key, $binder);
+    public function bind(string $key, string|callable $binder): void;
 
     /**
      * Get the binding callback for a given binding.
@@ -19,5 +19,5 @@ interface BindingRegistrar
      * @param  string  $key
      * @return \Closure
      */
-    public function getBindingCallback($key);
+    public function getBindingCallback(string $key): \Closure;
 }

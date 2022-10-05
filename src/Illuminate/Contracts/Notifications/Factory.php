@@ -10,7 +10,7 @@ interface Factory
      * @param  string|null  $name
      * @return mixed
      */
-    public function channel($name = null);
+    public function channel(string|null $name = null): mixed;
 
     /**
      * Send the given notification to the given notifiable entities.
@@ -19,7 +19,7 @@ interface Factory
      * @param  mixed  $notification
      * @return void
      */
-    public function send($notifiables, $notification);
+    public function send(\Illuminate\Support\Collection|array $notifiables, mixed $notification): void;
 
     /**
      * Send the given notification immediately.
@@ -28,5 +28,5 @@ interface Factory
      * @param  mixed  $notification
      * @return void
      */
-    public function sendNow($notifiables, $notification);
+    public function sendNow(\Illuminate\Support\Collection|array $notifiables, mixed $notification): void;
 }

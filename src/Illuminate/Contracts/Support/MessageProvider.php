@@ -9,5 +9,5 @@ interface MessageProvider
      *
      * @return \Illuminate\Contracts\Support\MessageBag
      */
-    public function getMessageBag();
+    public function getMessageBag(): \Illuminate\Contracts\Support\MessageBag;
 }

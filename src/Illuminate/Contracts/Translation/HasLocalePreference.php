@@ -9,5 +9,5 @@ interface HasLocalePreference
      *
      * @return string|null
      */
-    public function preferredLocale();
+    public function preferredLocale(): string|null;
 }

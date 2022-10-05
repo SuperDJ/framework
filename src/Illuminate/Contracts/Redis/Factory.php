@@ -10,5 +10,5 @@ interface Factory
      * @param  string|null  $name
      * @return \Illuminate\Redis\Connections\Connection
      */
-    public function connection($name = null);
+    public function connection(string|null $name = null): \Illuminate\Redis\Connections\Connection;
 }

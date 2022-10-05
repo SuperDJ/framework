@@ -12,7 +12,7 @@ interface Mailable
      * @param  \Illuminate\Contracts\Mail\Factory|\Illuminate\Contracts\Mail\Mailer  $mailer
      * @return \Illuminate\Mail\SentMessage|null
      */
-    public function send($mailer);
+    public function send(\Illuminate\Contracts\Mail\Factory|\Illuminate\Contracts\Mail\Mailer $mailer): \Illuminate\Mail\SentMessage|null;
 
     /**
      * Queue the given message.
@@ -20,7 +20,7 @@ interface Mailable
      * @param  \Illuminate\Contracts\Queue\Factory  $queue
      * @return mixed
      */
-    public function queue(Queue $queue);
+    public function queue(Queue $queue): mixed;
 
     /**
      * Deliver the queued message after (n) seconds.
@@ -29,16 +29,7 @@ interface Mailable
      * @param  \Illuminate\Contracts\Queue\Factory  $queue
      * @return mixed
      */
-    public function later($delay, Queue $queue);
-
-    /**
-     * Set the recipients of the message.
-     *
-     * @param  object|array|string  $address
-     * @param  string|null  $name
-     * @return self
-     */
-    public function cc($address, $name = null);
+    public function later(\DateTimeInterface|\DateInterval|int $delay, Queue $queue): mixed;
 
     /**
      * Set the recipients of the message.
@@ -47,7 +38,7 @@ interface Mailable
      * @param  string|null  $name
      * @return $this
      */
-    public function bcc($address, $name = null);
+    public function cc(object|array|string $address, string|null $name = null): self;
 
     /**
      * Set the recipients of the message.
@@ -56,7 +47,16 @@ interface Mailable
      * @param  string|null  $name
      * @return $this
      */
-    public function to($address, $name = null);
+    public function bcc(object|array|string $address, string|null $name = null): self;
+
+    /**
+     * Set the recipients of the message.
+     *
+     * @param  object|array|string  $address
+     * @param  string|null  $name
+     * @return $this
+     */
+    public function to(object|array|string $address, string|null $name = null): self;
 
     /**
      * Set the locale of the message.
@@ -64,7 +64,7 @@ interface Mailable
      * @param  string  $locale
      * @return $this
      */
-    public function locale($locale);
+    public function locale(string $locale): self;
 
     /**
      * Set the name of the mailer that should be used to send the message.
@@ -72,5 +72,5 @@ interface Mailable
      * @param  string  $mailer
      * @return $this
      */
-    public function mailer($mailer);
+    public function mailer(string $mailer): self;
 }

@@ -11,7 +11,7 @@ interface MailQueue
      * @param  string|null  $queue
      * @return mixed
      */
-    public function queue($view, $queue = null);
+    public function queue(\Illuminate\Contracts\Mail\Mailable|string|array$view, string|null $queue = null): mixed;
 
     /**
      * Queue a new e-mail message for sending after (n) seconds.
@@ -21,5 +21,5 @@ interface MailQueue
      * @param  string|null  $queue
      * @return mixed
      */
-    public function later($delay, $view, $queue = null);
+    public function later(\DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable|string|array $view, string|null $queue = null): mixed;
 }

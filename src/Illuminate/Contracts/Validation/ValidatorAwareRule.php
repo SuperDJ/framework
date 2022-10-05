@@ -10,5 +10,5 @@ interface ValidatorAwareRule
      * @param  \Illuminate\Validation\Validator  $validator
      * @return $this
      */
-    public function setValidator($validator);
+    public function setValidator(\Illuminate\Validation\Validator $validator): self;
 }

@@ -11,12 +11,12 @@ interface Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value);
+    public function passes(string $attribute, mixed $value): bool;
 
     /**
      * Get the validation error message.
      *
      * @return string|array
      */
-    public function message();
+    public function message(): string|array;
 }

@@ -10,5 +10,5 @@ interface Responsable
      * @param  \Illuminate\Http\Request  $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function toResponse($request);
+    public function toResponse(\Illuminate\Http\Request $request): \Symfony\Component\HttpFoundation\Response;
 }

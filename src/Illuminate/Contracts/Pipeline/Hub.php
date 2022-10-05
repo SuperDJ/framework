@@ -11,5 +11,5 @@ interface Hub
      * @param  string|null  $pipeline
      * @return mixed
      */
-    public function pipe($object, $pipeline = null);
+    public function pipe(mixed $object, string|null $pipeline = null): mixed;
 }
