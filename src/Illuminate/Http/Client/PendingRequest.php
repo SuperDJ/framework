@@ -183,6 +183,13 @@ class PendingRequest
     protected $request;
 
     /**
+     * Store the location a request was made from
+     *
+     * @var array
+     */
+    protected array $requestOrigin;
+
+    /**
      * The Guzzle request options that are mergable via array_merge_recursive.
      *
      * @var array
@@ -767,6 +774,14 @@ class PendingRequest
      */
     public function send(string $method, string $url, array $options = [])
     {
+        $this->requestOrigin = array_merge(
+            debug_backtrace()[1],
+            [
+                'method' => $method,
+                'url' => $url,
+            ]
+        );
+
         if (! Str::startsWith($url, ['http://', 'https://'])) {
             $url = ltrim(rtrim($this->baseUrl, '/').'/'.ltrim($url, '/'), '/');
         }

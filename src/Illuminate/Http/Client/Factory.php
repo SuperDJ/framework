@@ -274,6 +274,7 @@ class Factory
      */
     public function recordRequestResponsePair($request, $response)
     {
+        dd($request);
         if ($this->recording) {
             $this->recorded[] = [$request, $response];
         }

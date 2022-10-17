@@ -18,6 +18,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use JsonSerializable;
@@ -257,6 +258,12 @@ class HttpClientTest extends TestCase
         });
 
         $this->factory->assertSent(function (Request $request) {
+            return $request->url() === 'http://foo.com/form' &&
+                $request->hasHeader('Content-Type', 'application/json') &&
+                $request['name'] === 'Taylor';
+        });
+
+        $this->factory->assertNotSent(function (Request $request) {
             return $request->url() === 'http://foo.com/form' &&
                 $request->hasHeader('Content-Type', 'application/json') &&
                 $request['name'] === 'Taylor';
