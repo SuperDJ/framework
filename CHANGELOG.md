@@ -6,7 +6,7 @@
 ## [v10.2.0 (2023-03-02)](https://github.com/laravel/framework/compare/v10.1.5...v10.2.0)
 
 ### Added
-- Adding `Conditionable` train to Logger ([#46259](https://github.com/laravel/framework/pull/46259))
+- Adding `Conditionable` trait to Logger ([#46259](https://github.com/laravel/framework/pull/46259))
 - Added "dot" method to Illuminate\Support\Collection class ([#46265](https://github.com/laravel/framework/pull/46265))
 - Added a "channel:list" command ([#46248](https://github.com/laravel/framework/pull/46248))
 - Added JobPopping and JobPopped events ([#46220](https://github.com/laravel/framework/pull/46220))
